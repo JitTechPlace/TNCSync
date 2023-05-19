@@ -70,10 +70,23 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Class\Account.cs" />
+    <Compile Include="Model\IUserRepository.cs" />
+    <Compile Include="Model\UserAccountModel.cs" />
+    <Compile Include="Model\UserModel.cs" />
+    <Compile Include="Repositories\RepositoryBase.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Sessions\QBException.cs" />
     <Compile Include="Sessions\QBNoResponseException.cs" />
     <Compile Include="Sessions\QBResultException.cs" />
     <Compile Include="Sessions\SessionManager.cs" />
+    <Compile Include="BaseControls\BindablePasswordBox.xaml.cs">
+      <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\CustomerViewModel.cs" />
+    <Compile Include="ViewModel\HomeViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="ViewModel\ViewModelCommand.cs" />
     <Page Include="AppResources\Dictionaries\TNCSRD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -93,6 +106,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="BaseControls\BindablePasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -147,7 +164,6 @@
   <ItemGroup>
     <Folder Include="AppResources\Converters\" />
     <Folder Include="Pages\" />
-    <Folder Include="UserControl\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="AppResources\Images\TNCSync_SampleLogo.png" />

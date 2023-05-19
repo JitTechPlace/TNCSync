@@ -41,55 +41,55 @@
                 <StackPanel>
                     <!--Logo-->
                     <StackPanel Orientation="Horizontal" Height="35" Margin="-4 25 0 40" Background="{StaticResource rdSolidWhiteSmoke}">
-                        <Image Source="pack://application:,,,/TNCSync;component/AppResources/Images/TNC_Logo.ico" Height="40"/>
+                        <Image Source="pack://application:,,,/TNCSync;component/AppResources/Images/TNCSync_SampleLogo.png" Height="40"/>
                         <TextBlock Text="TNC_SYNC" Foreground="{StaticResource headerTextColor}" FontSize="30" FontFamily="{StaticResource iFontRadleyReg}" VerticalAlignment="Center" Margin="3 4 0 0"/>
                     </StackPanel>
                     <!--MenuButton-->
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color1}" IsChecked="True">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}" IsChecked="True">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Dashboard" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color1}">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="UserGroup" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Vendor" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color1}">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="User" Style="{StaticResource menuButtonIcon}"/>
+                            <fa:IconImage Icon="UserAlt" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Customer" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color1}">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="ShoppingBag" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Journal Voucher" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color1}">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Box" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="QuickBooks" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color1}">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Toolbox" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Manage" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color1}">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Tools" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Settings" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color1}">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="CircleXmark" Style="{StaticResource menuButtonIcon}"/>
+                            <fa:IconImage Icon="PowerOff" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Logout" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </RadioButton>
