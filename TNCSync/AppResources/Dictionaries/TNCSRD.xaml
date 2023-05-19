@@ -40,6 +40,13 @@
     <SolidColorBrush x:Key="color1" Color="#252E34"/>
     <SolidColorBrush x:Key="color2" Color="#784DFD"/>
     <SolidColorBrush x:Key="color3" Color="#4ADAEC"/>
+    <SolidColorBrush x:Key="color4" Color="#FB539B"/>
+    <SolidColorBrush x:Key="color5" Color="#7E82FC"/>
+    <SolidColorBrush x:Key="color6" Color="#FFC047"/>
+    <SolidColorBrush x:Key="color7" Color="#EF6C96"/>
+    <SolidColorBrush x:Key="color8" Color="#78A3FC"/>
+    <SolidColorBrush x:Key="color9" Color="#07F3C0"/>
+    <SolidColorBrush x:Key="color10" Color="#FBA1AA"/>
     
     <!--Font Colors-->
     <SolidColorBrush x:Key="titleColor1" Color="#E0E1F1"/>
@@ -48,7 +55,8 @@
     <SolidColorBrush x:Key="plainTextColor1" Color="#9497CD"/>
     <SolidColorBrush x:Key="plainTextColor2" Color="#7C80C2"/>
     <SolidColorBrush x:Key="plainTextColor3" Color="DarkGray"/>
-    
+    <SolidColorBrush x:Key="headerTextColor" Color="#0085c4"/>
+
     <!--Panel Colors-->
     <SolidColorBrush x:Key="panelColor" Color="#FF00375D"/>
     <SolidColorBrush x:Key="panelOverColor" Color="#FF4E6980"/>
@@ -151,7 +159,7 @@
     </Style>
     
     <!--Menu ButtonIcon-->
-    <Style x:Key="manuButtonIcon" TargetType="fa:IconImage">
+    <Style x:Key="menuButtonIcon" TargetType="fa:IconImage">
         <!--hw:image-->
         <Setter Property="Foreground" Value="{Binding Path=Tag, RelativeSource={RelativeSource AncestorType=RadioButton}}"/>
         <Setter Property="Width" Value="22"/>
@@ -160,8 +168,8 @@
     </Style>
     
     <!--Menu ButtonText-->
-    <Style x:Key="manuButtonText" TargetType="TextBlock">
-        <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorLevel=RadioButton}}"/>
+    <Style x:Key="menuButtonText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}"/>
         <Setter Property="FontFamily" Value="Montserrat"/>
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="FontSize" Value="13.5"/>

@@ -70,10 +70,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Class\Account.cs" />
-    <Compile Include="Session\QBException.cs" />
-    <Compile Include="Session\QBNoResponseException.cs" />
-    <Compile Include="Session\QBResultException.cs" />
-    <Compile Include="Session\SessionManager.cs" />
+    <Compile Include="Sessions\QBException.cs" />
+    <Compile Include="Sessions\QBNoResponseException.cs" />
+    <Compile Include="Sessions\QBResultException.cs" />
+    <Compile Include="Sessions\SessionManager.cs" />
     <Page Include="AppResources\Dictionaries\TNCSRD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -86,9 +86,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Session\Defaults.cs" />
-    <Compile Include="Session\ENEdition.cs" />
-    <Compile Include="Session\Logger.cs" />
+    <Compile Include="Sessions\Defaults.cs" />
+    <Compile Include="Sessions\ENEdition.cs" />
+    <Compile Include="Sessions\Logger.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -146,6 +146,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AppResources\Converters\" />
+    <Folder Include="Pages\" />
+    <Folder Include="UserControl\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="AppResources\Images\TNCSync_SampleLogo.png" />
@@ -161,6 +163,62 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="AppResources\Images\AddProject.png" />
+    <Resource Include="AppResources\Images\AddProjectBlue.png" />
+    <Resource Include="AppResources\Images\AddWhite.png" />
+    <Resource Include="AppResources\Images\Approvals.png" />
+    <Resource Include="AppResources\Images\Arrow-B.png" />
+    <Resource Include="AppResources\Images\Arrow-S.png" />
+    <Resource Include="AppResources\Images\Arrow.png" />
+    <Resource Include="AppResources\Images\ArrowM.png" />
+    <Resource Include="AppResources\Images\back-image.jpg" />
+    <Resource Include="AppResources\Images\Calendar.png" />
+    <Resource Include="AppResources\Images\CloseGray.png" />
+    <Resource Include="AppResources\Images\CloseOrange.png" />
+    <Resource Include="AppResources\Images\CloseWhite.png" />
+    <Resource Include="AppResources\Images\CMS Printer.gif" />
+    <Resource Include="AppResources\Images\CMS-Printer.gif" />
+    <Resource Include="AppResources\Images\Company.png" />
+    <Resource Include="AppResources\Images\DashBoard.png" />
+    <Resource Include="AppResources\Images\Delete B.png" />
+    <Resource Include="AppResources\Images\Delete R.png" />
+    <Resource Include="AppResources\Images\ForwardGreen.png" />
+    <Resource Include="AppResources\Images\ImagePlaceholder-40.png" />
+    <Resource Include="AppResources\Images\key-icon.png" />
+    <Resource Include="AppResources\Images\LoginBG.png" />
+    <Resource Include="AppResources\Images\loginpage_new.png" />
+    <Resource Include="AppResources\Images\Logout.png" />
+    <Resource Include="AppResources\Images\MaxGrey.png" />
+    <Resource Include="AppResources\Images\MaxOrange.png" />
+    <Resource Include="AppResources\Images\MinGrey.png" />
+    <Resource Include="AppResources\Images\MinOrange.png" />
+    <Resource Include="AppResources\Images\newloginpage.png" />
+    <Resource Include="AppResources\Images\newloginpage_1.png" />
+    <Resource Include="AppResources\Images\newloginpage_2.png" />
+    <Resource Include="AppResources\Images\Pen.png" />
+    <Resource Include="AppResources\Images\Profile.png" />
+    <Resource Include="AppResources\Images\Projects.png" />
+    <Resource Include="AppResources\Images\RemoveBlack.png" />
+    <Resource Include="AppResources\Images\RemoveBlue.png" />
+    <Resource Include="AppResources\Images\RemoveProject.png" />
+    <Resource Include="AppResources\Images\Reports.png" />
+    <Resource Include="AppResources\Images\SaveToCloud.png" />
+    <Resource Include="AppResources\Images\SaveToLocal.png" />
+    <Resource Include="AppResources\Images\SPTSM.ico" />
+    <Resource Include="AppResources\Images\TimeSheet.png" />
+    <Resource Include="AppResources\Images\tnc.ico" />
+    <Resource Include="AppResources\Images\TNC_Logo.ico" />
+    <Resource Include="AppResources\Images\Today.png" />
+    <Resource Include="AppResources\Images\TodayW.png" />
+    <Resource Include="AppResources\Images\Toggle N.png" />
+    <Resource Include="AppResources\Images\Toggle Y.png" />
+    <Resource Include="AppResources\Images\user-icon.png" />
+    <Resource Include="AppResources\Images\User.png" />
+    <Resource Include="AppResources\Images\Users.png" />
+    <Resource Include="AppResources\Images\WidgetClose.png" />
+    <Resource Include="AppResources\Images\WidgetOpen.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
