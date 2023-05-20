@@ -3,6 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:hw="http://schemas.hpod9.com/haley/wpf"
+        xmlns:hm="http://schemas.hpod9.com/haley/mvvm"
+        xmlns:enums="clr-namespace:TNCSync.Enums"
+        xmlns:viewmodel="clr-namespace:TNCSync.ViewModel"
+        xmlns:view="clr-namespace:TNCSync.View"
         xmlns:local="clr-namespace:TNCSync"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
@@ -12,6 +17,34 @@
         Background="Transparent"
         Icon="pack://application:,,,/TNCSync;component/AppResources/Images/TNCSync_SampleLogo_B.png"
         AllowsTransparency="True">
+
+    <Window.DataContext>
+        <viewmodel:MainViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <DataTemplate x:Key="Dashboard">
+            <view:Dashboard/>
+        </DataTemplate>
+        <DataTemplate x:Key="Vendor">
+            <view:Vendor/>
+        </DataTemplate>
+        <DataTemplate x:Key="Customer">
+            <view:Customer/>
+        </DataTemplate>
+        <DataTemplate x:Key="JV">
+            <view:JournalVoucher/>
+        </DataTemplate>
+        <DataTemplate x:Key="COA">
+            <view:ChartofAccounts/>
+        </DataTemplate>
+        <DataTemplate x:Key="Manage">
+            <view:Manage/>
+        </DataTemplate>
+        <DataTemplate x:Key="Settings">
+            <view:Vendor/>
+        </DataTemplate>
+    </Window.Resources>
 
     <Border CornerRadius="20" BorderThickness="4">
         <Border.BorderBrush>
@@ -45,49 +78,49 @@
                         <TextBlock Text="TNC_SYNC" Foreground="{StaticResource headerTextColor}" FontSize="30" FontFamily="{StaticResource iFontRadleyReg}" VerticalAlignment="Center" Margin="3 4 0 0"/>
                     </StackPanel>
                     <!--MenuButton-->
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}" IsChecked="True">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}" IsChecked="True" Command="{Binding CMDChangePage}" CommandParameter="{x:Static enums:PageId.Dashboard}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Dashboard" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}"  Command="{Binding CMDChangePage}" CommandParameter="{x:Static enums:PageId.Vendor}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="UserGroup" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Vendor" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}"  Command="{Binding CMDChangePage}" CommandParameter="{x:Static enums:PageId.Customer}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="UserAlt" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Customer" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}"  Command="{Binding CMDChangePage}" CommandParameter="{x:Static enums:PageId.JournalVoucher}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="ShoppingBag" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Journal Voucher" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}"  Command="{Binding CMDChangePage}" CommandParameter="{x:Static enums:PageId.ChartofAccount}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Box" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="QuickBooks" Style="{StaticResource menuButtonText}" />
+                            <TextBlock Text="Chart of Account" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}" Command="{Binding CMDChangePage}" CommandParameter="{x:Static enums:PageId.Manage}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Toolbox" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Manage" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}" Command="{Binding CMDChangePage}" CommandParameter="{x:Static enums:PageId.Settings}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Tools" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Settings" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}">
+                    <RadioButton x:Name="Exit" Style="{StaticResource menuButton}" Tag="{StaticResource color11}" Click="Exit_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="PowerOff" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Logout" Style="{StaticResource menuButtonText}" />
@@ -138,16 +171,17 @@
                             <ColumnDefinition/>
                             <ColumnDefinition Width="150"/>
                         </Grid.ColumnDefinitions>
-                        <!--Caption-->
+                        <!--Caption--> <!--Need to work On it later-->
                         <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                             <fa:IconImage Icon="{Binding Icon}" Height="20" Width="20" Foreground="{StaticResource color1}" Margin="10 0 5 5"/>
-                            <TextBlock Text="{Binding Caption}" Foreground="{StaticResource color1}" FontSize="16" FontFamily="Montserrat" FontWeight="Medium" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding Caption}" Foreground="{StaticResource color1}" FontSize="13" FontFamily="Montserrat" FontWeight="Medium" VerticalAlignment="Center"/>
                         </StackPanel>
-                        <!--HomeToolbar-->
+                        <!--HomeToolbar--><!--Need to implement later-->
                         <StackPanel Grid.Column="1">
 
                         </StackPanel>
                         <!--User Options-->
+                        <!--Need to implement later-->
                         <StackPanel Grid.Column="2" Orientation="Horizontal" FlowDirection="RightToLeft" VerticalAlignment="Center" Margin="0 0 5 0">
                             <Button Style="{StaticResource iconButton}" Tag="{StaticResource color3}">
                                 <fa:IconImage Icon="AngleDown" Height="12" Width="12" Style="{StaticResource iconButtonIcon}"/>
@@ -170,8 +204,38 @@
                         </StackPanel>
                     </Grid>
                     <!--Content Section-->
-                    <ContentControl Grid.Row="2" Content="{Binding}" Margin="5 5">
-                        
+                    <ContentControl Grid.Row="2" Content="{Binding CurrentChildView}" Margin="5">
+                        <ContentControl.Style>
+                            <Style TargetType="{x:Type ContentControl}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding PageID, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Value="{x:Static enums:PageId.Dashboard}">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Dashboard}"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding PageID, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Value="{x:Static enums:PageId.Vendor}">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Vendor}"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding PageID, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Value="{x:Static enums:PageId.Customer}">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Customer}"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding PageID, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Value="{x:Static enums:PageId.JournalVoucher}">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource JV}"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding PageID, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Value="{x:Static enums:PageId.ChartofAccount}">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource COA}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding PageID, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Value="{x:Static enums:PageId.Manage}">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Manage}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding PageID, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Value="{x:Static enums:PageId.Settings}">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Settings}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContentControl.Style>
                     </ContentControl>
                 </Grid>
             </Border>

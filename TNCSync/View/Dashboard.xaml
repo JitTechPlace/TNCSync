@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="TNCSync.View.Dashboard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:hw="http://schemas.hpod9.com/haley/wpf"
+             xmlns:hm="http://schemas.hpod9.com/haley/mvvm"
+             xmlns:local="clr-namespace:TNCSync.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="10" DataContext="{Binding}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="OverView" FontFamily="{StaticResource iFontRadleyReg}" FontSize="20"/>
+        <WrapPanel Grid.Row="1">
+            <hw:PlainCard Height="180" Width="200" CornerRadius="10" Margin="10" Mode="Professional" hw:Icon.Default="{StaticResource avatar}"  hw:Icon.DefaultColor="{StaticResource color1}" Cursor="Hand" Header="User" SubHeader="Total" HeaderAlignment="Left" HeaderBackground="{StaticResource titleColor3}">
+                <Viewbox Margin="20">
+                    <TextBlock Text="05" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray"/>
+                </Viewbox>
+            </hw:PlainCard>
+            <hw:PlainCard Height="180" Width="200" CornerRadius="10" Margin="10" Mode="Flyer" hw:Icon.Default="{StaticResource dollar}"  hw:Icon.DefaultColor="{StaticResource color1}" Cursor="Hand"  Header="Invoice" SubHeader="Count" HeaderAlignment="Left" HeaderBackground="{StaticResource titleColor3}">
+                <Viewbox Margin="20">
+                    <TextBlock Text="54" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray"/>
+                </Viewbox>
+            </hw:PlainCard>
+            <hw:PlainCard Height="180" Width="200" CornerRadius="10" Margin="10" Mode="Simple" hw:Icon.Default="{StaticResource success_filled}"  hw:Icon.DefaultColor="{StaticResource color1}" Cursor="Hand" Header="Approved" SubHeader="Count" HeaderAlignment="Left" HeaderBackground="{StaticResource titleColor3}">
+                <Viewbox Margin="20">
+                    <TextBlock Text="25" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray"/>
+                </Viewbox>
+            </hw:PlainCard>
+            <hw:PlainCard Height="180" Width="200" CornerRadius="10" Margin="10" Mode="Professional" hw:Icon.Default="{StaticResource avatar_circle}"   hw:Icon.DefaultColor="{StaticResource color1}" Cursor="Hand" Header="Customers" SubHeader="Count" HeaderAlignment="Left" HeaderBackground="{StaticResource titleColor3}">
+                <Viewbox Margin="20">
+                    <TextBlock Text="35" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray"/>
+                </Viewbox>
+            </hw:PlainCard>
+            <hw:PlainCard Height="180" Width="200" CornerRadius="10" Margin="10" Mode="Flyer" hw:Icon.Default="{StaticResource avatar_circle}"  hw:Icon.DefaultColor="{StaticResource color1}" Cursor="Hand"  Header="Vendors" SubHeader="Count" HeaderAlignment="Left" HeaderBackground="{StaticResource titleColor3}">
+                <Viewbox Margin="20">
+                    <TextBlock Text="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray"/>
+                </Viewbox>
+            </hw:PlainCard>
+            <hw:PlainCard Height="180" Width="200" CornerRadius="10" Margin="10" Mode="Simple" hw:Icon.Default="{StaticResource copy}"  hw:Icon.DefaultColor="{StaticResource color1}" Cursor="Hand" Header="Reports" SubHeader="Printed" HeaderAlignment="Left" HeaderBackground="{StaticResource titleColor3}">
+                <Viewbox Margin="20">
+                    <TextBlock Text="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray"/>
+                </Viewbox>
+            </hw:PlainCard>
+        </WrapPanel>
+
+    </Grid>
+</UserControl>

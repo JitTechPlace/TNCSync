@@ -59,12 +59,12 @@ namespace TNCSync.Repositories
                     {
                         user = new UserModel()
                         {
-                            Id = reader[0].ToString(),
-                            LoginName = reader[1].ToString(),
-                            Password = string.Empty,
-                            CompanyName = reader[3].ToString(),
-                            Username = reader[4].ToString(),
-                            Email = reader[5].ToString(),
+                            //Id = reader[0].ToString(),
+                            //LoginName = reader[1].ToString(),
+                            //Password = string.Empty,
+                            //CompanyName = reader[3].ToString(),
+                            //Username = reader[4].ToString(),
+                            //Email = reader[5].ToString(),
                         };
                     }
                 }
