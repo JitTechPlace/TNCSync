@@ -9,6 +9,7 @@
         xmlns:viewmodel="clr-namespace:TNCSync.ViewModel"
         xmlns:view="clr-namespace:TNCSync.View"
         xmlns:local="clr-namespace:TNCSync"
+        xmlns:logc="http://schemas.hpod9.com/logc/wpf"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="1200"

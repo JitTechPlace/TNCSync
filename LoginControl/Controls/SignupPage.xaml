@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="LoginControl.Controls.SignupPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:hw="http://schemas.hpod9.com/haley/wpf"
+             xmlns:hm="http://schemas.hpod9.com/haley/mvvm" 
+             xmlns:enums="clr-namespace:LoginControl"
+             xmlns:local="clr-namespace:LoginControl.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/LoginControl;component/Dictionaries/TNCSLCRD.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel Margin="13">
+            <TextBlock Text="Welcome! Please Proceed With Registration" TextWrapping="Wrap" Foreground="Wheat" FontSize="15" Opacity="50" TextAlignment="Center" />
+            <TextBlock Text="Email Id" FontSize="15" Foreground="White" FontWeight="Medium" VerticalAlignment="Center"/>
+            <hw:PlainTextBox WaterMark="Enter Email Id" CornerRadius="5" Grid.Column="1" Margin="5" Height="30"/>
+            <TextBlock Text="Password" FontSize="15" Foreground="White" FontWeight="Medium" VerticalAlignment="Center" Margin="0 5 0 0"/>
+            <hw:PlainPasswordBox WaterMark="Enter password" CornerRadius="5" Grid.Column="1" Margin="5" Height="30"/>
+            <TextBlock Text="Re-EnterPassword" FontSize="15" Foreground="White" FontWeight="Medium" VerticalAlignment="Center" Margin="0 5 0 0"/>
+            <hw:PlainPasswordBox WaterMark="Re-Enter password" CornerRadius="5" Grid.Column="1" Margin="5" Height="30"/>
+            <TextBlock Text="Choose Company" FontSize="15" Foreground="White" FontWeight="Medium" VerticalAlignment="Center" />
+            <ComboBox x:Name="cmpyCmbx" Height="30" Width="230" Style="{StaticResource RoundComboBox}" IsReadOnly="True"
+                              HorizontalAlignment="Center"  Margin="0 10 0 0"/>
+            <StackPanel Margin="5" Orientation="Horizontal" HorizontalAlignment="Center">
+                <hw:PlainButton CornerRadius="5" Content="Cancel" Width="100" Background="{StaticResource color11}" Foreground="{StaticResource color1}" Margin="5" CommandParameter="{Binding Source={x:Static enums:ViewEnums.LoginPage}}"  Command="{Binding CmdChangeView}"/>
+                <hw:PlainButton CornerRadius="5" Content="Create Account" Width="120" Background="{StaticResource color11}" Foreground="{StaticResource color1}" Command="{Binding CmdCreateAccount}"/>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</UserControl>
