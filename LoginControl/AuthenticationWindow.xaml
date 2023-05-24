@@ -27,7 +27,7 @@
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="80"/>
+                <RowDefinition Height="100 "/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" x:Name="GrdHeader">
                 <Grid.ColumnDefinitions>
@@ -37,7 +37,15 @@
                 <hw:PlainImage x:Name="clsBtn" hw:Icon.Default="{StaticResource close_circle}" hw:Icon.DefaultColor="LightGray" hw:Icon.HoverColor="Crimson"  Grid.Column="2" Margin="4" HorizontalAlignment="Right" MouseDown="clsBtn_MouseDown"/>
             </Grid>
             <Grid Grid.Row="1" Background="LightGray" Opacity="0.65">
-                <!--Need To add Logo and name of the Appplication-->
+                <!--Need To add Logo and name of the Appplication Now Temp Logo Added-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition  Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Source="pack://application:,,,/TNCSync;component/AppResources/Images/TNCSync_SampleLogo_B.png" Height="100" Width="100"/>
+                <Grid Grid.Column="1">
+                    <TextBlock Text="TNC_SYNC" Foreground="{StaticResource headerTextColor}" FontSize="30" FontFamily="{StaticResource iFontRadleyReg}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
             </Grid>
             <Grid Grid.Row="2" Width="280" Height="350">
                 <hw:ContainerViewer  ViewKey="{Binding CurrentView, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
@@ -48,6 +56,7 @@
             </Grid>
 
             <Grid Grid.Row="3" Background="LightGray" Opacity="0.65" Margin="0,0,1,8">
+                <!--Need To add Footer for Appplication Now Temp Details Added-->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
