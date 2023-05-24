@@ -16,6 +16,9 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
+    <UserControl.Style>
+        <Binding Source="{StaticResource MovementAnimation}"/>
+    </UserControl.Style>
     <Grid>
         <StackPanel Margin="13">
             <TextBlock Text="Welcome Back! Please Proceed" TextWrapping="Wrap" Foreground="Wheat" FontSize="15" Opacity="50" TextAlignment="Center" />
