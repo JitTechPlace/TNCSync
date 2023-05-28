@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LoginControl;
 
 namespace TNCSync
 {
@@ -72,6 +73,8 @@ namespace TNCSync
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            //Window wnd = new AuthenticationWindow();
+            //wnd.Show();
         }
     }
 }

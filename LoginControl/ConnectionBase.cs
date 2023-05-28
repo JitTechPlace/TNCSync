@@ -4,19 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
-using System.Configuration;
 
-namespace TNCSync.Repositories
+namespace LoginControl
 {
-    public abstract class RepositoryBase
+    public abstract class ConnectionBase
     {
         private readonly string _connectionString;
 
-        public RepositoryBase()
+        public ConnectionBase()
         {
-            
-            _connectionString = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString; //Check App.config
-
+            _connectionString = "Server=JITENDHRA\\SQLEXPRESS; Database=CMS; User Id=sa; Password=p@ssw0rd; Integrated Security=false";
         }
         protected SqlConnection GetConnection()
         {

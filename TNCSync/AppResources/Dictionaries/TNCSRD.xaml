@@ -13,6 +13,12 @@
         <GradientStop Color="#FF4E6980"/>
     </RadialGradientBrush>
 
+    <RadialGradientBrush x:Key="rdRadialColorBlue-02">
+        <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"/>
+         <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.75"/>
+        <GradientStop Color="{StaticResource winBorderColor3}" Offset="1"/>
+    </RadialGradientBrush>
+
     <SolidColorBrush x:Key="rdSolidLightRed" Color="#E97180"/>
     <SolidColorBrush x:Key="rdSolidBlue" Color="#FF116CAB"/>
     <SolidColorBrush x:Key="rdSolidCement" Color="#FF1F3C59"/>

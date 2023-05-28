@@ -3,10 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:hw="http://schemas.hpod9.com/haley/wpf"
+             xmlns:hm="http://schemas.hpod9.com/haley/mvvm"
              xmlns:local="clr-namespace:TNCSync.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="{StaticResource color2}">
-        <TextBlock Text="JOUNAL VOUCHER" FontSize="20"/>
-    </Grid>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/TNCSync;component/AppResources/Dictionaries/TNCSRD.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="10"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="FontFamily" Value="{StaticResource iFontMontSerratReg}"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <TabControl Background="{StaticResource SCBCement}">
+        <TabItem Header="JournalVoucher" >
+
+        </TabItem>
+    </TabControl>
 </UserControl>

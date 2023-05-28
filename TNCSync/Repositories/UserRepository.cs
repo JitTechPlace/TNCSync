@@ -7,6 +7,7 @@ using TNCSync.Model;
 using System.Data;
 using System.Data.SqlClient;
 using System.Net;
+using LoginControl.Controls;
 
 namespace TNCSync.Repositories
 {
@@ -19,14 +20,27 @@ namespace TNCSync.Repositories
         public bool AuthenticateUser(NetworkCredential credential)
         {
             bool validUser;
+            UserModel user = null;
             using (var connection = GetConnection())
-            using (var command = new SqlCommand())
+            using (var command = new SqlCommand("dbo.getLoginDetails", connection))
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "select * from [UserLogin] where Loginname=@Loginname and [Password]=@Password";
+                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("@Loginname", SqlDbType.NVarChar).Value = credential.UserName;
                 command.Parameters.Add("@Password", SqlDbType.NVarChar).Value = credential.Password;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        user = new UserModel()
+                        {
+                            LoginName = reader[1].ToString(),
+                            Password = reader[2].ToString(),
+                            CompanyName = reader[3].ToString(),
+                        };
+                    }
+                }
                 validUser = command.ExecuteScalar() == null ? false : true;
             }
             return validUser;
@@ -47,11 +61,11 @@ namespace TNCSync.Repositories
         {
             UserModel user = null;
             using(var connection = GetConnection())
-            using(var command = new SqlCommand())
+            using(var command = new SqlCommand("dbo.getLoginDetails",connection))
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "select [Loginname], [Password], tblCompany.CompanyName, tblCompany.email from [UserLogin] INNER JOIN [tblCompany] ON UserLogin.companyID = tblCompany.ID WHERE tblCompany.isActive = 'Y';";
+                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("@Loginname", SqlDbType.NVarChar).Value = username;
                 using(var reader = command.ExecuteReader())
                 {
@@ -59,17 +73,29 @@ namespace TNCSync.Repositories
                     {
                         user = new UserModel()
                         {
-                            //Id = reader[0].ToString(),
-                            //LoginName = reader[1].ToString(),
-                            //Password = string.Empty,
-                            //CompanyName = reader[3].ToString(),
-                            //Username = reader[4].ToString(),
-                            //Email = reader[5].ToString(),
+                            Id = reader[0].ToString(),
+                            LoginName = reader[1].ToString(),
+                            Password = string.Empty,
+                            CompanyName = reader[3].ToString(),
+                            Username = reader[4].ToString(),
+                            Email = reader[5].ToString(),
                         };
                     }
                 }
             }
             return user;
+        }
+
+        private void populateCompany()
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand("dbo.getCompanyName",connection))
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandType = CommandType.StoredProcedure;
+                SqlDataReader sdr = command.ExecuteReader();
+            }
         }
         public void Remove(int id)
         {
