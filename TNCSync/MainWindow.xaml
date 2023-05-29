@@ -12,7 +12,8 @@
         xmlns:logc="http://schemas.hpod9.com/logc/wpf"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1200"
+        MaxHeight="850"
+        Title="MainWindow" Height="800" Width="1200"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
@@ -39,11 +40,11 @@
         <DataTemplate x:Key="COA">
             <view:ChartofAccounts/>
         </DataTemplate>
+        <DataTemplate x:Key="Cheque">
+            <view:ChequeManager/>
+        </DataTemplate>
         <DataTemplate x:Key="Manage">
             <view:Manage/>
-        </DataTemplate>
-        <DataTemplate x:Key="Settings">
-            <view:Vendor/>
         </DataTemplate>
     </Window.Resources>
 
@@ -105,20 +106,20 @@
                     </RadioButton>
                     <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}"  Command="{Binding CMDChangePage}" CommandParameter="{x:Static enums:PageId.ChartofAccount}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="Box" Style="{StaticResource menuButtonIcon}"/>
+                            <fa:IconImage Icon="Bank" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Chart of Account" Style="{StaticResource menuButtonText}" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}" Command="{Binding CMDChangePage}" CommandParameter="{x:Static enums:PageId.Cheque}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Print" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Cheque" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}" Command="{Binding CMDChangePage}" CommandParameter="{x:Static enums:PageId.Manage}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Toolbox" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Manage" Style="{StaticResource menuButtonText}" />
-                        </StackPanel>
-                    </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}" Command="{Binding CMDChangePage}" CommandParameter="{x:Static enums:PageId.Settings}">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="Tools" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Settings" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </RadioButton>
                     <RadioButton x:Name="Exit" Style="{StaticResource menuButton}" Tag="{StaticResource color11}" Click="Exit_Click">
@@ -228,11 +229,11 @@
                                     <DataTrigger Binding="{Binding PageID, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Value="{x:Static enums:PageId.ChartofAccount}">
                                         <Setter Property="ContentTemplate" Value="{StaticResource COA}"/>
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding PageID, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Value="{x:Static enums:PageId.Cheque}">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Cheque}"/>
+                                    </DataTrigger>
                                     <DataTrigger Binding="{Binding PageID, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Value="{x:Static enums:PageId.Manage}">
                                         <Setter Property="ContentTemplate" Value="{StaticResource Manage}"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding PageID, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Value="{x:Static enums:PageId.Settings}">
-                                        <Setter Property="ContentTemplate" Value="{StaticResource Settings}"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>

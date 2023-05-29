@@ -13,8 +13,8 @@ namespace TNCSync.Enums
         Customer,
         JournalVoucher,
         ChartofAccount,
-        Manage,
-        Settings
+        Cheque,
+        Manage
     }
 
     public enum LogFileType

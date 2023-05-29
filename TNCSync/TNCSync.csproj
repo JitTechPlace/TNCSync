@@ -74,6 +74,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BaseControls\ChequeDesignerOptions.xaml.cs">
+      <DependentUpon>ChequeDesignerOptions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Class\Account.cs" />
     <Compile Include="CredentialHolder.cs" />
     <Compile Include="Enums\PageId.cs" />
@@ -82,6 +85,15 @@
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="RulerControl\PositionManagers\Base\HorizontalRulerManager.cs" />
+    <Compile Include="RulerControl\PositionManagers\Base\RulerPositionManager.cs" />
+    <Compile Include="RulerControl\PositionManagers\Base\VerticalRulerManager.cs" />
+    <Compile Include="RulerControl\PositionManagers\LeftRulerManager.cs" />
+    <Compile Include="RulerControl\PositionManagers\TopRulerManager.cs" />
+    <Compile Include="RulerControl\Ruler.cs" />
+    <Compile Include="RulerControl\RulerBase.cs" />
+    <Compile Include="RulerControl\RulerStepPropeties.cs" />
+    <Compile Include="RulerControl\RulerTextOverFlow.cs" />
     <Compile Include="Sessions\QBException.cs" />
     <Compile Include="Sessions\QBNoResponseException.cs" />
     <Compile Include="Sessions\QBResultException.cs" />
@@ -99,6 +111,9 @@
     <Compile Include="ViewModel\ViewModelCommand.cs" />
     <Compile Include="View\ChartofAccounts.xaml.cs">
       <DependentUpon>ChartofAccounts.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Cheque.xaml.cs">
+      <DependentUpon>Cheque.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ChequeManager.xaml.cs">
       <DependentUpon>ChequeManager.xaml</DependentUpon>
@@ -122,6 +137,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="BaseControls\ChequeDesignerOptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -141,7 +160,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="RulerControl\RulerStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ChartofAccounts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Cheque.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -304,6 +331,9 @@
     </PackageReference>
     <PackageReference Include="MDIWindowManager">
       <Version>2.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reactive">
+      <Version>6.0.0</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

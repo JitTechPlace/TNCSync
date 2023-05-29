@@ -3,13 +3,157 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:mdi="clr-namespace:MDIWindowManager;assembly=MDIWindowManager"
+             xmlns:hw="http://schemas.hpod9.com/haley/wpf"
+             xmlns:hm="http://schemas.hpod9.com/haley/mvvm"
+             xmlns:bc="clr-namespace:TNCSync.BaseControls"
              xmlns:local="clr-namespace:TNCSync.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <!--<mdi:MdiContainer Theme>
+             xmlns:rulerControl="clr-namespace:TNCSync.RulerControl"
+             mc:Ignorable="d" Background="Transparent"
+             d:DesignHeight="550" d:DesignWidth="800"
+             x:Name="mainView"><!--Height="800" Width="900"-->
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/TNCSync;component/RulerControl/RulerStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}">
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="Margin" Value="0 10"/>
+                <Setter Property="Padding" Value="10"/>
+            </Style>
+
+            <Style x:Key="HearderTextboxStyle" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                <Setter Property="DockPanel.Dock" Value="Left"/>
+                <Setter Property="Width" Value="100"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <TabControl Background="{StaticResource def_background_tertiary}">
+        <TabItem Header="WriteChecks" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="DB Configuration" VerticalAlignment="Top" Margin="5" FontSize="15" Foreground="{StaticResource color1}"/>
+                <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+
+                        <StackPanel Grid.Column="0" Margin="25 15 10 0">
+                            <TextBlock Text="SQL Server:" FontSize="15"  />
+                            <TextBlock Text="DataBase:" FontSize="15"  Margin="10"/>
+                            <TextBlock Text="UserName:" FontSize="15"  Margin="10"/>
+                            <TextBlock Text="Password:" FontSize="15"  Margin="10"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="5">
+                            <hw:PlainTextBox FontSize="15" WaterMark="Enter SQL Server" Height="30" Width="200" CornerRadius="5" Margin="5" FontFamily="{StaticResource iFontMontSerratReg}" />
+                            <hw:PlainTextBox FontSize="15" WaterMark="Enter Database" Height="30"  CornerRadius="5" Margin="5" FontFamily="{StaticResource iFontMontSerratReg}" />
+                            <hw:PlainTextBox FontSize="15" WaterMark="Enter UserName" Height="30"  CornerRadius="5" Margin="5" FontFamily="{StaticResource iFontMontSerratReg}" />
+                            <hw:PlainTextBox FontSize="15" WaterMark="Enter Password" Height="30"  CornerRadius="5" Margin="5" FontFamily="{StaticResource iFontMontSerratReg}" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <hw:PlainButton x:Name="btnSave" Content="Save" Background="{StaticResource color11}" Foreground="{StaticResource color1}" Margin="5" CornerRadius="5" Height="20" Width="60" />
+                        
+            <hw:PlainButton x:Name="btnClose" Content="Close" Background="{StaticResource color11}" Foreground="{StaticResource color1}" CornerRadius="5" Height="20" Width="60"/>
             
-        </mdi:MdiContainer>-->
-    </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Cheque Designer">
+            <StackPanel>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="230"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" Margin="0" >
+                        <GroupBox Header="Reference" Width="100">
+                            <Slider Minimum="1" Maximum="25" Value="20" />
+                        </GroupBox>
+                        <GroupBox Header="Top Ruler" Width="300">
+                            <StackPanel>
+                                <DockPanel >
+                                    <TextBlock Text="Max Value : " Style="{StaticResource HearderTextboxStyle}"/>
+                                    <TextBlock Text="{Binding ElementName=maxTopValueSlider, Path=Value, StringFormat=N2}" DockPanel.Dock="Right" Margin="5 0" Width="5"/>
+                                    <Slider x:Name="maxTopValueSlider" Minimum="1" Maximum="25" Value="20" DockPanel.Dock="Left" />
+                                </DockPanel>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBlock Text="Step transform:"/>
+                                    <TextBlock Text="{Binding Unit}" Margin="10 0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Left Ruler" Width="300">
+                            <DockPanel >
+                                <TextBlock Text="Max Value : " Style="{StaticResource HearderTextboxStyle}"/>
+                                <TextBlock Text="{Binding ElementName=maxLeftValueSlider, Path=Value, StringFormat=N2}" DockPanel.Dock="Right" Margin="5 0" Width="5"/>
+                                <Slider x:Name="maxLeftValueSlider" Minimum="1" Maximum="25" Value="20" DockPanel.Dock="Left" />
+                            </DockPanel>
+                        </GroupBox>
+                    </StackPanel>
+                    <bc:ChequeDesignerOptions Grid.Row="1" Grid.Column="1"/>
+                </Grid>
+                <!--Design Canvas--> <!--Need to work on and fix the left sideruler bug-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="400"/>
+                    </Grid.RowDefinitions>
+
+                    <rulerControl:Ruler x:Name="topRuler"
+                     Grid.Column="1"
+                     VerticalAlignment="Stretch"
+                     HorizontalAlignment="Stretch" 
+                     MarkerControlReference="{Binding ElementName=mainView}"
+                     MaxValue="{Binding ElementName=maxTopValueSlider, Path=Value, Delay=5}"
+                     MajorStepValues="{Binding MajorStep}"
+                     ValueStepTransform="{Binding ValueStepTransform}">
+                        <rulerControl:Ruler.Resources>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                <Setter Property="Margin" Value="5 0"/>
+                            </Style>
+                        </rulerControl:Ruler.Resources>
+                    </rulerControl:Ruler>
+
+                    <rulerControl:Ruler Grid.Row="1"
+                     DisplayZeroLine="True"
+                     VerticalAlignment="Stretch"
+                     Position="Left"
+                     MarkerControlReference="{Binding ElementName=mainView}"
+                     MaxValue="{Binding ElementName=maxLeftValueSlider, Path=Value, Delay=5}"
+                     MinorStepRatio="0.1"
+                     MajorStepValues="{Binding MajorStep}">
+                        <rulerControl:Ruler.Resources>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                <Setter Property="Foreground" Value="Blue"/>
+                                <Setter Property="LineHeight" Value="12"/>
+                                <Setter Property="LineStackingStrategy" Value="BlockLineHeight"/>
+                                <Setter Property="Margin" Value="2 5"/>
+                                <Setter Property="FontSize" Value="10"/>
+                            </Style>
+                        </rulerControl:Ruler.Resources>
+                    </rulerControl:Ruler>
+
+                </Grid>
+            </StackPanel>
+
+        </TabItem>
+
+    </TabControl>
 </UserControl>
