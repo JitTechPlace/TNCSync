@@ -74,8 +74,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BaseControls\BillPayments.xaml.cs">
+      <DependentUpon>BillPayments.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BaseControls\ChequeDesignerOptions.xaml.cs">
       <DependentUpon>ChequeDesignerOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BaseControls\CustomCalender.xaml.cs">
+      <DependentUpon>CustomCalender.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BaseControls\Purchase Order.xaml.cs">
+      <DependentUpon>Purchase Order.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BaseControls\VendorsList.xaml.cs">
+      <DependentUpon>VendorsList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BaseControls\WriteCheque.xaml.cs">
+      <DependentUpon>WriteCheque.xaml</DependentUpon>
     </Compile>
     <Compile Include="Class\Account.cs" />
     <Compile Include="CredentialHolder.cs" />
@@ -137,7 +152,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="BaseControls\BillPayments.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BaseControls\ChequeDesignerOptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BaseControls\CustomCalender.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BaseControls\Purchase Order.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BaseControls\VendorsList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BaseControls\WriteCheque.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -335,6 +370,9 @@
     <PackageReference Include="System.Reactive">
       <Version>6.0.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Class\QuickBookData.vb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="TNCSync.BaseControls.BillPayments"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:hw="http://schemas.hpod9.com/haley/wpf"
+             xmlns:hm="http://schemas.hpod9.com/haley/mvvm"
+             xmlns:local="clr-namespace:TNCSync.BaseControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="BillPayments Cheque:" FontSize="13" TextDecorations="Underline" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="{StaticResource iFontMontSerratReg}"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Height="24" Margin="0 15 0 0">
+                <TextBlock Text="From Date:" FontSize="13" FontFamily="{StaticResource iFontMontSerratReg}"/>
+                <DatePicker/>
+                <TextBlock Text="To Date:" FontSize="13" FontFamily="{StaticResource iFontMontSerratReg}"/>
+                <DatePicker/>
+                <Button Content="Sync" Style="{StaticResource SPStyleButton}" Height="20" Width="100" Margin="5 0"/>
+                <Button Content="SyncAll" Style="{StaticResource SPStyleButton}" Height="20" Width="100" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" >
+                <TextBlock Text="Payee Name:" FontSize="13" FontFamily="{StaticResource iFontMontSerratReg}"/>
+                <ComboBox Grid.Column="1" Style="{StaticResource RoundComboBox}" Height="25" Width="200" ToolTip="SelectReport" />
+                <Button Content="Search" Style="{StaticResource SPStyleButton}" Height="20" Width="100" Margin="5 0"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" >
+                <hw:PlainCheckBox Content="NameonCheck" Foreground="Black"/>
+                <hw:PlainTextBox WaterMark="Enter the Name to Display" Width="150"/>
+                <hw:PlainCheckBox Content="Account Payee" Foreground="Black"/>
+                <hw:PlainCheckBox Content="With Out Date" Foreground="Black"/>
+            </StackPanel>
+        </Grid>
+        <DataGrid Name="ChequeDetails" Grid.Row="1" Margin="5"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <ComboBox Grid.Column="1" Style="{StaticResource RoundComboBox}" Margin="5" Height="25" Width="200" ToolTip="SelectReport" />
+            <Button Content="Print" Style="{StaticResource SPStyleButton}" Height="30" Width="120"/>
+            <Button Content="Close" Style="{StaticResource SPStyleButton}" Height="30" Width="120" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

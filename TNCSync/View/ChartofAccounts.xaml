@@ -21,16 +21,18 @@
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <TabControl Background="{StaticResource SCBCement}">
-        <TabItem Header="JournalVoucher" >
+    <Border CornerRadius="10" Background="{StaticResource def_background_tertiary}">
+        <TabControl Background="{StaticResource def_background_tertiary}" Margin="5">
+            <TabItem Header="ChartofAccounts" BorderBrush="Transparent">
 
-        </TabItem>
-        <TabItem Header="Item" >
+            </TabItem>
+            <TabItem Header="Item" BorderBrush="Transparent">
 
-        </TabItem>
-        <TabItem Header="OtherName" >
+            </TabItem>
+            <TabItem Header="OtherName" BorderBrush="Transparent">
 
-        </TabItem>
-    </TabControl>
-    
+            </TabItem>
+        </TabControl>
+    </Border>
+      
 </UserControl>

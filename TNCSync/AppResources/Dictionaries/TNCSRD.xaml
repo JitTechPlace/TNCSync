@@ -330,5 +330,9 @@
     </Style>
     <!--#endregion-->
     
+    <!--#region DatePicker-->
+    
+    <!--#endregion-->
+    
     <!--#endregion-->
 </ResourceDictionary>
