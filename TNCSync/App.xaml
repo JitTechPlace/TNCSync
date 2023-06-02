@@ -8,6 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/haleyRD.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/TNCSync;component/AppResources/Dictionaries/TNCSRD.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/TNCSync;component/AppResources/Dictionaries/TNCSLCRD.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

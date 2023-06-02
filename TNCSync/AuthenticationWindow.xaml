@@ -1,0 +1,69 @@
+﻿<Window x:Class="TNCSync.AuthenticationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:hw="http://schemas.hpod9.com/haley/wpf"
+        xmlns:hm="http://schemas.hpod9.com/haley/mvvm"
+        xmlns:crtls="clr-namespace:TNCSync.Controls"
+        xmlns:local="clr-namespace:TNCSync"
+        mc:Ignorable="d"
+        Icon="pack://application:,,,/TNCSync;component/AppResources/Images/TNCSync_SampleLogo_B.png"
+        WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
+        Title="" Height="620" Width="300" Background="Transparent" Foreground="Black" OpacityMask="Black" AllowsTransparency="True"><!--hm:WindowBlurAP.IsEnabled="True"-->
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/TNCSync;component/AppResources/Dictionaries/TNCSLCRD.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <Grid x:Name="grdMain">
+        <Image Source="pack://application:,,,/TNCSync;component/AppResources/Images/loginpage_new.png" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.75"/>
+        <Grid x:Name="pnlControlBar" MouseLeftButtonDown="pnlControlBar_MouseLeftButtonDown" MouseEnter="pnlControlBar_MouseEnter">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="100 "/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" x:Name="GrdHeader">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="{Binding ElementName=GrdHeader, Path=ActualHeight}"/>
+                </Grid.ColumnDefinitions>
+                <hw:PlainImage x:Name="clsBtn" hw:Icon.Default="{StaticResource close_circle}" hw:Icon.DefaultColor="LightGray" hw:Icon.HoverColor="Crimson"  Grid.Column="2" Margin="4" HorizontalAlignment="Right" MouseDown="clsBtn_MouseDown"/>
+            </Grid>
+            <Grid Grid.Row="1" Background="LightGray" Opacity="0.65">
+                <!--Need To add Logo and name of the Appplication Now Temp Logo Added-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition  Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Source="pack://application:,,,/TNCSync;component/AppResources/Images/TNCSync_SampleLogo_B.png" Height="100" Width="100"/>
+                <Grid Grid.Column="1">
+                    <TextBlock Text="TNC_SYNC" Foreground="{StaticResource headerTextColor}" FontSize="30" FontFamily="{StaticResource iFontRadleyReg}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="2" Width="280" Height="350">
+                <hw:ContainerViewer  ViewKey="{Binding CurrentView, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
+                    <hw:ContainerViewer.WelcomeView>
+                        <crtls:WelcomePage/>
+                    </hw:ContainerViewer.WelcomeView>
+                </hw:ContainerViewer>
+            </Grid>
+
+            <Grid Grid.Row="3" Background="LightGray" Opacity="0.65" Margin="0,0,1,8">
+                <!--Need To add Footer for Appplication Now Temp Details Added-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="pack://application:,,,/TNCSync;component/AppResources/Images/TNC_Logo.ico" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Text="© TransNational Computer LLC" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="10" Foreground="{StaticResource color1}" FontFamily="{StaticResource iFontMontSerratMedium}"/>
+                <TextBlock Text="| Ver 1.0[PILOT]" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="10" Foreground="{StaticResource color1}"  FontFamily="{StaticResource iFontMontSerratMedium}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

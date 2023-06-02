@@ -11,7 +11,7 @@ namespace TNCSync.Enums
         Dashboard,
         Vendor,
         Customer,
-        JournalVoucher,
+        //JournalVoucher,
         ChartofAccount,
         Cheque,
         Manage

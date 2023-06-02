@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using LoginControl;
+
 
 namespace TNCSync
 {
@@ -23,6 +23,11 @@ namespace TNCSync
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Variable
+        public static bool isDeleted = false;
+        public static MainWindow objMW = new MainWindow();
+        #endregion
+
         public MainWindow()
         {
             InitializeComponent();

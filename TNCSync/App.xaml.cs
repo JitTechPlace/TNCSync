@@ -11,8 +11,8 @@ using Haley.Events;
 using Haley.Models;
 using Haley.MVVM;
 using Haley.Utils;
-using LoginControl;
-using LoginControl.Controls;
+using TNCSync;
+using TNCSync.Controls;
 using Haley.IOC;
 
 

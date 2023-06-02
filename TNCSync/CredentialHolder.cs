@@ -25,4 +25,10 @@ namespace TNCSync
         private CredentialHolder() { }
         #endregion
     }
+
+    //Temp Added--31-05-2023
+    public static class SQLConnection
+    {
+        public static string ConnectionString { get; set; }
+    }
 }

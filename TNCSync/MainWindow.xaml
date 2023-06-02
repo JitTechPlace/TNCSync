@@ -34,9 +34,9 @@
         <DataTemplate x:Key="Customer">
             <view:Customer/>
         </DataTemplate>
-        <DataTemplate x:Key="JV">
+        <!--<DataTemplate x:Key="JV">
             <view:JournalVoucher/>
-        </DataTemplate>
+        </DataTemplate>-->
         <DataTemplate x:Key="COA">
             <view:ChartofAccounts/>
         </DataTemplate>
@@ -98,12 +98,12 @@
                             <TextBlock Text="Customer" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}"  Command="{Binding CMDChangePage}" CommandParameter="{x:Static enums:PageId.JournalVoucher}">
+                    <!--<RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}"  Command="{Binding CMDChangePage}" CommandParameter="{x:Static enums:PageId.JournalVoucher}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="ShoppingBag" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Journal Voucher" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
-                    </RadioButton>
+                    </RadioButton>-->
                     <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color11}"  Command="{Binding CMDChangePage}" CommandParameter="{x:Static enums:PageId.ChartofAccount}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Bank" Style="{StaticResource menuButtonIcon}"/>
@@ -222,9 +222,9 @@
                                         <Setter Property="ContentTemplate" Value="{StaticResource Customer}"/>
                                     </DataTrigger>
 
-                                    <DataTrigger Binding="{Binding PageID, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Value="{x:Static enums:PageId.JournalVoucher}">
+                                    <!--<DataTrigger Binding="{Binding PageID, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Value="{x:Static enums:PageId.JournalVoucher}">
                                         <Setter Property="ContentTemplate" Value="{StaticResource JV}"/>
-                                    </DataTrigger>
+                                    </DataTrigger>-->
 
                                     <DataTrigger Binding="{Binding PageID, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Value="{x:Static enums:PageId.ChartofAccount}">
                                         <Setter Property="ContentTemplate" Value="{StaticResource COA}"/>

@@ -26,13 +26,13 @@
                 <DatePicker/>
                 <TextBlock Text="To Date:" FontSize="13" FontFamily="{StaticResource iFontMontSerratReg}" Margin="5"/>
                 <DatePicker/>
-                <Button Content="Sync" Style="{StaticResource SPStyleButton}" Height="20" Width="100" Margin="5 0"/>
-                <Button Content="SyncAll" Style="{StaticResource SPStyleButton}" Height="20" Width="100" />
+                <Button Content="Sync" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="20" Width="100" Margin="5 0"/>
+                <Button Content="SyncAll" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="20" Width="100" />
             </StackPanel>
             <StackPanel Grid.Row="1" Orientation="Horizontal" >
                 <TextBlock Text="Payee Name:" FontSize="13" FontFamily="{StaticResource iFontMontSerratReg}" Margin="5"/>
                 <ComboBox Grid.Column="1" Style="{StaticResource RoundComboBox}" Height="25" Width="200" ToolTip="SelectReport" />
-                <Button Content="Search" Style="{StaticResource SPStyleButton}" Height="20" Width="100" Margin="5 0"/>
+                <Button Content="Search" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="20" Width="100" Margin="5 0"/>
             </StackPanel>
             <StackPanel Grid.Row="2" Orientation="Horizontal" >
                 <hw:PlainCheckBox Content="NameonCheck" Foreground="Black"/>
@@ -44,8 +44,8 @@
         <DataGrid Name="ChequeDetails" Grid.Row="1" Margin="5"/>
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
             <ComboBox Grid.Column="1" Style="{StaticResource RoundComboBox}" Margin="5" Height="25" Width="200" ToolTip="SelectReport" />
-            <Button Content="Print" Style="{StaticResource SPStyleButton}" Height="30" Width="120"/>
-            <Button Content="Close" Style="{StaticResource SPStyleButton}" Height="30" Width="120" Margin="5"/>
+            <Button Content="Print" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120"/>
+            <Button Content="Clear" Style="{StaticResource SPStyleButton}" Height="30" Width="120" Margin="5"/>
         </StackPanel>
     </Grid>
 </UserControl>

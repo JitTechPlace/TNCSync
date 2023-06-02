@@ -1,0 +1,340 @@
+﻿<UserControl x:Class="TNCSync.BaseControls.CustomerList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             xmlns:local="clr-namespace:TNCSync.BaseControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/TNCSync;component/AppResources/Dictionaries/TNCSRD.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="{x:Type TextBlock}">
+                <!--<Setter Property="Foreground" Value="{StaticResource scb_content_inactive}"/>-->
+                <Setter Property="FontSize" Value="10"/>
+                <Setter Property="FontFamily" Value="{StaticResource iFontMontSerratAlternateRegular}"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border CornerRadius="10" Background="{StaticResource def_background_tertiary}">
+        <TabControl Margin="5" Background="{StaticResource def_background_tertiary}">
+            <!--DataContext="{Binding NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"-->
+            <TabItem Header="Customer" BorderBrush="Transparent"  >
+                <Grid x:Name="grdMain" DataContext="{Binding}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <!--<ColumnDefinition Width="Auto"/>-->
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                    <TextBlock Text="Company List" Height="20" Margin="5" FontSize="15" FontWeight="Bold" TextDecorations="Underline"/>
+                    <Grid Grid.Row="1" >
+                        <!--<bc:UCTextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin=" 140 5 0 0" Height="30" Width="140" PlaceHolderText="Enter Company Code" CustomBorderBrush="{StaticResource color1}"/>-->
+                        <TextBlock Text="CustomerName" HorizontalAlignment="Left" Margin="0 0 0 50" Height="30" Width="130" FontSize="15" TextAlignment="Center"/>
+                        <TextBox x:Name="CustName" FontSize="12" FontWeight="Medium" FontFamily="Montserrat" Foreground="Black"  CaretBrush="LightGray"  BorderBrush="DarkGray" 
+                     BorderThickness="0 0 0 3" Height="28" Width="200" VerticalContentAlignment="Center"  Margin="0 0 400 70" Padding="20 0 0 0"/>
+                        <TextBlock Text="PhoneNumber" HorizontalAlignment="Left" Margin="5 50 0 0" Height="30" Width="130" FontSize="15" TextAlignment="Center"/>
+                        <TextBox x:Name="Phone" FontSize="12" FontWeight="Medium" FontFamily="Montserrat" Foreground="Black" CaretBrush="LightGray" BorderBrush="DarkGray"
+                     BorderThickness="0 0 0 3" Height="28" Width="200" VerticalContentAlignment="Center" Margin="0 40 400 0" Padding="20 0 0 0">
+                        </TextBox>
+                        <Button x:Name="Addcust" Style="{StaticResource controlButton}" 
+                            Background="{StaticResource panelActiveColor}"
+                            Tag="{StaticResource rdSolidWhiteSmoke}"
+                            Content="Add" Height="30" Width="120" Margin="0 0 10 10" Click="Addcust_Click" >
+                        </Button>
+                        <Button x:Name="Searchcust" Style="{StaticResource controlButton}" 
+                            Background="{StaticResource panelActiveColor}"
+                            Tag="{StaticResource rdSolidWhiteSmoke}"
+                            Content="Search" Height="30" Width="120" Margin="300 0 0 10" Click="Searchcust_Click">
+                        </Button>
+                    </Grid>
+                    <Border Grid.Row="2" CornerRadius="5" >
+                        <DataGrid x:Name="Custgrid" />
+                    </Border>
+                    <Grid Grid.Row="3" >
+                        <Button x:Name="Addbtn" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Content="AddNew" Height="30" Width="120" Margin="0 0 250 0"/>
+                        <Button Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Content="ShowAll" Height="30" Width="120"/>
+                        <Button Style="{StaticResource SPStyleButton}" Content="Clear" Height="30" Width="120" Margin="250 0 0 0"/>
+                    </Grid>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="SalesOrder"  HorizontalAlignment="Left" BorderBrush="Transparent">
+                <Grid>
+                    <TextBlock Text="Sales Order" VerticalAlignment="Top" Margin="5" FontSize="15" Foreground="{StaticResource color1}"/>
+                    <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5">
+                            <TextBlock Text="From Date:" FontSize="15"  />
+                            <DatePicker Width="120" Margin="5 0" />
+                            <TextBlock Text="To Date:" FontSize="15"  />
+                            <DatePicker Width="120" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                            </Grid>
+
+                            <StackPanel Grid.Column="0" Grid.Row="1" Margin="25 15 10 0">
+                                <TextBlock Text="CustomerName:" FontSize="15"  Margin="10"/>
+                                <TextBlock Text="SONumber:" FontSize="15"  Margin="10"/>
+                                <TextBlock Text="Template Name:" FontSize="15"  Margin="10"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Grid.Row="1" Margin="25 15 10 0">
+                                <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                                <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                                <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Content="Sync" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110"/>
+                            <Button Content="SyncAll" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110" Margin="5"/>
+                            <Button Content="Print" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110"/>
+                            <Button Content="Clear" Style="{StaticResource SPStyleButton}"  Height="30" Width="110" Margin="5"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+                <!--<Grid x:Name="grdMain1" DataContext="{Binding}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="120"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Top"
+                        Grid.Column="0">
+                            <fa:IconImage Icon="Search" Height="20" Width="20" Foreground="{StaticResource plainTextColor3}"/>
+                            <TextBox Text="Search..."   
+                    FontSize="13"
+                         Height="24"
+                           Width="300"
+                           Background="Transparent"
+                             FontWeight="Medium"
+                             FontFamily="Montserrat"                            
+                             Foreground="{StaticResource plainTextColor3}"
+                             CaretBrush="{StaticResource plainTextColor3}"
+                             BorderBrush="{StaticResource plainTextColor3}"
+                             BorderThickness="0,0,0,1"                             
+                             VerticalContentAlignment="Center"
+                             Margin="5,5,0,0"></TextBox>
+                        </StackPanel>
+                        <Button Grid.Column="1"
+                            Command="{Binding LoginCommand}"                            
+                            Content="Search"                            
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            BorderThickness="0"
+                            Foreground="White"
+                    VerticalAlignment="Top">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="DarkGray"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Height="30"
+                                                    CornerRadius="15"
+                                                    Background="{TemplateBinding Background}">
+                                                    <ContentPresenter VerticalAlignment="Center"
+                                                                      HorizontalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#252E34"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </Grid>
+                    <Border Grid.Row="1"
+                Background="DarkGray"
+                CornerRadius="10" 
+                Padding="10">
+                        <DataGrid ColumnWidth="*"
+                  Background="DarkGray"
+                  BorderThickness="0">
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="{StaticResource color1}"/>
+                                    <Setter Property="Padding" Value="10,0,0,10"/>
+                                    <Setter Property="FontFamily" Value="Montserrat"/>
+                                    <Setter Property="FontSize" Value="15"/>
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="ID" HeaderStringFormat=""/>
+                                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="First name"/>
+                                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Last name"/>
+                                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Phone"/>
+                                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Number"/>
+                                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Address"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Border>
+
+
+                </Grid>-->
+            </TabItem>
+            <TabItem Header="Invoice"  BorderBrush="Transparent">
+                <Grid>
+                    <TextBlock Text="Sync Invoice" VerticalAlignment="Top" Margin="5" FontSize="15" Foreground="{StaticResource color1}"/>
+                    <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5">
+                            <TextBlock Text="From Date:" FontSize="15"  />
+                            <DatePicker Width="120" Margin="5 0" />
+                            <TextBlock Text="To Date:" FontSize="15"  />
+                            <DatePicker Width="120" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                            </Grid>
+
+                            <StackPanel Grid.Column="0" Grid.Row="1" Margin="25 15 10 0">
+                                <TextBlock Text="CustomerName:" FontSize="15"  Margin="10"/>
+                                <TextBlock Text="InvoiceNumber:" FontSize="15"  Margin="10"/>
+                                <TextBlock Text="Template Name:" FontSize="15"  Margin="10"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Grid.Row="1" Margin="25 15 10 0">
+                                <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                                <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                                <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Content="Sync" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110"/>
+                            <Button Content="SyncAll" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110" Margin="5"/>
+                            <Button Content="Print" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110"/>
+                            <Button Content="Clear" Style="{StaticResource SPStyleButton}"  Height="30" Width="110" Margin="5"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Receipt"  BorderBrush="Transparent">
+                <Grid>
+                    <TextBlock Text="Sync Receipt" VerticalAlignment="Top" Margin="5" FontSize="15" Foreground="{StaticResource color1}"/>
+                    <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5">
+                            <TextBlock Text="From Date:" FontSize="15"  />
+                            <DatePicker Width="120" Margin="5 0" />
+                            <TextBlock Text="To Date:" FontSize="15"  />
+                            <DatePicker Width="120" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                            </Grid>
+
+                            <StackPanel Grid.Column="0" Grid.Row="1" Margin="25 15 10 0">
+                                <TextBlock Text="Customer Name:" FontSize="15"  Margin="10"/>
+                                <TextBlock Text="Voucher Number:" FontSize="15"  Margin="10"/>
+                                <TextBlock Text="Template Name:" FontSize="15"  Margin="10"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Grid.Row="1" Margin="25 15 10 0">
+                                <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                                <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                                <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Content="Sync" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110"/>
+                            <Button Content="SyncAll" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110" Margin="5"/>
+                            <Button Content="Print" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110"/>
+                            <Button Content="Clear" Style="{StaticResource SPStyleButton}"  Height="30" Width="110" Margin="5"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="CreditNote"  BorderBrush="Transparent">
+                <Grid>
+                    <TextBlock Text="Sync CreditNote" VerticalAlignment="Top" Margin="5" FontSize="15" Foreground="{StaticResource color1}"/>
+                    <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5">
+                            <TextBlock Text="From Date:" FontSize="15"  />
+                            <DatePicker Width="120" Margin="5 0" />
+                            <TextBlock Text="To Date:" FontSize="15"  />
+                            <DatePicker Width="120" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                            </Grid>
+
+                            <StackPanel Grid.Column="0" Grid.Row="1" Margin="25 15 10 0">
+                                <TextBlock Text="Customer Name:" FontSize="15"  Margin="10"/>
+                                <TextBlock Text="Credit Note Number:" FontSize="15"  Margin="10"/>
+                                <TextBlock Text="Template Name:" FontSize="15"  Margin="10"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Grid.Row="1" Margin="25 15 10 0">
+                                <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                                <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                                <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Content="Sync" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110"/>
+                            <Button Content="SyncAll" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110" Margin="5"/>
+                            <Button Content="Print" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110"/>
+                            <Button Content="Clear" Style="{StaticResource SPStyleButton}"  Height="30" Width="110" Margin="5"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Border>
+</UserControl>

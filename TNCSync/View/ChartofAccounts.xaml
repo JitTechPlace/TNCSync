@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:bc="clr-namespace:TNCSync.BaseControls"
              xmlns:hw="http://schemas.hpod9.com/haley/wpf"
              xmlns:hm="http://schemas.hpod9.com/haley/mvvm"
              xmlns:local="clr-namespace:TNCSync.View"
@@ -24,13 +25,16 @@
     <Border CornerRadius="10" Background="{StaticResource def_background_tertiary}">
         <TabControl Background="{StaticResource def_background_tertiary}" Margin="5">
             <TabItem Header="ChartofAccounts" BorderBrush="Transparent">
-
+                <bc:ChartofAccount />
+            </TabItem>
+            <TabItem Header="JournalVoucher" BorderBrush="Transparent">
+                <bc:JournalVoucher/>
             </TabItem>
             <TabItem Header="Item" BorderBrush="Transparent">
-
+                <bc:Items/>
             </TabItem>
             <TabItem Header="OtherName" BorderBrush="Transparent">
-
+                <bc:OtherNameList/>
             </TabItem>
         </TabControl>
     </Border>

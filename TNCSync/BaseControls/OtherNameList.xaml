@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="TNCSync.BaseControls.OtherNameList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TNCSync.BaseControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <!--<TextBlock Text="ChartofAccount:" FontSize="13" TextDecorations="Underline" FontFamily="{StaticResource iFontMontSerratReg}"/>-->
+        <StackPanel Orientation="Horizontal" Margin="5">
+            <TextBlock Text="Filter By:" Margin="20"/>
+            <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="150"  Margin="10" />
+
+            <Button Content="Search" x:Name="srchCoaList"  Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120"  />
+        </StackPanel>
+        <DataGrid x:Name="grdVendorLst" Grid.Row="1" Margin="5"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button Content="Sync All" x:Name="syncothernameList"  Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120" />
+            <Button Content="Close" Style="{StaticResource SPStyleButton}" Height="30" Width="120" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

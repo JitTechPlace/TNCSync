@@ -8,19 +8,29 @@ using System.Configuration;
 
 namespace TNCSync.Repositories
 {
-    public abstract class RepositoryBase
+    public class RepositoryBase
     {
-        private readonly string _connectionString;
+        SqlConnection TNCSync_Connection;
+        //private readonly string _connectionString;
 
-        public RepositoryBase()
+        public RepositoryBase(string connectionString)
         {
-            
-            _connectionString = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString; //Check App.config
+            TNCSync_Connection = new SqlConnection(connectionString);
+            //connectionString = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString; //Check App.config
 
         }
-        protected SqlConnection GetConnection()
+        public bool IsConnected
         {
-            return new SqlConnection(_connectionString);
+            get
+            {
+                if (TNCSync_Connection.State == System.Data.ConnectionState.Closed)
+                    TNCSync_Connection.Open();
+                return true;
+            }
         }
+        //protected SqlConnection GetConnection()
+        //{
+        //    return new SqlConnection(_connectionString);
+        //}
     }
 }

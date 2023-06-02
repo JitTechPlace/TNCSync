@@ -74,7 +74,7 @@ namespace TNCSync.ViewModel
 
         public MainViewModel()
         {
-            userRepository = new UserRepository();
+            //userRepository = new UserRepository();
             CurrentUserAccount = new UserAccountModel();
 
             //SwithPage

@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="TNCSync.BaseControls.DatabaseConfiguration"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:hw="http://schemas.hpod9.com/haley/wpf"
+             xmlns:hm="http://schemas.hpod9.com/haley/mvvm"
+             xmlns:local="clr-namespace:TNCSync.BaseControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <TextBlock Text="DataBaseConfiguration" VerticalAlignment="Top" Margin="5" FontSize="15" Foreground="{StaticResource color1}"/>
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" >
+                <TextBlock Text="Service Type" FontSize="15" Margin="0 0 100 0" />
+                <TextBlock Text="Database Engine" FontSize="15"  />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                </Grid>
+                <StackPanel Grid.Column="0" Grid.Row="1" >
+                    <TextBlock Text="SQL Server:" FontSize="15"  Margin="5 25"/>
+                    <TextBlock Text="Authentication" FontSize="15"  Margin="10"/>
+                    <TextBlock Text="UserName:" FontSize="15"  Margin="10"/>
+                    <TextBlock Text="Password:" FontSize="15"  Margin="10"/>
+                    <TextBlock Text="DataBase:" FontSize="15"  Margin="15"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="1" Margin="5 15 10 0">
+                    <ComboBox x:Name="cbxserver" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                    <ComboBox x:Name="cbxAuth" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10"  SelectionChanged="cbxAuth_SelectionChanged">
+                        <ComboBoxItem>Windows Authentication</ComboBoxItem>
+                        <ComboBoxItem>SQL Server Authentication</ComboBoxItem>
+                    </ComboBox>
+                    <!--<hw:PlainTextBox x:Name="ptxtdb" WaterMark="Database Name"  Height="25" CornerRadius="5" Margin="10" />-->
+                    <hw:PlainTextBox x:Name="ptxtusername" WaterMark="Username Name" Foreground="Black" CaretBrush="LightGray" BorderBrush="DarkGray"
+                     BorderThickness="0 0 0 3"  Height="25" CornerRadius="2" Margin="10"/>
+                    <PasswordBox x:Name="ptxtpassword" FontSize="12" FontWeight="Medium" FontFamily="Montserrat" Foreground="Black"  CaretBrush="LightGray"  BorderBrush="DarkGray" BorderThickness="0 0 0 3"  Height="25" Margin="10"/>
+                    <!--<hw:PlainPasswordBox x:Name="ptxtpassword" WaterMark="Password Name" Foreground="Black" CaretBrush="LightGray" BorderBrush="DarkGray"
+                     BorderThickness="0 0 0 3"  Height="25" CornerRadius="5" Margin="10"/>-->
+                    <!--Later need to check with this password box to bind the date while server connection-->
+                    <ComboBox x:Name="cbxdb" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" DropDownOpened="cmbDatabae_DropDownOpened"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20 0 0 0">
+                <Button Content="Connect" x:Name="btnConnect" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110" Click="btnConnect_Click"/>
+                <Button Content="Save"  x:Name="btnSavecon" Style="{StaticResource controlButton}"  Background="{StaticResource panelActiveColor}" Tag="{StaticResource color1}" Height="30" Width="110" Margin="5" Click="btnSavecon_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
