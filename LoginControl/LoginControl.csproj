@@ -38,6 +38,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Management" />
@@ -57,6 +60,11 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\Account.cs" />
+    <Compile Include="Class\General\Common.cs" />
+    <Compile Include="Class\General\DBConnection.cs" />
+    <Compile Include="Class\Info\UserInfo.cs" />
+    <Compile Include="Class\SP\UserSP.cs" />
     <Compile Include="Controls\WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
@@ -136,6 +144,9 @@
     <PackageReference Include="Haley.WPF">
       <Version>5.1.14</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Class\QuickBookData.vb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

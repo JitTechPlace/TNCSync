@@ -37,6 +37,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=14.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\CrystalDecisions.CrystalReports.Engine\13.0.2000.0__692fbea5521e1304\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=14.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\CrystalDecisions.ReportSource\13.0.2000.0__692fbea5521e1304\CrystalDecisions.ReportSource.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=14.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\CrystalDecisions.Shared\13.0.2000.0__692fbea5521e1304\CrystalDecisions.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=14.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\CrystalDecisions.Windows.Forms\13.0.2000.0__692fbea5521e1304\CrystalDecisions.Windows.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Windows.Forms.resources, Version=14.0.2000.0, Culture=en, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\CrystalDecisions.Windows.Forms.resources\13.0.2000.0_en_692fbea5521e1304\CrystalDecisions.Windows.Forms.resources.dll</HintPath>
+    </Reference>
     <Reference Include="Interop.QBFC15, Version=16.0.0.1, Culture=neutral, PublicKeyToken=31d8aec643e18259, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -47,10 +67,19 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\Interop.QBXMLRP2\v4.0_27.0.154.7642__8244b228ecdaef5e\Interop.QBXMLRP2.dll</HintPath>
     </Reference>
+    <Reference Include="SAPBusinessObjects.WPF.Viewer, Version=14.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\SAPBusinessObjects.WPF.Viewer\13.0.3500.0__692fbea5521e1304\SAPBusinessObjects.WPF.Viewer.dll</HintPath>
+    </Reference>
+    <Reference Include="SAPBusinessObjects.WPF.ViewerShared, Version=14.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\SAPBusinessObjects.WPF.ViewerShared\13.0.3500.0__692fbea5521e1304\SAPBusinessObjects.WPF.ViewerShared.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Numerics" />
@@ -86,13 +115,15 @@
     <Compile Include="BaseControls\Purchase Order.xaml.cs">
       <DependentUpon>Purchase Order.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BaseControls\ReportView.xaml.cs">
+      <DependentUpon>ReportView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BaseControls\VendorsList.xaml.cs">
       <DependentUpon>VendorsList.xaml</DependentUpon>
     </Compile>
     <Compile Include="BaseControls\WriteCheque.xaml.cs">
       <DependentUpon>WriteCheque.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Class\Account.cs" />
     <Compile Include="CredentialHolder.cs" />
     <Compile Include="Enums\PageId.cs" />
     <Compile Include="Model\IUserRepository.cs" />
@@ -165,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BaseControls\Purchase Order.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BaseControls\ReportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -370,9 +405,6 @@
     <PackageReference Include="System.Reactive">
       <Version>6.0.0</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Class\QuickBookData.vb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -23,9 +23,9 @@
         <StackPanel Margin="15">
             <hw:PlainImage hw:Icon.Default="{StaticResource avatar}" Height="30" Width="30" HorizontalAlignment="Center" VerticalAlignment="Top" hw:Icon.DefaultColor="{StaticResource color11}" hw:Hover.IsEnabled="False"/>
             <TextBlock Text="UserName" FontSize="15" Foreground="White" FontWeight="Medium" VerticalAlignment="Center"/>
-            <hw:PlainTextBox x:Name="ptboxMain" WaterMark="Email Id or Username" CornerRadius="5" Grid.Column="1" Margin="5" Height="30"/>
+            <hw:PlainTextBox x:Name="ptboxEmail" WaterMark="Email Id or Username" CornerRadius="5" Grid.Column="1" Margin="5" Height="30"/>
             <TextBlock Text="Password" FontSize="15" Foreground="White" FontWeight="Medium" VerticalAlignment="Center" Margin="0 10 0 0"/>
-            <hw:PlainPasswordBox x:Name="pboxMain" WaterMark="Enter password" CornerRadius="5" Grid.Column="1" Margin="5" Height="30"/>
+            <hw:PlainPasswordBox x:Name="ptboxPass" WaterMark="Enter password" CornerRadius="5" Grid.Column="1" Margin="5" Height="30"/>
             <TextBlock Text="Choose Company" FontSize="15" Foreground="White" FontWeight="Medium" VerticalAlignment="Center" Margin="0 10 0 0"/>
             <ComboBox x:Name="cmpyCmbx" Height="30" Width="230" ItemsSource="{Binding }" Style="{StaticResource RoundComboBox}" IsReadOnly="True" HorizontalAlignment="Center" SelectedValue="Company1"  Margin="0 10 0 0">
                 <ComboBox.ItemTemplate>
@@ -40,7 +40,7 @@
             </Grid>
             <StackPanel Margin="5 10" Orientation="Horizontal" HorizontalAlignment="Right">
                 <hw:PlainButton CornerRadius="5" Content="Sign UP" Width="90" Background="{StaticResource color11}" Foreground="{StaticResource color1}" Margin="5 0" CommandParameter="{Binding Source={x:Static enums:ViewEnums.SignUpPage}}" Command="{Binding CmdChangeView}" />
-                <hw:PlainButton CornerRadius="5" Content="Sign In" Width="90" Background="{StaticResource color11}" Foreground="{StaticResource color1}" CommandParameter="{Binding ElementName=pboxMain}" Command="{Binding CmdSignIn}"/>
+                <hw:PlainButton x:Name="pbtnSignin" CornerRadius="5" Content="Sign In" Width="90" Background="{StaticResource color11}" Foreground="{StaticResource color1}" CommandParameter="{Binding ElementName=pboxMain}" Command="{Binding CmdSignIn}" Click="pbtnSignin_Click"/>
             </StackPanel>
         </StackPanel>
 
