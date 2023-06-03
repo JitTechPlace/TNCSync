@@ -12,8 +12,8 @@
         <TextBlock Text="DataBaseConfiguration" VerticalAlignment="Top" Margin="5" FontSize="15" Foreground="{StaticResource color1}"/>
         <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" >
-                <TextBlock Text="Service Type" FontSize="15" Margin="0 0 100 0" />
-                <TextBlock Text="Database Engine" FontSize="15"  />
+                <TextBlock Text="Service Type" FontSize="15" Margin="0 0 140 0" />
+                <TextBlock Text="Database Engine" FontSize="15" Margin="0 0 20 0" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Grid>
@@ -43,7 +43,7 @@
                     </ComboBox>
                     <!--<hw:PlainTextBox x:Name="ptxtdb" WaterMark="Database Name"  Height="25" CornerRadius="5" Margin="10" />-->
                     <hw:PlainTextBox x:Name="ptxtusername" WaterMark="Username Name" Foreground="Black" CaretBrush="LightGray" BorderBrush="DarkGray"
-                     BorderThickness="0 0 0 3"  Height="25" CornerRadius="2" Margin="10"/>
+                     BorderThickness="0 0 0 3"  Height="25" CornerRadius="1" Margin="10"/>
                     <PasswordBox x:Name="ptxtpassword" FontSize="12" FontWeight="Medium" FontFamily="Montserrat" Foreground="Black"  CaretBrush="LightGray"  BorderBrush="DarkGray" BorderThickness="0 0 0 3"  Height="25" Margin="10"/>
                     <!--<hw:PlainPasswordBox x:Name="ptxtpassword" WaterMark="Password Name" Foreground="Black" CaretBrush="LightGray" BorderBrush="DarkGray"
                      BorderThickness="0 0 0 3"  Height="25" CornerRadius="5" Margin="10"/>-->

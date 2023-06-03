@@ -83,6 +83,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -106,6 +107,12 @@
     <Compile Include="AuthenticationWindow.xaml.cs">
       <DependentUpon>AuthenticationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BaseControls\AddCompany.xaml.cs">
+      <DependentUpon>AddCompany.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BaseControls\AddUser.xaml.cs">
+      <DependentUpon>AddUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BaseControls\BillPayments.xaml.cs">
       <DependentUpon>BillPayments.xaml</DependentUpon>
     </Compile>
@@ -114,6 +121,9 @@
     </Compile>
     <Compile Include="BaseControls\ChequeDesignerOptions.xaml.cs">
       <DependentUpon>ChequeDesignerOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BaseControls\CompanyList.xaml.cs">
+      <DependentUpon>CompanyList.xaml</DependentUpon>
     </Compile>
     <Compile Include="BaseControls\CustomCalender.xaml.cs">
       <DependentUpon>CustomCalender.xaml</DependentUpon>
@@ -130,6 +140,9 @@
     <Compile Include="BaseControls\JournalVoucher.xaml.cs">
       <DependentUpon>JournalVoucher.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BaseControls\ManageTemplates.xaml.cs">
+      <DependentUpon>ManageTemplates.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BaseControls\OtherNameList.xaml.cs">
       <DependentUpon>OtherNameList.xaml</DependentUpon>
     </Compile>
@@ -138,6 +151,9 @@
     </Compile>
     <Compile Include="BaseControls\ReportView.xaml.cs">
       <DependentUpon>ReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BaseControls\UserList.xaml.cs">
+      <DependentUpon>UserList.xaml</DependentUpon>
     </Compile>
     <Compile Include="BaseControls\VendorsList.xaml.cs">
       <DependentUpon>VendorsList.xaml</DependentUpon>
@@ -153,6 +169,21 @@
     <Compile Include="Class\Info\VendorListInfo.cs" />
     <Compile Include="Class\SP\UserSP.cs" />
     <Compile Include="Class\SP\VendorListSP.cs" />
+    <Compile Include="CMSModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CMSModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMSModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMSModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CMSModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\LoginHelperPage.xaml.cs">
       <DependentUpon>LoginHelperPage.xaml</DependentUpon>
     </Compile>
@@ -190,6 +221,9 @@
     <Compile Include="Sessions\SessionManager.cs" />
     <Compile Include="BaseControls\BindablePasswordBox.xaml.cs">
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="tblVendor.cs">
+      <DependentUpon>CMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AuthenticationViewModel.cs" />
     <Compile Include="ViewModel\COAViewModel.cs" />
@@ -236,6 +270,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="BaseControls\AddCompany.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BaseControls\AddUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BaseControls\BillPayments.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -245,6 +287,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BaseControls\ChequeDesignerOptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BaseControls\CompanyList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -268,6 +314,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="BaseControls\ManageTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BaseControls\OtherNameList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -277,6 +327,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BaseControls\ReportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BaseControls\UserList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -401,6 +455,13 @@
     <Resource Include="AppResources\Fonts\Arimo-SemiBoldItalic.ttf" />
     <Resource Include="AppResources\Fonts\Radley-Italic.ttf" />
     <Resource Include="AppResources\Fonts\Radley-Regular.ttf" />
+    <EntityDeploy Include="CMSModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CMSModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="CMSModel.edmx.diagram">
+      <DependentUpon>CMSModel.edmx</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -476,6 +537,9 @@
     <PackageReference Include="CommunityToolkit.Mvvm">
       <Version>8.2.0</Version>
     </PackageReference>
+    <PackageReference Include="EntityFramework">
+      <Version>6.2.0</Version>
+    </PackageReference>
     <PackageReference Include="FontAwesome.Sharp">
       <Version>6.3.0</Version>
     </PackageReference>
@@ -494,6 +558,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Class\QuickBookData.vb" />
+    <Content Include="CMSModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CMSModel.edmx</DependentUpon>
+      <LastGenOutput>CMSModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="CMSModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CMSModel.edmx</DependentUpon>
+      <LastGenOutput>CMSModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

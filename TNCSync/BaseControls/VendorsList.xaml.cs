@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TNCSync.Class.SP;
+using TNCSync.ViewModel;
 ////using TNCSync.Class.QuickBookData;
 ///
 namespace TNCSync.BaseControls
@@ -25,11 +26,33 @@ namespace TNCSync.BaseControls
         public VendorsList()
         {
             InitializeComponent();
+            List<Vendor> vendors = new List<Vendor>();
+            vendors.Add(new Vendor()
+            {
+                Name = "Jitendhra",
+                CompanyName = "TNC",
+                Address = "Dubai",
+                Phone = 0551533823,
+                Email = "jitendhra@tnc-me.com",
+                Contact = "Admin"
+            });
+            vendors.Add(new Vendor()
+            {
+                Name = "Vaibhav",
+                CompanyName = "TNC",
+                Address = "Dubai",
+                Phone = 0551533823,
+                Email = "Vaibhav@tnc-me.com",
+                Contact = "Admin"
+            });
+            grdVendorLst.ItemsSource = vendors;
         }
 
         private void syncVendorList_Click(object sender, RoutedEventArgs e)
         {
-            populateDatagrid();
+            //grdVendorLst.ItemsSource = Vendor();
+            //grdVendorLst.AutoGenerateColumns = false;
+            //populateDatagrid();
             // VendorsList =
 
             //// string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
@@ -52,8 +75,41 @@ namespace TNCSync.BaseControls
 
         private void populateDatagrid()
         {
-            UserSP spUser = new UserSP();
-            grdVendorLst.DataContext = spUser.UserViewOnGridView();
+           
         }
+        public class Vendor
+        {
+            public string Name { get; set; }
+            public string CompanyName { get; set; }
+            public string Address { get; set; }
+            public int Phone { get; set; }
+            public string Email { get; set; }
+            public string Contact { get; set; }
+
+        }
+
+        //private List<Vendor> LoadCollectionData()
+        //{
+        //    List<Vendor> vendors = new List<Vendor>();
+        //    vendors.Add(new Vendor()
+        //    {
+        //        Name = "Jitendhra",
+        //        CompanyName = "TNC",
+        //        Address = "Dubai",
+        //        Phone = 0551533823,
+        //        Email = "jitendhra@tnc-me.com",
+        //        Contact = "Admin"
+        //    });
+        //    vendors.Add(new Vendor()
+        //    {
+        //        Name = "Vaibhav",
+        //        CompanyName = "TNC",
+        //        Address = "Dubai",
+        //        Phone = 0551533823,
+        //        Email = "Vaibhav@tnc-me.com",
+        //        Contact = "Admin"
+        //    });
+        //    return vendors;
+        //}
     }
 }
