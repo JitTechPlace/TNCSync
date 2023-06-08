@@ -20,6 +20,7 @@ using Haley.Abstractions;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
+using Haley.MVVM;
 
 namespace TNCSync.BaseControls
 {
@@ -31,7 +32,8 @@ namespace TNCSync.BaseControls
         public CustomerList()
         {
             InitializeComponent();
-        }
+			ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
+		}
 
         //QBConnect qbConnect = new QBConnect();
         SessionManager sessionManager;
@@ -346,18 +348,18 @@ namespace TNCSync.BaseControls
 					}
 				} // End of customerRet
 
-				MessageBox.Show(popupMessage.ToString(), "QuickBooks response");
-				//ds.SendToast(popupMessage.ToString(), "QuickBooks response",Haley.Enums.NotificationIcon.Success);
+				//MessageBox.Show(popupMessage.ToString(), "QuickBooks response");
+				ds.SendToast(popupMessage.ToString(), "QuickBooks response",Haley.Enums.NotificationIcon.Success);
 			} //End of customerAddRs
 		}
 
 		private void Searchcust_Click(object sender, RoutedEventArgs e)
 		{
-			string request = "CustomerQueryRq";
-			int count = getCount(request);
-			IMsgSetResponse responseMsgSet = processRequestFromQB(buildCustomerQueryRq(new string[] { "FullName" }, null));
-			string[] customerList = parseCustomerQueryRs(responseMsgSet, count);
-			disconnectFromQB();
+			//string request = "CustomerQueryRq";
+			//int count = getCount(request);
+			//IMsgSetResponse responseMsgSet = processRequestFromQB(buildCustomerQueryRq(new string[] { "FullName" }, null));
+			//string[] customerList = parseCustomerQueryRs(responseMsgSet, count);
+			//disconnectFromQB();
 			//Custgrid(this.data)
 
 			////Step-1 Verify that name is not empty
