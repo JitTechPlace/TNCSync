@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:hw="http://schemas.hpod9.com/haley/wpf"
              xmlns:hm="http://schemas.hpod9.com/haley/mvvm"
+             xmlns:beha="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:bc="clr-namespace:TNCSync.BaseControls"
              xmlns:local="clr-namespace:TNCSync.View"
              mc:Ignorable="d" 
@@ -24,7 +25,12 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Border CornerRadius="10" Background="{StaticResource def_background_tertiary}">
-        <TabControl Background="{StaticResource def_background_tertiary}" Margin="5">
+        <TabControl x:Name="mngtabctrl" Background="{StaticResource def_background_tertiary}" Margin="5" DataContext="{Binding}">
+            <!--<beha:Interaction.Triggers>
+                <beha:EventTrigger EventName="SelectionChanged">
+                    <hm:EventToCommand CommandParameter="{Binding ElementName=mngtabctrl,Path=SelectedItem.Tag}" Command="{Binding ElementName=mngtabctrl,Path=DataContext.CMDTabChanged}"/>
+                </beha:EventTrigger>
+            </beha:Interaction.Triggers>-->
             <TabItem Header="DBConfig" BorderBrush="Transparent" >
                 <bc:DatabaseConfiguration/>
             </TabItem>

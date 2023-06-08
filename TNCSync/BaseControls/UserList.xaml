@@ -3,9 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:hw="http://schemas.hpod9.com/haley/wpf"
+             xmlns:hm="http://schemas.hpod9.com/haley/mvvm"
              xmlns:local="clr-namespace:TNCSync.BaseControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="DGSelectedRowStyle" TargetType="{x:Type DataGridRow}">
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="Salmon"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="DGColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
+                <Setter Property="Background" Value="DarkSlateBlue"/>
+                <Setter Property="Foreground" Value="white"/>
+                <Setter Property="BorderBrush" Value="white"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="MinHeight" Value="30"/>
+                <Setter Property="MinHeight" Value="40"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="13"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
@@ -18,7 +43,24 @@
             <TextBox x:Name="txtlognnamesrch" FontSize="12" FontWeight="Medium" FontFamily="Montserrat" Foreground="Black"  CaretBrush="LightGray"  BorderBrush="DarkGray" BorderThickness="0 0 0 3"  Height="25" Width="200" Margin="10"/>
             <Button Content="Search" x:Name="srchCmyList"  Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="100"  />
         </StackPanel>
-        <DataGrid x:Name="grdUsersLst" Grid.Row="1" Margin="5"/>
+        <!--Datagrid's selecteditems cannot be bounded directly. so we need to pass as parameter.-->
+        <DataGrid x:Name="grdUsersLst" Grid.Row="1" Margin="5" Background="{x:Null}"  CanUserResizeRows="False" CanUserAddRows="False" IsReadOnly="True" AlternatingRowBackground="Gainsboro" GridLinesVisibility="Vertical" VerticalGridLinesBrush="Gray" CanUserDeleteRows="False" EnableRowVirtualization="True" BorderThickness="0" CanUserReorderColumns="False">
+            <DataGrid.Resources>
+                <!--Default datagrid has a resource with key HighlightBrushKey. we will over write that key here with a color. so that our color will be used instead of default one-->
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="IndianRed"/>
+                <!--Same concept as above. but we are not over writing any key but overwriting the style of datagridcolumn header itself-->
+                <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource DGColumnHeaderStyle}"/>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <hw:ImageButton Height="25" Width="25" hw:Icon.Default="{StaticResource pen}" CommandParameter="{Binding}" Command="{Binding ElementName=grdUsersLst,Path=DataContext.CMDEditCurrent}" Padding="3"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button Content="Sync All" x:Name="syncusrList"  Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120" Click="syncusrList_Click" />
             <Button Content="Clear" Style="{StaticResource SPStyleButton}" Height="30" Width="120" Margin="5"/>
