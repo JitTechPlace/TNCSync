@@ -61,8 +61,8 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Image Source="pack://application:,,,/TNCSync;component/AppResources/Images/TNC_Logo.ico" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <TextBlock Text="© TransNational Computer LLC" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="10" Foreground="{StaticResource color1}" FontFamily="{StaticResource iFontMontSerratMedium}"/>
-                <TextBlock Text="| Ver 1.0[PILOT]" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="10" Foreground="{StaticResource color1}"  FontFamily="{StaticResource iFontMontSerratMedium}"/>
+                <TextBlock Text="© TransNational Computer LLC" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="10" Foreground="{StaticResource color1}" Margin="5" FontFamily="{StaticResource iFontMontSerratSemiBold}"/>
+                <TextBlock Text="| Ver 1.0[PILOT]" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="10" Foreground="{StaticResource color1}" Margin="5" FontFamily="{StaticResource iFontMontSerratSemiBold}"/>
             </Grid>
         </Grid>
     </Grid>

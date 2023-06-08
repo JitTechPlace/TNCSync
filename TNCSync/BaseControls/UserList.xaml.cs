@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +26,25 @@ namespace TNCSync.BaseControls
         public UserList()
         {
             InitializeComponent();
+        }
+
+        private void syncusrList_Click(object sender, RoutedEventArgs e)
+        {
+            populateDatagrid();
+        }
+
+        private void populateDatagrid()
+        {
+            string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
+            SqlConnection sqlconn = new SqlConnection(conn);
+            //string sqlquery = "SELECT * FROM tblVendor";
+            SqlCommand cmd = new SqlCommand("SELECT * FROM UserLogin", sqlconn);
+            sqlconn.Open();
+            SqlDataAdapter sdr = new SqlDataAdapter(cmd);
+            DataTable table = new DataTable();
+            sdr.Fill(table);
+            grdUsersLst.ItemsSource = table.DefaultView;
+            sqlconn.Close();
         }
     }
 }

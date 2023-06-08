@@ -5,6 +5,5 @@ namespace TNCSync.ViewModel
 {
     public class VendorViewModel : ViewModelBase
     {
-        CMSEntities vendorDbContext;
     }
 }

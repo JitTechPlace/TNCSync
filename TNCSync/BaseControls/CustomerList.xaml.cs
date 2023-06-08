@@ -17,6 +17,9 @@ using TNCSync.Sessions;
 using Interop.QBFC15;
 using Interop.QBXMLRP2;
 using Haley.Abstractions;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace TNCSync.BaseControls
 {
@@ -456,6 +459,25 @@ namespace TNCSync.BaseControls
 
 				MessageBox.Show(popupMessage.ToString(), "QuickBooks response");
 			} //End of customerAddRs
+		}
+
+        private void btnShowall_Click(object sender, RoutedEventArgs e)
+        {
+			populateDatagrid();
+        }
+
+		private void populateDatagrid()
+		{
+			string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
+			SqlConnection sqlconn = new SqlConnection(conn);
+			//string sqlquery = "SELECT * FROM tblVendor";
+			SqlCommand cmd = new SqlCommand("SELECT * FROM tblCustomer", sqlconn);
+			sqlconn.Open();
+			SqlDataAdapter sdr = new SqlDataAdapter(cmd);
+			DataTable table = new DataTable();
+			sdr.Fill(table);
+			Custgrid.ItemsSource = table.DefaultView;
+			sqlconn.Close();
 		}
 	}
 }

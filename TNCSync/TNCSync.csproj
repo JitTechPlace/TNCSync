@@ -169,21 +169,6 @@
     <Compile Include="Class\Info\VendorListInfo.cs" />
     <Compile Include="Class\SP\UserSP.cs" />
     <Compile Include="Class\SP\VendorListSP.cs" />
-    <Compile Include="CMSModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CMSModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CMSModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CMSModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CMSModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Controls\LoginHelperPage.xaml.cs">
       <DependentUpon>LoginHelperPage.xaml</DependentUpon>
     </Compile>
@@ -222,14 +207,12 @@
     <Compile Include="BaseControls\BindablePasswordBox.xaml.cs">
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="tblVendor.cs">
-      <DependentUpon>CMSModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\AuthenticationViewModel.cs" />
     <Compile Include="ViewModel\COAViewModel.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\JournalVoucherViewModel.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\VendorViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
@@ -455,13 +438,6 @@
     <Resource Include="AppResources\Fonts\Arimo-SemiBoldItalic.ttf" />
     <Resource Include="AppResources\Fonts\Radley-Italic.ttf" />
     <Resource Include="AppResources\Fonts\Radley-Regular.ttf" />
-    <EntityDeploy Include="CMSModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CMSModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="CMSModel.edmx.diagram">
-      <DependentUpon>CMSModel.edmx</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -555,19 +531,6 @@
     <PackageReference Include="System.Reactive">
       <Version>6.0.0</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Class\QuickBookData.vb" />
-    <Content Include="CMSModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CMSModel.edmx</DependentUpon>
-      <LastGenOutput>CMSModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="CMSModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CMSModel.edmx</DependentUpon>
-      <LastGenOutput>CMSModel.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

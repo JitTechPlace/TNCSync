@@ -18,9 +18,9 @@
             <TextBox x:Name="txtlognnamesrch" FontSize="12" FontWeight="Medium" FontFamily="Montserrat" Foreground="Black"  CaretBrush="LightGray"  BorderBrush="DarkGray" BorderThickness="0 0 0 3"  Height="25" Width="200" Margin="10"/>
             <Button Content="Search" x:Name="srchCmyList"  Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="100"  />
         </StackPanel>
-        <DataGrid x:Name="grdVendorLst" Grid.Row="1" Margin="5"/>
+        <DataGrid x:Name="grdUsersLst" Grid.Row="1" Margin="5"/>
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button Content="Sync All" x:Name="syncothernameList"  Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120" />
+            <Button Content="Sync All" x:Name="syncusrList"  Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120" Click="syncusrList_Click" />
             <Button Content="Clear" Style="{StaticResource SPStyleButton}" Height="30" Width="120" Margin="5"/>
         </StackPanel>
     </Grid>

@@ -27,7 +27,7 @@
                 <TextBlock Text="To Date:" FontSize="13" FontFamily="{StaticResource iFontMontSerratReg}"/>
                 <DatePicker/>
                 <Button Content="Sync" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="20" Width="100" Margin="5 0"/>
-                <Button Content="SyncAll" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="20" Width="100" />
+                <Button x:Name="btnsycall" Content="SyncAll" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="20" Width="100" Click="btnsycall_Click" />
             </StackPanel>
             <StackPanel Grid.Row="1" Orientation="Horizontal" >
                 <TextBlock Text="Payee Name:" FontSize="13" FontFamily="{StaticResource iFontMontSerratReg}"/>
@@ -41,7 +41,8 @@
                 <hw:PlainCheckBox Content="With Out Date" Foreground="Black"/>
             </StackPanel>
         </Grid>
-        <DataGrid Name="ChequeDetails" Grid.Row="1" Margin="5"/>
+        <DataGrid x:Name="grdBillPytDtl" Grid.Row="1" Margin="5" GridLinesVisibility="Vertical" HeadersVisibility="All" HorizontalScrollBarVisibility="Visible"  
+           VerticalScrollBarVisibility="Visible" SelectionMode="Extended"/>
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
             <ComboBox Grid.Column="1" Style="{StaticResource RoundComboBox}" Margin="5" Height="25" Width="200" ToolTip="SelectReport" />
             <Button Content="Print" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120"/>

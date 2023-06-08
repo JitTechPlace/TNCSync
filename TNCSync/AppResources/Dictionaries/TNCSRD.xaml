@@ -315,17 +315,18 @@
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="White"/>
     </Style>
 
     <Style TargetType="DataGrid">
-        <Setter Property="VerticalGridLinesBrush" Value="#4b6584"/>
-        <Setter Property="HorizontalGridLinesBrush" Value="#4b6584"/>
-        <Setter Property="AlternatingRowBackground" Value="#ff2c3e50"/>
-        <Setter Property="RowBackground" Value="#34495e"/>
+        <Setter Property="VerticalGridLinesBrush" Value="{StaticResource color11}"/>
+        <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource def_background_secondary}"/>
+        <Setter Property="AlternatingRowBackground" Value="{StaticResource def_background_secondary}"/>
+        <Setter Property="RowBackground" Value="{StaticResource def_background_tertiary}"/>
         <Setter Property="RowHeight" Value="25"/>
         <Setter Property="RowHeaderWidth" Value="0"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Foreground" Value="{StaticResource color1}"/>
         <Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
     </Style>
     <!--#endregion-->

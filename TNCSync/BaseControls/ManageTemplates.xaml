@@ -13,10 +13,10 @@
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Manage Templates:" FontSize="13" TextDecorations="Underline" FontFamily="{StaticResource iFontMontSerratReg}"/>
-        <DataGrid x:Name="grdVendorLst" Grid.Row="1" Margin="5" GridLinesVisibility="Vertical" HeadersVisibility="All" HorizontalScrollBarVisibility="Visible"  
+        <DataGrid x:Name="grdtmpltLst" Grid.Row="1" Margin="5" GridLinesVisibility="Vertical" HeadersVisibility="All" HorizontalScrollBarVisibility="Visible"  
            VerticalScrollBarVisibility="Visible" SelectionMode="Extended"/>
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button Content="Sync All" x:Name="syncVendorList"  Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120" />
+            <Button Content="Sync All" x:Name="synctmpltList"  Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120" Click="synctmpltList_Click" />
             <Button Content="Clear" Style="{StaticResource SPStyleButton}" Height="30" Width="120" Margin="5"/>
         </StackPanel>
     </Grid>

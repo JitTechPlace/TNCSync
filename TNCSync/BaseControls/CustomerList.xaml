@@ -59,11 +59,12 @@
                         </Button>
                     </Grid>
                     <Border Grid.Row="2" CornerRadius="5" >
-                        <DataGrid x:Name="Custgrid" />
+                        <DataGrid x:Name="Custgrid" Margin="5" GridLinesVisibility="Vertical" HeadersVisibility="All" HorizontalScrollBarVisibility="Visible"  
+           VerticalScrollBarVisibility="Visible" SelectionMode="Extended" />
                     </Border>
                     <Grid Grid.Row="3" >
                         <Button x:Name="Addbtn" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Content="AddNew" Height="30" Width="120" Margin="0 0 250 0"/>
-                        <Button Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Content="ShowAll" Height="30" Width="120"/>
+                        <Button x:Name="btnShowall" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Content="ShowAll" Height="30" Width="120" Click="btnShowall_Click"/>
                         <Button Style="{StaticResource SPStyleButton}" Content="Clear" Height="30" Width="120" Margin="250 0 0 0"/>
                     </Grid>
 

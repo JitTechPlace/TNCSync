@@ -36,6 +36,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>-->
             </ComboBox>
+            <TextBlock Text="{Binding ErrorMessage}" Foreground="#D7596D" FontSize="15" FontWeight="Medium" FontFamily="Comfortaa" Margin="0 10 0 0" TextWrapping="Wrap"/>
             <Grid >
                 <hw:PlainCheckBox HorizontalAlignment="Left" Background="{StaticResource color1}" TickColor="White" Content="Remember Me" Foreground="White" FontSize="11" FontStyle="Italic"/>
                 <hw:LinkedText HorizontalAlignment="Right" Text="Forget Password" Foreground="Wheat" FontSize="11" Margin="5"  CommandParameter="{Binding Source={x:Static enums:ViewEnums.HelperPage}}" Command="{Binding CmdChangeView}"/>

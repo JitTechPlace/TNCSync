@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +26,22 @@ namespace TNCSync.View
         public Dashboard()
         {
             InitializeComponent();
+        }
+
+        private void PopulateDataGrid()
+        {
+            string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
+            SqlConnection sqlconn = new SqlConnection(conn);
+            //string sqlquery = "SELECT * FROM tblVendor";
+            SqlCommand cmd = new SqlCommand("SELECT count(ID) FROM UserLogin", sqlconn);
+            sqlconn.Open();
+            SqlDataAdapter sdr = new SqlDataAdapter(cmd);
+            DataTable table = new DataTable();
+            sdr.Fill(table);
+            DataContext = table;
+            sqlconn.Close();
+
+
         }
     }
 }
