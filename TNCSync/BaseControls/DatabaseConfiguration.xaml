@@ -36,7 +36,7 @@
                     <TextBlock Text="DataBase:" FontSize="15"  Margin="15"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Grid.Row="1" Margin="5 15 10 0">
-                    <ComboBox x:Name="cbxserver" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                    <ComboBox x:Name="cbxserver" Style="{StaticResource RoundComboBox}" IsEditable="True" Height="25" Width="200"  Margin="10" />
                     <ComboBox x:Name="cbxAuth" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10"  SelectionChanged="cbxAuth_SelectionChanged">
                         <ComboBoxItem>Windows Authentication</ComboBoxItem>
                         <ComboBoxItem>SQL Server Authentication</ComboBoxItem>
@@ -48,7 +48,7 @@
                     <!--<hw:PlainPasswordBox x:Name="ptxtpassword" WaterMark="Password Name" Foreground="Black" CaretBrush="LightGray" BorderBrush="DarkGray"
                      BorderThickness="0 0 0 3"  Height="25" CornerRadius="5" Margin="10"/>-->
                     <!--Later need to check with this password box to bind the date while server connection-->
-                    <ComboBox x:Name="cbxdb" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" DropDownOpened="cmbDatabae_DropDownOpened"/>
+                    <ComboBox x:Name="cbxdb" Style="{StaticResource RoundComboBox}" IsEditable="True" Height="25" Width="200"  Margin="10" DropDownOpened="cmbDatabae_DropDownOpened"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20 0 0 0">

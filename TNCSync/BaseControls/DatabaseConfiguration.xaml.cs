@@ -17,6 +17,8 @@ using Haley.Abstractions;
 using Haley.Enums;
 using System.Data.SqlClient;
 using System.Data;
+using Haley.MVVM;
+using Microsoft.Win32;
 
 namespace TNCSync.BaseControls
 {
@@ -25,7 +27,7 @@ namespace TNCSync.BaseControls
     /// </summary>
     public partial class DatabaseConfiguration : UserControl
     {
-
+        public RegistryKey regkey;
         SqlConnection con = new SqlConnection();
         SqlCommand com = new SqlCommand();
         SqlDataReader dr;
@@ -33,7 +35,7 @@ namespace TNCSync.BaseControls
         public DatabaseConfiguration()
         {
             InitializeComponent();
-
+            _ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
             //Add server Name to combobox
             cbxserver.SelectedItem = string.Concat(Environment.MachineName, @"\SQLEXPRESS");
             cbxserver.Items.Add(".");
@@ -42,7 +44,7 @@ namespace TNCSync.BaseControls
             cbxserver.Items.Add(string.Format(@"{0}\SQLEXPRESS", Environment.MachineName));
             cbxserver.SelectedIndex = 3;
         }
-        private IDialogService ds;
+        private IDialogService _ds;
 
         private void btnConnect_Click(object sender, RoutedEventArgs e)
         {
@@ -52,16 +54,14 @@ namespace TNCSync.BaseControls
                 RepositoryBase rb = new RepositoryBase(_connectionString);
                 if (rb.IsConnected)
                 {
-                    MessageBox.Show("Test Connection Done", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
-                    //ds.Success("Test Connection Succeed", "Application Now connected to Current Company File ");
-                    //ds.SendToast("Test Connection Succeed", "", NotificationIcon.Success);
+                    //MessageBox.Show("Test Connection Done", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _ds.Success("Test Connection Succeed", "Application Now connected to Current Company File ");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Test Connection Failed", "Message", MessageBoxButton.OK, MessageBoxImage.Error);
-                // ds.Success("Test Connection Failed", "Application not able to connect with Current Company File ");
-                //ds.SendToast("Test Connection Failed", "Please try again", NotificationIcon.Error);
+                //MessageBox.Show("Test Connection Failed", "Message", MessageBoxButton.OK, MessageBoxImage.Error);
+                _ds.Warning("Test Connection Failed", "Application not able to connect with Current Company File ");
             }
         }
 
@@ -76,14 +76,14 @@ namespace TNCSync.BaseControls
                 {
                     AppSetting setting = new AppSetting();
                     setting.SaveConnectionString("TNCSync_Connection", _connectionString);
-                    MessageBox.Show("Test Connection Done", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
+                   // MessageBox.Show("Test Connection Done", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _ds.Success("Connection Saved","Now you can access QB Data");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Test Connection Failed", "Message", MessageBoxButton.OK, MessageBoxImage.Error);
-                // ds.Success("Test Connection Failed", "Application not able to connect with Current Company File ");
-                //ds.SendToast("Test Connection Failed", "Please try again", NotificationIcon.Error);
+                //MessageBox.Show("Test Connection Failed", "Message", MessageBoxButton.OK, MessageBoxImage.Error);
+                _ds.Warning("Unable to save the Connection", "Please check the connection details");
             }
         }
 
@@ -114,7 +114,8 @@ namespace TNCSync.BaseControls
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "OOPSSss!", MessageBoxButton.OK, MessageBoxImage.Error);
+               // MessageBox.Show(ex.Message, "OOPSSss!", MessageBoxButton.OK, MessageBoxImage.Error);
+                _ds.Error("Unable to Fetch Database", "Please check your Windows or Sql Authentication Details");
             }
         }
 
@@ -125,7 +126,7 @@ namespace TNCSync.BaseControls
                 ptxtusername.IsEnabled = false;
                 ptxtpassword.IsEnabled = false;
             }
-            else if ((cbxAuth.SelectedItem.ToString().Contains("SQL Server Authentication")))
+            else if (cbxAuth.SelectedItem.ToString().Contains("SQL Server Authentication"))
             {
                 ptxtusername.IsEnabled = true;
                 ptxtpassword.IsEnabled = true;

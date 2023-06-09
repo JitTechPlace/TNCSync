@@ -37,8 +37,8 @@
                 <TextBlock Text="Choose Company" FontSize="15" Foreground="White" FontWeight="Medium" />
                 <TextBlock Text="*" FontSize="14" Foreground="IndianRed"/>
             </WrapPanel>
-            <ComboBox x:Name="cmpyCmbx" Height="30" Width="230" ItemsSource="{Binding }" Style="{StaticResource RoundComboBox}" IsReadOnly="True" HorizontalAlignment="Center" SelectedValue="Company1"  Margin="0 10 0 0"/>
-            <TextBlock Text="{Binding ErrorMessage}" Foreground="#D7596D" FontSize="15" FontWeight="Medium" FontFamily="Comfortaa" Margin="0 10 0 0" TextWrapping="Wrap"/>
+            <ComboBox x:Name="cmpyCmbx" Height="30" Width="230" ItemsSource="{Binding}" Style="{StaticResource RoundComboBox}" IsReadOnly="True" HorizontalAlignment="Center"   Margin="0 10 0 0"/>
+            <TextBlock Text="{Binding ErrorMessage}" Foreground="#D7596D" FontSize="10" FontWeight="Medium" FontFamily="Comfortaa" Margin="0 10 0 0" TextWrapping="Wrap"/>
             <Grid >
                 <hw:PlainCheckBox HorizontalAlignment="Left" Background="{StaticResource color1}" TickColor="White" Content="Remember Me" Foreground="White" FontSize="11" FontStyle="Italic"/>
                 <hw:LinkedText HorizontalAlignment="Right" Text="Forget Password" Foreground="Wheat" FontSize="11" Margin="5"  CommandParameter="{Binding Source={x:Static enums:ViewEnums.HelperPage}}" Command="{Binding CmdChangeView}"/>
