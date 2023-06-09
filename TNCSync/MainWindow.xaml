@@ -194,7 +194,7 @@
                                     <ImageBrush/>
                                 </Ellipse.Fill>
                             </Ellipse>
-                            <Button Style="{StaticResource iconButton}" Tag="{StaticResource color3}">
+                            <Button x:Name="dispcalander" Style="{StaticResource iconButton}" Tag="{StaticResource color3}" >
                                 <fa:IconImage Icon="CalendarWeek" Style="{StaticResource iconButtonIcon}"/>
                             </Button>
                             <Button Style="{StaticResource iconButton}" Tag="{StaticResource color3}">

@@ -18,7 +18,7 @@
                 </Style.Triggers>
             </Style>
             <Style x:Key="DGColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
-                <Setter Property="Background" Value="DarkSlateBlue"/>
+                <Setter Property="Background" Value="#ff2c3e50"/>
                 <Setter Property="Foreground" Value="white"/>
                 <Setter Property="BorderBrush" Value="white"/>
                 <Setter Property="BorderThickness" Value="1"/>

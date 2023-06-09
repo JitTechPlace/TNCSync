@@ -35,7 +35,7 @@ namespace TNCSync
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             var _actualmainwindow = new MainWindow();  //Remember to dispose at the end.
-            int maxtries = 3;
+            int maxtries = 0;
             int trycount = 0;
             while (!CredentialHolder.Singleton.IsAuthenticated)
             {
