@@ -40,7 +40,7 @@ namespace TNCSync
             while (!CredentialHolder.Singleton.IsAuthenticated)
             {
                 var _result = ContainerStore.Singleton.Windows.ShowDialog("authmainWindow");
-                if(_result.HasValue && _result.Value)
+                if (_result.HasValue && _result.Value)
                 {
                     CredentialHolder.Singleton.IsAuthenticated = true;
                     break;
@@ -56,8 +56,8 @@ namespace TNCSync
             }
             else
             {
-                _ds?.Error("Login Failure","Unable to authenticate the user. Application will close now");
-                if(Application.Current.MainWindow != null)
+                _ds?.Error("Login Failure", "Unable to authenticate the user. Application will close now");
+                if (Application.Current.MainWindow != null)
                 {
                     Application.Current.MainWindow.Close();
                 }

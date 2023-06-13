@@ -120,23 +120,10 @@ namespace TNCSync.Controls
             {
                 mw.Show();
             }
-            if (!(userName == "Superadmin" & password == "Version01") || cmpyCmbx.Visibility == Visibility.Visible)
-            {
-                 FillCombobox();
-                //string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
-                //SqlConnection sqlconn = new SqlConnection(conn);
-                //sqlconn.Open();
-                //SqlCommand cmd = new SqlCommand("SELECT * FROM tblCompany", sqlconn);
-                //SqlDataAdapter sdr = new SqlDataAdapter(cmd);
-                //DataTable table = new DataTable();
-                //sdr.Fill(table);
-                //cmpyCmbx.ItemsSource = table.DefaultView;
-                //cmpyCmbx.DisplayMemberPath = "CompanyName";
-                //cmpyCmbx.SelectedIndex = -1;
-            }
             else
             {
                 cmpyCmbx.Visibility = Visibility.Visible;
+                FillCombobox();
                 if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(companyName))
                 {
                     _ds.SendToast("Authentication Error", "Please Fill All the Credential details to Login", NotificationIcon.Error);
