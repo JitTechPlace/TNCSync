@@ -27,7 +27,7 @@ namespace TNCSync.BaseControls
     /// </summary>
     public partial class DatabaseConfiguration : UserControl
     {
-        public RegistryKey regkey;
+       // public RegistryKey regkey;
         SqlConnection con = new SqlConnection();
         SqlCommand com = new SqlCommand();
         SqlDataReader dr;
@@ -94,7 +94,7 @@ namespace TNCSync.BaseControls
             {
                 if (cbxAuth.Text.Equals("Windows Authentication"))
                 {
-                    SQLConnection.ConnectionString = @"Server = " + cbxserver.Text + "; Integrated Security = SSPI;";
+                    SQLConnection.ConnectionString = @"Server = " + cbxserver.Text + "; Integrated Security = TRUE;";
                     con.ConnectionString = SQLConnection.ConnectionString;
                 }
                 else if (cbxAuth.Text.Equals("SQL Server Authentication"))

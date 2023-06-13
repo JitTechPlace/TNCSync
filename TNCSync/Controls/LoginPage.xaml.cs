@@ -30,11 +30,11 @@ namespace TNCSync.Controls
     /// </summary>
     public partial class LoginPage : UserControl
     {
-        public RegistryKey regkey;
+        //public RegistryKey regkey;
         public LoginPage()
         {
             InitializeComponent();
-            regkey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\TNCSync", false);
+            //regkey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\TNCSync", false);
             _ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
             cmpyCmbx.Visibility = Visibility.Hidden;
             if(cmpyCmbx.Visibility == Visibility.Visible)

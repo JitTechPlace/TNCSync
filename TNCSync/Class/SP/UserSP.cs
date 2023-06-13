@@ -15,9 +15,9 @@ namespace TNCSync.Class.SP
     class UserSP : DBConnection
     {
         private IDialogService _ds;
-        public UserInfo UserView(string username)
+        public Info.UserInfo UserView(string username)
         {
-            UserInfo userinfo = new UserInfo();
+            Info.UserInfo userinfo = new Info.UserInfo();
             SqlDataReader sdrreader = null;
             try
             {
