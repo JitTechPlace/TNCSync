@@ -26,13 +26,13 @@
                 <DatePicker/>
                 <TextBlock Text="To Date:" FontSize="13" FontFamily="{StaticResource iFontMontSerratReg}" Margin="5"/>
                 <DatePicker/>
-                <Button Content="Sync" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="20" Width="100" Margin="5 0"/>
-                <Button Content="SyncAll" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="20" Width="100" />
+                <Button x:Name="chequeDGSync" Content="Sync" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="20" Width="100" Margin="5 0"/>
+                <Button x:Name="chequeDGSyncall" Content="SyncAll" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="20" Width="100" Click="chequeDGSyncall_Click" />
             </StackPanel>
             <StackPanel Grid.Row="1" Orientation="Horizontal" >
                 <TextBlock Text="Payee Name:" FontSize="13" FontFamily="{StaticResource iFontMontSerratReg}" Margin="5"/>
                 <ComboBox x:Name="payeeCmbx" Grid.Column="1" Style="{StaticResource RoundComboBox}" Height="25" Width="200" ToolTip="SelectReport" />
-                <Button Content="Search" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="20" Width="100" Margin="5 0"/>
+                <Button x:Name="srchbtn" Content="Search" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="20" Width="100" Margin="5 0" Click="srchbtn_Click"/>
             </StackPanel>
             <StackPanel Grid.Row="2" Orientation="Horizontal" >
                 <hw:PlainCheckBox Content="NameonCheck" Foreground="Black"/>
@@ -41,9 +41,9 @@
                 <hw:PlainCheckBox Content="With Out Date" Foreground="Black"/>
             </StackPanel>
         </Grid>
-        <DataGrid Name="ChequeDetails" Grid.Row="1" Margin="5"/>
+        <DataGrid x:Name="grdChequeList" Grid.Row="1" Margin="5" GridLinesVisibility="Vertical" HeadersVisibility="All" SelectionMode="Extended"/>
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <ComboBox Grid.Column="1" Style="{StaticResource RoundComboBox}" Margin="5" Height="25" Width="200" ToolTip="SelectReport" />
+            <ComboBox x:Name="tmpltCmbx" Grid.Column="1" Style="{StaticResource RoundComboBox}" Margin="5" Height="25" Width="200" ToolTip="SelectReport" />
             <Button Content="Print" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120"/>
             <Button Content="Clear" Style="{StaticResource SPStyleButton}" Height="30" Width="120" Margin="5"/>
         </StackPanel>

@@ -41,20 +41,20 @@ namespace TNCSync.Controls
             string companyName = (string)cmpyCmbx.Text;
             _ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
             cmpyCmbx.Visibility = Visibility.Hidden;
-            if(!(userName == "Superadmin" & password == "Version01") ||cmpyCmbx.Visibility == Visibility.Visible)
-            {
-                // FillCombobox();
-                string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
-                SqlConnection sqlconn = new SqlConnection(conn);
-                sqlconn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM tblCompany", sqlconn);
-                SqlDataAdapter sdr = new SqlDataAdapter(cmd);
-                DataTable table = new DataTable();
-                sdr.Fill(table);
-                cmpyCmbx.ItemsSource = table.DefaultView;
-                cmpyCmbx.DisplayMemberPath = "CompanyName";
-                cmpyCmbx.SelectedIndex = -1;
-            }
+            //if(!(userName == "Superadmin" & password == "Version01") ||cmpyCmbx.Visibility == Visibility.Visible)
+            //{
+            //    // FillCombobox();
+            //    string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
+            //    SqlConnection sqlconn = new SqlConnection(conn);
+            //    sqlconn.Open();
+            //    SqlCommand cmd = new SqlCommand("SELECT * FROM tblCompany", sqlconn);
+            //    SqlDataAdapter sdr = new SqlDataAdapter(cmd);
+            //    DataTable table = new DataTable();
+            //    sdr.Fill(table);
+            //    cmpyCmbx.ItemsSource = table.DefaultView;
+            //    cmpyCmbx.DisplayMemberPath = "CompanyName";
+            //    cmpyCmbx.SelectedIndex = -1;
+            //}
         }
 
         private IDialogService _ds;
@@ -92,19 +92,19 @@ namespace TNCSync.Controls
 
         #endregion
 
-        //public void FillCombobox() //need to work some time it not connecting to DB for fetch comapny name
-        //{
-        //    string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
-        //    SqlConnection sqlconn = new SqlConnection(conn);
-        //    sqlconn.Open();
-        //    SqlCommand cmd = new SqlCommand("SELECT * FROM tblCompany", sqlconn);
-        //    SqlDataAdapter sdr = new SqlDataAdapter(cmd);
-        //    DataTable table = new DataTable();
-        //    sdr.Fill(table);
-        //    cmpyCmbx.ItemsSource = table.DefaultView;
-        //    cmpyCmbx.DisplayMemberPath = "CompanyName";
-        //    cmpyCmbx.SelectedIndex = -1;
-        //}
+        public void FillCombobox() //need to work some time it not connecting to DB for fetch comapny name
+        {
+            string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
+            SqlConnection sqlconn = new SqlConnection(conn);
+            sqlconn.Open();
+            SqlCommand cmd = new SqlCommand("SELECT * FROM tblCompany", sqlconn);
+            SqlDataAdapter sdr = new SqlDataAdapter(cmd);
+            DataTable table = new DataTable();
+            sdr.Fill(table);
+            cmpyCmbx.ItemsSource = table.DefaultView;
+            cmpyCmbx.DisplayMemberPath = "CompanyName";
+            cmpyCmbx.SelectedIndex = -1;
+        }
 
         #region Events
         private void pbtnSignin_Click(object sender, RoutedEventArgs e)
@@ -120,10 +120,20 @@ namespace TNCSync.Controls
             {
                 mw.Show();
             }
-            //else if(!(userName == "Superadmin"))
-            //{
-            //    cmpyCmbx.Visibility = Visibility.Visible;
-            //}
+            if (!(userName == "Superadmin" & password == "Version01") || cmpyCmbx.Visibility == Visibility.Visible)
+            {
+                 FillCombobox();
+                //string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
+                //SqlConnection sqlconn = new SqlConnection(conn);
+                //sqlconn.Open();
+                //SqlCommand cmd = new SqlCommand("SELECT * FROM tblCompany", sqlconn);
+                //SqlDataAdapter sdr = new SqlDataAdapter(cmd);
+                //DataTable table = new DataTable();
+                //sdr.Fill(table);
+                //cmpyCmbx.ItemsSource = table.DefaultView;
+                //cmpyCmbx.DisplayMemberPath = "CompanyName";
+                //cmpyCmbx.SelectedIndex = -1;
+            }
             else
             {
                 cmpyCmbx.Visibility = Visibility.Visible;
