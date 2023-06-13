@@ -28,9 +28,7 @@ namespace TNCSync.BaseControls
         SqlDataAdapter sda = new SqlDataAdapter();
         public WriteCheque()
         {
-            InitializeComponent();
-            PopulateTempleteCombobox();
-            
+            InitializeComponent();            
             //this.grdChequeList.SearchHelper.AllowFiltering = true;
             //this.grdChequeList.SearchHelper.Search(payeeCmbx.Text);
         }
@@ -84,6 +82,7 @@ namespace TNCSync.BaseControls
         {
             LoadGrid();
             LoadPayeeCombobox();
+            PopulateTempleteCombobox();
         }
 
         private void srchbtn_Click(object sender, RoutedEventArgs e)

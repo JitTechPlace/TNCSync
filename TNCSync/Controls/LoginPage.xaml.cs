@@ -30,31 +30,14 @@ namespace TNCSync.Controls
     /// </summary>
     public partial class LoginPage : UserControl
     {
-        //public RegistryKey regkey;
         public LoginPage()
         {
             InitializeComponent();
-            //regkey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\TNCSync", false);
-            //
             string userName = (string)ptboxEmail.Text;
             string password = (string)ptboxPass.Password;
             string companyName = (string)cmpyCmbx.Text;
             _ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
-            cmpyCmbx.Visibility = Visibility.Hidden;
-            //if(!(userName == "Superadmin" & password == "Version01") ||cmpyCmbx.Visibility == Visibility.Visible)
-            //{
-            //    // FillCombobox();
-            //    string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
-            //    SqlConnection sqlconn = new SqlConnection(conn);
-            //    sqlconn.Open();
-            //    SqlCommand cmd = new SqlCommand("SELECT * FROM tblCompany", sqlconn);
-            //    SqlDataAdapter sdr = new SqlDataAdapter(cmd);
-            //    DataTable table = new DataTable();
-            //    sdr.Fill(table);
-            //    cmpyCmbx.ItemsSource = table.DefaultView;
-            //    cmpyCmbx.DisplayMemberPath = "CompanyName";
-            //    cmpyCmbx.SelectedIndex = -1;
-            //}
+            //cmpyCmbx.Visibility = Visibility.Hidden;
         }
 
         private IDialogService _ds;
@@ -113,17 +96,17 @@ namespace TNCSync.Controls
             string password = (string)ptboxPass.Password;
             string companyName = (string)cmpyCmbx.Text;
             MainWindow mw = new MainWindow();
+            AuthenticationWindow aw = new AuthenticationWindow();
             DataTable table = new DataTable();
             SqlDataAdapter sda = new SqlDataAdapter();
 
             if((userName == "Superadmin" & password == "Version01"))
             {
                 mw.Show();
+                //cmpyCmbx.Visibility = Visibility.Visible;
             }
             else
             {
-                cmpyCmbx.Visibility = Visibility.Visible;
-                FillCombobox();
                 if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(companyName))
                 {
                     _ds.SendToast("Authentication Error", "Please Fill All the Credential details to Login", NotificationIcon.Error);
@@ -144,18 +127,21 @@ namespace TNCSync.Controls
                         sda.Fill(table);
                         cmd.Dispose();
                         mw.Show();
-                        AuthenticationWindow aw = new AuthenticationWindow();
-                        aw.Close();
-
                     }
                     catch (Exception ex)
                     {
                         _ds.SendToast("Credentials Mismatch or Empty", "", NotificationIcon.Warning);
                         return;
                     }
+                    aw.Close();
                 }
             }
         }
         #endregion
+
+        private void cmpnycbx_Checked(object sender, RoutedEventArgs e)
+        {
+            FillCombobox();
+        }
     }
 }

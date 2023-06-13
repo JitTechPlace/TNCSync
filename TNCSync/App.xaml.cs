@@ -45,22 +45,24 @@ namespace TNCSync
                     CredentialHolder.Singleton.IsAuthenticated = true;
                     break;
                 }
-                trycount++; //add one count
+               // trycount++; //add one count
                 if (trycount >= maxtries) break;
             }
 
-            if (CredentialHolder.Singleton.IsAuthenticated)
+            //if (CredentialHolder.Singleton.IsAuthenticated)
+            //{
+            //    //Show the main window(amybe add other calidation for feature control)
+            //    _actualmainwindow.ShowDialog();
+            //}
+            if(!(CredentialHolder.Singleton.IsAuthenticated))
             {
-                //Show the main window(amybe add other calidation for feature control)
-                _actualmainwindow.ShowDialog();
-            }
-            else
-            {
+                //Application.Current.Shutdown();
                 _ds?.Error("Login Failure", "Unable to authenticate the user. Application will close now");
-                if (Application.Current.MainWindow != null)
+                if (Application.Current.MainWindow == null)
                 {
                     Application.Current.MainWindow.Close();
                 }
+                Application.Current.Shutdown();
             }
         }
 
