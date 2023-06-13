@@ -16,12 +16,12 @@ namespace TNCSync.Sessions
         private QBSessionManager _sessionMgr = null;                // the universal session manager object
         private bool _bConnOpen = false;                            // Maintains state of the connection
         private bool _bSessionOpen = false;                         // Maintains state of the session
-        private double _qbsdkVersion = 15.0;                         // most recent SDK version supported by QB instance
+        private double _qbsdkVersion = 16.0;                         // most recent SDK version supported by QB instance
         private short _qbSDKMajorVer = 16;                           // generic location to store the major version
         private short _qbSDKMinorVer = 2;                           // generic locaiton to store the minor version
         private string _appId = "";                                 // storage location for the application ID
         private string _appName = "TNCSync";                               // storage location for the application name
-        private string _qbFile = "C:\\Users\\Public\\Documents\\Intuit\\QuickBooks\\Sample Company Files\\QuickBooks Enterprise Solutions 13.0\\sample_product-based business.qbw";                                // storage location for the qbFile entry 
+        private string _qbFile = "C:\\Users\\Public\\Documents\\Intuit\\QuickBooks\\Sample Company Files\\QuickBooks Enterprise Solutions 13.0\\sample_product-based business.qbw";  // storage location for the qbFile entry 
         private ENConnectionType _connType;                         // SDK connection type
         private ENOpenMode _openMode = Defaults.SESSION_MODE;       // Mode used during request set creation
         private ENEdition _edition = Defaults.EDITION;              // QuickBooks edition
@@ -30,11 +30,10 @@ namespace TNCSync.Sessions
         //private ResourceMangager rm = null;                         // Access to strings
 
 
-        // ************************************************************************
-        // ************************************************************************
-        // ***              Constructor and Desctructor Methods                 ***
-        // ************************************************************************
-        // ************************************************************************
+        /// <summary>
+        ////
+        ///Constructor and Desctructor Methods   
+        /// </summary>
 
         private SessionManager()
         {
@@ -150,11 +149,11 @@ namespace TNCSync.Sessions
             //GC.SuppressFinalize(this);
         }
 
-        // ************************************************************************
-        // ************************************************************************
-        // ***               Open and Close Connection Methods                  ***
-        // ************************************************************************
-        // ************************************************************************
+
+        /// <summary>
+        ////
+        ///Open and Close Connection Method
+        /// </summary>
 
         /// <summary>
         /// Opens a connection to the backend Quickbooks instance.
@@ -244,11 +243,10 @@ namespace TNCSync.Sessions
             }
         }
 
-        // ************************************************************************
-        // ************************************************************************
-        // ***                 Open and Close Session Methods                   ***
-        // ************************************************************************
-        // ************************************************************************
+        /// <summary>
+        ////
+        ///Open and Close Session Method 
+        /// </summary>
 
         /// <summary>
         /// Starts a new session, if required.  This method assumes that the QuickBooks is currently
@@ -366,11 +364,9 @@ namespace TNCSync.Sessions
             }
         }
 
-        // ************************************************************************
-        // ************************************************************************
-        // ***                       Request and Responses                      ***
-        // ************************************************************************
-        // ************************************************************************
+        /// <summary>
+        ////Request and Response
+        /// </summary>
 
         /// <summary>
         /// Returns a new request message set object. If a session has already been started, it is
@@ -610,11 +606,10 @@ namespace TNCSync.Sessions
         }
 
 
-        // ************************************************************************
-        // ************************************************************************
-        // ***                Subscription Request and Responses                ***
-        // ************************************************************************
-        // ************************************************************************
+        /// <summary>
+        ////
+        ///Subscription Request and Responses 
+        /// </summary>
 
         /// <summary>
         /// Returns a new subscription request message set object.
@@ -820,11 +815,9 @@ namespace TNCSync.Sessions
             }
         }
 
-        // ************************************************************************
-        // ************************************************************************
-        // ***                  Subscription Helper Methods                     ***
-        // ************************************************************************
-        // ************************************************************************
+        /// <summary>
+        /// Subscription Helper Methods 
+        /// </summary>
 
         /// <summary>
         /// Checks the response and logs accordingly.
@@ -955,11 +948,9 @@ namespace TNCSync.Sessions
             return true;
         }
 
-        // ************************************************************************
-        // ************************************************************************
-        // ***                     Normal Helper Methods                        ***
-        // ************************************************************************
-        // ************************************************************************
+        /// <summary>
+        ///Normal Helper Methods     
+        /// </summary>
 
         /// <summary>
         /// Checks the response and logs accordingly.
@@ -1092,11 +1083,9 @@ namespace TNCSync.Sessions
             return true;
         }
 
-        // ************************************************************************
-        // ************************************************************************
-        // ***                         Helper Methods                           ***
-        // ************************************************************************
-        // ************************************************************************
+        /// <summary>
+        /// Helper Methods 
+        /// </summary>
 
         /// <summary>
         /// Determines if a log entry should be written to the log file
@@ -1120,11 +1109,9 @@ namespace TNCSync.Sessions
         }
 
 
-        // ************************************************************************
-        // ************************************************************************
-        // ***                     Version Checking Method                      ***
-        // ************************************************************************
-        // ************************************************************************
+        /// <summary>
+        /// Version Checking Method  
+        /// </summary>
 
         /// <summary>
         /// Returns the most recent version supported by the QuickBooks instance to which you are
@@ -1215,11 +1202,9 @@ namespace TNCSync.Sessions
         }
 
 
-        // ************************************************************************
-        // ************************************************************************
-        // ***                         Property access                          ***
-        // ************************************************************************
-        // ************************************************************************
+        /// <summary>
+        ///Property access    
+        /// </summary>
 
         /// <summary>
         /// Allows the developer to determine if a connection is currently open. 

@@ -14,7 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using Haley.Abstractions;
+using Haley.MVVM;
 
 namespace TNCSync
 {
@@ -31,8 +32,10 @@ namespace TNCSync
         public MainWindow()
         {
             InitializeComponent();
+            _ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
         }
 
+        private IDialogService _ds;
         [DllImport("user32.dll")]
         public static extern IntPtr SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);
         private void pnlControlBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -77,6 +80,7 @@ namespace TNCSync
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
+            _ds.ShowDialog("Logout", "Are you sure to logout?", Haley.Enums.NotificationIcon.Warning);
             this.Close();
             //Window wnd = new AuthenticationWindow();
             //wnd.Show();

@@ -35,11 +35,25 @@ namespace TNCSync.Controls
         {
             InitializeComponent();
             //regkey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\TNCSync", false);
+            //
+            string userName = (string)ptboxEmail.Text;
+            string password = (string)ptboxPass.Password;
+            string companyName = (string)cmpyCmbx.Text;
             _ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
             cmpyCmbx.Visibility = Visibility.Hidden;
-            if(cmpyCmbx.Visibility == Visibility.Visible)
+            if(!(userName == "Superadmin" & password == "Version01") ||cmpyCmbx.Visibility == Visibility.Visible)
             {
-                FillCombobox();
+                // FillCombobox();
+                string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
+                SqlConnection sqlconn = new SqlConnection(conn);
+                sqlconn.Open();
+                SqlCommand cmd = new SqlCommand("SELECT * FROM tblCompany", sqlconn);
+                SqlDataAdapter sdr = new SqlDataAdapter(cmd);
+                DataTable table = new DataTable();
+                sdr.Fill(table);
+                cmpyCmbx.ItemsSource = table.DefaultView;
+                cmpyCmbx.DisplayMemberPath = "CompanyName";
+                cmpyCmbx.SelectedIndex = -1;
             }
         }
 
@@ -78,19 +92,19 @@ namespace TNCSync.Controls
 
         #endregion
 
-        public void FillCombobox() //need to work some time it not connecting to DB for fetch comapny name
-        {
-            string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
-            SqlConnection sqlconn = new SqlConnection(conn);
-            sqlconn.Open();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM tblCompany", sqlconn);
-            SqlDataAdapter sdr = new SqlDataAdapter(cmd);
-            DataTable table = new DataTable();
-            sdr.Fill(table);
-            cmpyCmbx.ItemsSource = table.DefaultView;
-            cmpyCmbx.DisplayMemberPath = "CompanyName";
-            cmpyCmbx.SelectedIndex = -1;
-        }
+        //public void FillCombobox() //need to work some time it not connecting to DB for fetch comapny name
+        //{
+        //    string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
+        //    SqlConnection sqlconn = new SqlConnection(conn);
+        //    sqlconn.Open();
+        //    SqlCommand cmd = new SqlCommand("SELECT * FROM tblCompany", sqlconn);
+        //    SqlDataAdapter sdr = new SqlDataAdapter(cmd);
+        //    DataTable table = new DataTable();
+        //    sdr.Fill(table);
+        //    cmpyCmbx.ItemsSource = table.DefaultView;
+        //    cmpyCmbx.DisplayMemberPath = "CompanyName";
+        //    cmpyCmbx.SelectedIndex = -1;
+        //}
 
         #region Events
         private void pbtnSignin_Click(object sender, RoutedEventArgs e)
@@ -106,12 +120,13 @@ namespace TNCSync.Controls
             {
                 mw.Show();
             }
-            else if(!(userName == "Superadmin"))
-            {
-                cmpyCmbx.Visibility = Visibility.Visible;
-            }
+            //else if(!(userName == "Superadmin"))
+            //{
+            //    cmpyCmbx.Visibility = Visibility.Visible;
+            //}
             else
             {
+                cmpyCmbx.Visibility = Visibility.Visible;
                 if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(companyName))
                 {
                     _ds.SendToast("Authentication Error", "Please Fill All the Credential details to Login", NotificationIcon.Error);
@@ -119,12 +134,11 @@ namespace TNCSync.Controls
                 }
                 else
                 {
-                    cmpyCmbx.Visibility = Visibility.Visible;
                     try
                     {
                         string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
                         SqlConnection sqlconn = new SqlConnection(conn);
-                        SqlCommand cmd = new SqlCommand("UserLogin_SelectAll", sqlconn);
+                        SqlCommand cmd = new SqlCommand("UserLogin_SelectAll_TNCS", sqlconn);
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@Loginname", ptboxEmail.Text.Trim());
                         cmd.Parameters.AddWithValue("@Password", ptboxPass.Password);
@@ -132,9 +146,9 @@ namespace TNCSync.Controls
                         sda.SelectCommand = cmd;
                         sda.Fill(table);
                         cmd.Dispose();
+                        mw.Show();
                         AuthenticationWindow aw = new AuthenticationWindow();
                         aw.Close();
-                        mw.Show();
 
                     }
                     catch (Exception ex)

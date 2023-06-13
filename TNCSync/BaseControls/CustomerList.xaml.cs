@@ -5,13 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Xml;
 using TNCSync.Sessions;
 using Interop.QBFC15;
@@ -354,114 +347,99 @@ namespace TNCSync.BaseControls
 		}
 
 		private void Searchcust_Click(object sender, RoutedEventArgs e)
-		{
+        {
+            try
+            {
+                //sessionManager.openConnection(ENConnectionType.ctLocalQBD);
+                //sessionManager.beginSession(ENOpenMode.omDontCare);
+
+                IMsgSetRequest requestSet = sessionManager.getMsgSetRequest();
+				requestSet.Attributes.OnError = ENRqOnError.roeContinue;
+
+				ICustomerQuery customerQuery = requestSet.AppendCustomerQueryRq();
+				customerQuery.IncludeRetElementList.Add("ListID");
+				customerQuery.IncludeRetElementList.Add("Name");
+				customerQuery.IncludeRetElementList.Add("Companyname");
+				customerQuery.IncludeRetElementList.Add("Email");
+
+				IMsgSetResponse responseSet = sessionManager.doRequest(true, ref requestSet);
+				IResponse response = responseSet.ResponseList.GetAt(0);
+
+				if (response.StatusCode == 0)
+				{
+					ICustomerRetList customerList = (ICustomerRetList)response.Detail;
+
+					List<Customer> customers = new List<Customer>();
+
+					for (int i = 0; i < customerList.Count; i++)
+					{
+						ICustomerRet customer = customerList.GetAt(i);
+						customers.Add(new Customer
+						{
+							ListID = customer.ListID.GetValue(),
+							Name = customer.Name.GetValue(),
+							Companyname = customer.CompanyName.GetValue(),
+							Email = customer.Email.GetValue()
+						});
+					}
+					//handle the retrived customer data
+					//ProcessRetrivedCustomers(customers);
+					Custgrid.ItemsSource = DataContext.ToString();
+				}
+				else
+				{
+					//Handle the response error
+					ds.SendToast("", "QuickBooks NotResponding", Haley.Enums.NotificationIcon.Error);
+				}
+			}
+			catch(Exception ex)
+            {
+				ds.SendToast("", "QuickBooks response", Haley.Enums.NotificationIcon.Error);
+			}
+			
+			#region sample
+			//         String name = CustName.Text.Trim();
+
+			////step1: create the qbXML request
+			//XmlDocument inputXMLDoc = new XmlDocument();
+			//inputXMLDoc.AppendChild(inputXMLDoc.CreateXmlDeclaration("1.0", null, null));
+			//inputXMLDoc.AppendChild(inputXMLDoc.CreateProcessingInstruction("qbxml", "version=\"2.0\""));
+			//XmlElement qbXML = inputXMLDoc.CreateElement("QBXML");
+			//inputXMLDoc.AppendChild(qbXML);
+			//XmlElement qbXMLMsgsRq = inputXMLDoc.CreateElement("QBXMLMsgsRq");
+			//qbXML.AppendChild(qbXMLMsgsRq);
+			//qbXMLMsgsRq.SetAttribute("onError", "stopOnError");
+			//XmlElement custAddRq = inputXMLDoc.CreateElement("CustomerAddRq");
+			//qbXMLMsgsRq.AppendChild(custAddRq);
+			//custAddRq.SetAttribute("requestID", "1");
+			//XmlElement custAdd = inputXMLDoc.CreateElement("CustomerAdd");
+			//custAddRq.AppendChild(custAdd);
+			//custAdd.AppendChild(inputXMLDoc.CreateElement("Name")).InnerText = name;
+			//if (Phone.Text.Length > 0)
+			//{
+			//	custAdd.AppendChild(inputXMLDoc.CreateElement("Phone")).InnerText = Phone.Text;
+			//}
+
+			//string input = inputXMLDoc.OuterXml;
+
+			////step2: 
 			//string request = "CustomerQueryRq";
+			//connectToQB();
 			//int count = getCount(request);
 			//IMsgSetResponse responseMsgSet = processRequestFromQB(buildCustomerQueryRq(new string[] { "FullName" }, null));
 			//string[] customerList = parseCustomerQueryRs(responseMsgSet, count);
+			//Custgrid.ItemsSource = DataContext.ToString();
 			//disconnectFromQB();
-			//Custgrid(this.data)
-
-			////Step-1 Verify that name is not empty
-			String name = CustName.Text.Trim();
-			if (name.Length == 0)
-			{
-				MessageBox.Show("Please enter a value for Name.", "Input Validation");
-				return;
-			}
-			//Step-2: Create the QBXML request
-			XmlDocument getXMLDoc = new XmlDocument();
-			getXMLDoc.AppendChild(getXMLDoc.CreateXmlDeclaration("1.0", null, null));
-			getXMLDoc.AppendChild(getXMLDoc.CreateProcessingInstruction("qbxml", "version=\"2.0\""));
-			XmlElement qbXML = getXMLDoc.GetElementById("QBXML");
-			getXMLDoc.AppendChild(qbXML);
-			XmlElement qbXMLMsgRq = getXMLDoc.GetElementById("QBXMLMsgsRq");
-			qbXML.AppendChild(qbXMLMsgRq);
-			qbXMLMsgRq.SetAttribute("onErroe", "stopOnError");
-			XmlElement custSrcRq = getXMLDoc.GetElementById("CustomerSrcRq");
-			qbXMLMsgRq.AppendChild(custSrcRq);
-			custSrcRq.GetAttribute("requestID", "1");
-			XmlElement custSrc = getXMLDoc.GetElementById("CustomerSearch");
-			custSrcRq.AppendChild(custSrc);
-			custSrc.AppendChild(getXMLDoc.GetElementById("Name")).InnerText = name;
-			if (Phone.Text.Length > 0)
-			{
-				custSrc.AppendChild(getXMLDoc.GetElementById("Phone")).InnerText = Phone.Text;
-			}
-			string get = getXMLDoc.OuterXml;
-			////step3: do the qbXMLRP request
-			RequestProcessor2 rp = null;
-			string ticket = null;
-			string response = null;
-			try
-			{
-				rp = new RequestProcessor2();
-				rp.OpenConnection("", "IDN CustomerSearch ");
-				ticket = rp.BeginSession("", QBFileMode.qbFileOpenDoNotCare);
-				response = rp.ProcessRequest(ticket, get);
-
-			}
-			catch (System.Runtime.InteropServices.COMException ex)
-			{
-				MessageBox.Show("COM Error Description = " + ex.Message, "COM error");
-				return;
-			}
-			finally
-			{
-				if (ticket != null)
-				{
-					rp.EndSession(ticket);
-				}
-				if (rp != null)
-				{
-					rp.CloseConnection();
-				}
-			};
-			////step4: parse the XML response and show a message
-			XmlDocument outputXMLDoc = new XmlDocument();
-			outputXMLDoc.LoadXml(response);
-			XmlNodeList qbXMLMsgsRsNodeList = outputXMLDoc.GetElementsByTagName("CustomerSrcRq");
-
-			if (qbXMLMsgsRsNodeList.Count == 1) //it's always true, since we added a single Customer
-			{
-				System.Text.StringBuilder popupMessage = new System.Text.StringBuilder();
-
-				XmlAttributeCollection rsAttributes = qbXMLMsgsRsNodeList.Item(0).Attributes;
-				//get the status Code, info and Severity
-				string retStatusCode = rsAttributes.GetNamedItem("statusCode").Value;
-				string retStatusSeverity = rsAttributes.GetNamedItem("statusSeverity").Value;
-				string retStatusMessage = rsAttributes.GetNamedItem("statusMessage").Value;
-				popupMessage.AppendFormat("statusCode = {0}, statusSeverity = {1}, statusMessage = {2}",
-					retStatusCode, retStatusSeverity, retStatusMessage);
-
-				//get the CustomerRet node for detailed info
-
-				//a CustomerAddRs contains max one childNode for "CustomerRet"
-				XmlNodeList custAddRsNodeList = qbXMLMsgsRsNodeList.Item(0).ChildNodes;
-				if (custAddRsNodeList.Count == 1 && custAddRsNodeList.Item(0).Name.Equals("CustomerRet"))
-				{
-					XmlNodeList custRetNodeList = custAddRsNodeList.Item(0).ChildNodes;
-
-					foreach (XmlNode custRetNode in custRetNodeList)
-					{
-						if (custRetNode.Name.Equals("ListID"))
-						{
-							popupMessage.AppendFormat("\r\nCustomer ListID = {0}", custRetNode.InnerText);
-						}
-						else if (custRetNode.Name.Equals("Name"))
-						{
-							popupMessage.AppendFormat("\r\nCustomer Name = {0}", custRetNode.InnerText);
-						}
-						else if (custRetNode.Name.Equals("FullName"))
-						{
-							popupMessage.AppendFormat("\r\nCustomer FullName = {0}", custRetNode.InnerText);
-						}
-					}
-				} // End of customerRet
-
-				MessageBox.Show(popupMessage.ToString(), "QuickBooks response");
-			} //End of customerAddRs
+			#endregion
 		}
+
+		public class Customer
+        {
+			public string ListID { get; set; }
+			public string Name { get; set; }
+			public string Companyname { get; set; }
+			public string Email { get; set; }
+        }
 
         private void btnShowall_Click(object sender, RoutedEventArgs e)
         {

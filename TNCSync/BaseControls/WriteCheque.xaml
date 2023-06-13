@@ -31,7 +31,7 @@
             </StackPanel>
             <StackPanel Grid.Row="1" Orientation="Horizontal" >
                 <TextBlock Text="Payee Name:" FontSize="13" FontFamily="{StaticResource iFontMontSerratReg}" Margin="5"/>
-                <ComboBox Grid.Column="1" Style="{StaticResource RoundComboBox}" Height="25" Width="200" ToolTip="SelectReport" />
+                <ComboBox x:Name="payeeCmbx" Grid.Column="1" Style="{StaticResource RoundComboBox}" Height="25" Width="200" ToolTip="SelectReport" />
                 <Button Content="Search" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="20" Width="100" Margin="5 0"/>
             </StackPanel>
             <StackPanel Grid.Row="2" Orientation="Horizontal" >
