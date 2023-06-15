@@ -168,10 +168,12 @@
     <Compile Include="Class\General\Common.cs" />
     <Compile Include="Class\General\DBConnection.cs" />
     <Compile Include="Class\General\Messages.cs" />
+    <Compile Include="Class\Helper.cs" />
     <Compile Include="Class\Info\UserInfo.cs" />
     <Compile Include="Class\Info\VendorListInfo.cs" />
     <Compile Include="Class\SP\UserSP.cs" />
     <Compile Include="Class\SP\VendorListSP.cs" />
+    <Compile Include="Class\WriteCheques_DA.cs" />
     <Compile Include="Controls\LoginHelperPage.xaml.cs">
       <DependentUpon>LoginHelperPage.xaml</DependentUpon>
     </Compile>
@@ -192,6 +194,7 @@
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppSetting.cs" />
+    <Compile Include="Model\WriteCheques.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="RulerControl\PositionManagers\Base\HorizontalRulerManager.cs" />
@@ -515,6 +518,9 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm">
       <Version>8.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Dapper">
+      <Version>1.50.2</Version>
     </PackageReference>
     <PackageReference Include="EntityFramework">
       <Version>6.2.0</Version>

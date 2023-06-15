@@ -16,6 +16,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TNCSync.Class;
+using TNCSync.Model;
 
 namespace TNCSync.BaseControls
 {
@@ -24,13 +26,13 @@ namespace TNCSync.BaseControls
     /// </summary>
     public partial class WriteCheque : UserControl
     {
+        List<WriteCheques> cheques = new List<WriteCheques>();
         DataTable table = new DataTable();
         SqlDataAdapter sda = new SqlDataAdapter();
         public WriteCheque()
         {
-            InitializeComponent();            
-            //this.grdChequeList.SearchHelper.AllowFiltering = true;
-            //this.grdChequeList.SearchHelper.Search(payeeCmbx.Text);
+            InitializeComponent();
+            UpdateBinding();
         }
 
         private void LoadGrid()
@@ -87,23 +89,32 @@ namespace TNCSync.BaseControls
 
         private void srchbtn_Click(object sender, RoutedEventArgs e)
         {
-            //get the selected value from the combobox
-            string selectedValue = payeeCmbx.SelectedItem as string;
-            //Clear any existing filters
-            grdChequeList.Items.Filter = null;
+            WriteCheques_DA Wcda = new WriteCheques_DA();
+            cheques = Wcda.GetCheques(payeeCmbx.Text);
+            UpdateBinding();
+            ////get the selected value from the combobox
+            //string selectedValue = payeeCmbx.SelectedItem as string;
+            ////Clear any existing filters
+            //grdChequeList.Items.Filter = null;
 
-            //Apply new filter based on the selected value
-            ICollectionView view = CollectionViewSource.GetDefaultView(grdChequeList.ItemsSource);
-            if (selectedValue != null)
-            {
-                //view.Filter = (item) =>
-                //{
-                //    return((string)item).
-                //};
-            }
+            ////Apply new filter based on the selected value
+            //ICollectionView view = CollectionViewSource.GetDefaultView(grdChequeList.ItemsSource);
+            //if (selectedValue != null)
+            //{
+            //    //view.Filter = (item) =>
+            //    //{
+            //    //    return((string)item).
+            //    //};
+            //}
 
-            //DataRowView payee = (DataRowView)payeeCmbx.SelectedItem;
-            //grdChequeList.ItemsSource = table.DefaultView;
+            ////DataRowView payee = (DataRowView)payeeCmbx.SelectedItem;
+            ////grdChequeList.ItemsSource = table.DefaultView;
+        }
+
+        private void UpdateBinding()
+        {
+            grdChequeList.ItemsSource = cheques;
+            grdChequeList.DisplayMemberPath = "WriteCheques";
         }
     }
 }

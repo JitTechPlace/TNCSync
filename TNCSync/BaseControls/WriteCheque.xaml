@@ -41,7 +41,9 @@
                 <hw:PlainCheckBox Content="With Out Date" Foreground="Black"/>
             </StackPanel>
         </Grid>
-        <DataGrid x:Name="grdChequeList" Grid.Row="1" Margin="5" GridLinesVisibility="Vertical" HeadersVisibility="All" SelectionMode="Extended"/>
+        <DataGrid x:Name="grdChequeList" Grid.Row="1" Margin="5" GridLinesVisibility="Vertical" HeadersVisibility="All" SelectionMode="Extended">
+           
+        </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
             <ComboBox x:Name="tmpltCmbx" Grid.Column="1" Style="{StaticResource RoundComboBox}" Margin="5" Height="25" Width="200" ToolTip="SelectReport" />
             <Button Content="Print" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120"/>
