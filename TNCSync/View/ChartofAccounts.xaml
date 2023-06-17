@@ -27,9 +27,9 @@
             <TabItem Header="ChartofAccounts" BorderBrush="Transparent">
                 <bc:ChartofAccount />
             </TabItem>
-            <TabItem Header="JournalVoucher" BorderBrush="Transparent">
+            <!--<TabItem Header="JournalVoucher" BorderBrush="Transparent">
                 <bc:JournalVoucher/>
-            </TabItem>
+            </TabItem>-->
             <TabItem Header="Item" BorderBrush="Transparent">
                 <bc:Items/>
             </TabItem>

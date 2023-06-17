@@ -87,9 +87,9 @@ namespace TNCSync.ViewModel
 
         public ICommand CmdSignIn => new DelegateCommand<object>(_signIn);
 
-        public ICommand CmdResetPassword => new DelegateCommand<object>(_resetpassword);
+       // public ICommand CmdResetPassword => new DelegateCommand<object>(_resetpassword);
 
-        public ICommand CmdGenerateOtp => new DelegateCommand<object>(_generateOTP);
+        //public ICommand CmdGenerateOtp => new DelegateCommand<object>(_generateOTP);
 
         public ICommand CmdLogout => new DelegateCommand<object>(_logout);
 
@@ -123,43 +123,43 @@ namespace TNCSync.ViewModel
             CurrentView = ViewEnums.LoginPage;
         }
 
-        private async void _generateOTP(object param)
-        {
-            try
-            {
-                //Generate otp for the provided email id
-                object[] values = (object[])param;
-                string EmailID = (string)values[0];
+        //private async void _generateOTP(object param)
+        //{
+        //    try
+        //    {
+        //        //Generate otp for the provided email id
+        //        object[] values = (object[])param;
+        //        string EmailID = (string)values[0];
 
-                Email = EmailID;
-                //Invoke otp and move to logonpage
-               // Task<bool> TgenerateOTP = new Task<bool>(() => EmailHelper.GenerateOTP(EmailID));
-              //  TgenerateOTP.Start();
+        //        Email = EmailID;
+        //        //Invoke otp and move to logonpage
+        //       // Task<bool> TgenerateOTP = new Task<bool>(() => EmailHelper.GenerateOTP(EmailID));
+        //      //  TgenerateOTP.Start();
 
-                ControlsEnabled = false;
+        //        ControlsEnabled = false;
 
-                //if(await TgenerateOTP == true) //  Waiting to see the result
-                //{
-                //    CmdChangeView.Execute(Controls.LoginHelperPage);
-                //    ErrorRegister = string.Empty;
-                //    ControlsEnabled = true;
-                //}
-                //else
-                //{
-                //    ErrorRegister = "Unable to generate OTP. Please try again or contact admin";
-                //    ControlsEnabled = true;
-                //}
-            }
-            catch(Exception)
-            {
-                ControlsEnabled = true;
-            }
-        }
+        //        //if(await TgenerateOTP == true) //  Waiting to see the result
+        //        //{
+        //        //    CmdChangeView.Execute(Controls.LoginHelperPage);
+        //        //    ErrorRegister = string.Empty;
+        //        //    ControlsEnabled = true;
+        //        //}
+        //        //else
+        //        //{
+        //        //    ErrorRegister = "Unable to generate OTP. Please try again or contact admin";
+        //        //    ControlsEnabled = true;
+        //        //}
+        //    }
+        //    catch(Exception)
+        //    {
+        //        ControlsEnabled = true;
+        //    }
+        //}
 
-        private async void _resetpassword(object param)
-        {
+        //private async void _resetpassword(object param)
+        //{
 
-        }
+        //}
 
         public void _logout(object parameter)
         {

@@ -54,6 +54,7 @@
     <SolidColorBrush x:Key="color9" Color="#07F3C0"/>
     <SolidColorBrush x:Key="color10" Color="#FBA1AA"/>
     <SolidColorBrush x:Key="color11" Color="#BBE3FF"/>
+    <SolidColorBrush x:Key="color12" Color="#FF00375D"/>
     
     <!--Font Colors-->
     <SolidColorBrush x:Key="titleColor1" Color="#E0E1F1"/>
@@ -158,7 +159,7 @@
             <!--Active ButtonStyle-->
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Margin" Value="0 0 0 5"/>
-                <Setter Property="Background" Value="{StaticResource panelActiveColor}"/>
+                <Setter Property="Background" Value="{StaticResource def_background_primary}"/>
                 <Setter Property="Foreground" Value="{Binding Path=Tag, RelativeSource={RelativeSource Self}}"/>
                 <Setter Property="BorderBrush" Value="{Binding Path=Tag, RelativeSource={RelativeSource Self}}"/>
             </Trigger>

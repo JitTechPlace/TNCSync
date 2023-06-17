@@ -18,6 +18,8 @@ using System.Windows.Shapes;
 using Haley.Abstractions;
 using Interop.QBFC15;
 using Interop.QBXMLRP2;
+using TNCSync.Class;
+using TNCSync.Model;
 using TNCSync.Sessions;
 
 namespace TNCSync.BaseControls
@@ -27,9 +29,14 @@ namespace TNCSync.BaseControls
     /// </summary>
     public partial class BillPayments : UserControl
     {
+        List<BillPaymentCheque> BpCheques = new List<BillPaymentCheque>();
+        DataTable table = new DataTable();
+        SqlDataAdapter sda = new SqlDataAdapter();
         public BillPayments()
         {
             InitializeComponent();
+            dpfrom.SelectedDate = DateTime.Now.Date;
+            dpTo.SelectedDate = DateTime.Now.Date;
         }
         //QBConnect qbConnect = new QBConnect();
         SessionManager sessionManager;
@@ -271,47 +278,22 @@ namespace TNCSync.BaseControls
         private void btnsycall_Click(object sender, RoutedEventArgs e)
         {
             PopulateDataGrid();
+            LoadPayeeCombobox();
+            PopulateTempleteCombobox();
         }
 
         private void PopulateDataGrid()
         {
             string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
-            DataTable dt = new DataTable();
-            SqlCommand cmd = new SqlCommand("report_CheckPayment");
-            //cmd.CommandText = "report_CheckPayment";
+            SqlConnection sqlconn = new SqlConnection(conn);
+            SqlCommand cmd = new SqlCommand("tblQBBillPayCheckP_Select_TNCS", sqlconn);
             cmd.CommandType = CommandType.StoredProcedure;
-            SqlDataAdapter sqlda = new SqlDataAdapter(cmd);
-            sqlda.Fill(dt);
-            grdBillPytDtl.DataContext = dt;
-
-            //SqlDataReader sdr = cmd.ExecuteReader();
-            //sdr.Read();
-            //grdBillPytDtl.rea 
-
-
-            //string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
-            //SqlConnection sqlconn = new SqlConnection(conn);
-            ////string sqlquery = "SELECT * FROM tblVendor";
-            //SqlCommand cmd = new SqlCommand("report_CheckPayment", sqlconn);
-            //cmd.CommandType = CommandType.StoredProcedure;
-            //SqlDataReader rd = new SqlDataReader();
-            //rd = cmd.ExecuteReader();
-            //while (rd.Read())
-            //{
-            //    grdBillPytDtl.Columns.Add(rd[0].ToString());
-
-            //}
-            //rd.Close();
-            //cmd.CommandText = "report_CheckPayment";
-            //SqlDataAdapter sdr = new SqlDataAdapter(cmd);
-            //DataSet ds = new DataSet();
-            //sdr.Fill(ds);
-            //grdBillPytDtl.DataContext = ds.Tables[0];
-            ////sqlconn.Open();
-            ////SqlDataAdapter sdr = new SqlDataAdapter(cmd);
-            ////sdr.Fill(SqlCommand);
-            ////grdBillPytDtl.ItemsSource = table.DefaultView;
-            ////sqlconn.Close();
+            //SqlParameter param = new SqlParameter();
+            //param.ParameterName = "@payeeFullName";
+            sda.SelectCommand = cmd;
+            //cmd.Parameters.Add(param);
+            sda.Fill(table);
+            grdBillPytDtl.ItemsSource = table.DefaultView;
         }
 
         public static void billPaymenr(ref bool bError)
@@ -319,9 +301,48 @@ namespace TNCSync.BaseControls
             
         }
 
-        private void cbxpayeeName_Loaded(object sender, RoutedEventArgs e)
+        private void LoadPayeeCombobox()
         {
-//loadPayeeName();
+            string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
+            SqlConnection sqlconn = new SqlConnection(conn);
+            sqlconn.Open();
+            SqlCommand cmd = new SqlCommand("SELECT distinct payeeFullName FROM tblQBBillPayCheck", sqlconn);
+            SqlDataAdapter sdr = new SqlDataAdapter(cmd);
+            DataTable table = new DataTable();
+            sdr.Fill(table);
+            cbxpayeeName.ItemsSource = table.DefaultView;
+            cbxpayeeName.DisplayMemberPath = "payeeFullName";
+        }
+
+        private void srchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            BillPaymentCheques_DA Bpcda = new BillPaymentCheques_DA();
+            BpCheques = Bpcda.GetCheques(cbxpayeeName.Text);
+            UpdateBinding();
+        }
+        private void UpdateBinding()
+        {
+            grdBillPytDtl.ItemsSource = BpCheques;
+            grdBillPytDtl.DisplayMemberPath = "BillPaymentCheque";
+        }
+
+        private void PopulateTempleteCombobox()
+        {
+            string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
+            SqlConnection sqlconn = new SqlConnection(conn);
+            sqlconn.Open();
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Templates where TemplateType ='Check Payment Voucher'", sqlconn);
+            SqlDataAdapter sdr = new SqlDataAdapter(cmd);
+            DataTable table = new DataTable();
+            sdr.Fill(table);
+            tmpltCmbx.ItemsSource = table.DefaultView;
+            tmpltCmbx.DisplayMemberPath = "TemplateName";
+            tmpltCmbx.SelectedIndex = -1;
+        }
+
+        private void btnSync_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

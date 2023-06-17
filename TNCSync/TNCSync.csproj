@@ -165,12 +165,19 @@
       <DependentUpon>WriteCheque.xaml</DependentUpon>
     </Compile>
     <Compile Include="Class\Account.cs" />
+    <Compile Include="Class\BillPaymentCheques_DA.cs" />
+    <Compile Include="Class\DataBaseClass\DBTNCS.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBTNCS.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Class\General\Common.cs" />
     <Compile Include="Class\General\DBConnection.cs" />
     <Compile Include="Class\General\Messages.cs" />
     <Compile Include="Class\Helper.cs" />
     <Compile Include="Class\Info\UserInfo.cs" />
     <Compile Include="Class\Info\VendorListInfo.cs" />
+    <Compile Include="Class\QuickBookData.cs" />
     <Compile Include="Class\SP\UserSP.cs" />
     <Compile Include="Class\SP\VendorListSP.cs" />
     <Compile Include="Class\WriteCheques_DA.cs" />
@@ -187,6 +194,7 @@
     <Compile Include="Entry.cs" />
     <Compile Include="Enums\PageId.cs" />
     <Compile Include="LoginControl.cs" />
+    <Compile Include="Model\BillPaymentCheque.cs" />
     <Compile Include="Model\IUserRepository.cs" />
     <Compile Include="Model\UserAccountModel.cs" />
     <Compile Include="Model\UserModel.cs" />
@@ -417,6 +425,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Class\DataBaseClass\DBTNCS.dbml.layout">
+      <DependentUpon>DBTNCS.dbml</DependentUpon>
+    </None>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -444,6 +455,11 @@
     <Resource Include="AppResources\Fonts\Arimo-SemiBoldItalic.ttf" />
     <Resource Include="AppResources\Fonts\Radley-Italic.ttf" />
     <Resource Include="AppResources\Fonts\Radley-Regular.ttf" />
+    <None Include="Class\DataBaseClass\DBTNCS.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DBTNCS.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -542,6 +558,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>

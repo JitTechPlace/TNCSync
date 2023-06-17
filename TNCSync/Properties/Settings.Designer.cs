@@ -70,5 +70,16 @@ namespace TNCSync.Properties {
                 this["password"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=JITENDHRA\\SQLEXPRESS;Initial Catalog=CMS;User ID=sa;Password=p@ssw0rd" +
+            "")]
+        public string CMSConnectionString {
+            get {
+                return ((string)(this["CMSConnectionString"]));
+            }
+        }
     }
 }

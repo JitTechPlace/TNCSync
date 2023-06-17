@@ -17,34 +17,34 @@
             </Grid.RowDefinitions>
             <TextBlock Text="OverView" FontFamily="{StaticResource iFontRadleyReg}" FontSize="20"/>
             <WrapPanel Grid.Row="1">
-                <hw:PlainCard Height="180" Width="200" CornerRadius="10" Margin="10" Mode="Professional" hw:Icon.Default="{StaticResource avatar}"  hw:Icon.DefaultColor="{StaticResource color1}" Cursor="Hand" Header="User" SubHeader="Total" HeaderAlignment="Left" HeaderBackground="{StaticResource titleColor3}">
+                <hw:PlainCard Height="180" Width="200" CornerRadius="10" Margin="10" Mode="Professional" hw:Icon.Default="{StaticResource avatar}"  hw:Icon.DefaultColor="{StaticResource color12}" Cursor="Hand" Header="User" SubHeader="Total" HeaderAlignment="Left" HeaderBackground="{StaticResource panelActiveColor}">
                     <Viewbox Margin="20">
-                        <TextBlock x:Name="txtuser" Text="{Binding ID, NotifyOnSourceUpdated=True}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray"/>
+                        <TextBlock x:Name="txtuser" Text="{Binding ID, NotifyOnSourceUpdated=True}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource color11}"/>
                     </Viewbox>
                 </hw:PlainCard>
-                <hw:PlainCard Height="180" Width="200" CornerRadius="10" Margin="10" Mode="Flyer" hw:Icon.Default="{StaticResource dollar}"  hw:Icon.DefaultColor="{StaticResource color1}" Cursor="Hand"  Header="Invoice" SubHeader="Count" HeaderAlignment="Left" HeaderBackground="{StaticResource titleColor3}">
+                <hw:PlainCard Height="180" Width="200" CornerRadius="10" Margin="10" Mode="Flyer" hw:Icon.Default="{StaticResource dollar}"  hw:Icon.DefaultColor="{StaticResource color12}" Cursor="Hand"  Header="Invoice" SubHeader="Count" HeaderAlignment="Left" HeaderBackground="{StaticResource panelActiveColor}">
                     <Viewbox Margin="20">
-                        <TextBlock x:Name="txtinvoice" Text="54" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray"/>
+                        <TextBlock x:Name="txtinvoice" Text="54" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource color11}"/>
                     </Viewbox>
                 </hw:PlainCard>
-                <hw:PlainCard Height="180" Width="200" CornerRadius="10" Margin="10" Mode="Professional" hw:Icon.Default="{StaticResource avatar_circle}"  hw:Icon.DefaultColor="{StaticResource color1}" Cursor="Hand"  Header="Vendors" SubHeader="Count" HeaderAlignment="Left" HeaderBackground="{StaticResource titleColor3}">
+                <hw:PlainCard Height="180" Width="200" CornerRadius="10" Margin="10" Mode="Professional" hw:Icon.Default="{StaticResource avatar_circle}"  hw:Icon.DefaultColor="{StaticResource color12}" Cursor="Hand"  Header="Vendors" SubHeader="Count" HeaderAlignment="Left" HeaderBackground="{StaticResource panelActiveColor}">
                     <Viewbox Margin="20">
-                        <TextBlock x:Name="txtvndr" Text="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray"/>
+                        <TextBlock x:Name="txtvndr" Text="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource color11}"/>
                     </Viewbox>
                 </hw:PlainCard>
-                <hw:PlainCard Height="180" Width="200" CornerRadius="10" Margin="10" Mode="Simple" hw:Icon.Default="{StaticResource success_filled}"  hw:Icon.DefaultColor="{StaticResource color1}" Cursor="Hand" Header="PO" SubHeader="Count" HeaderAlignment="Left" HeaderBackground="{StaticResource titleColor3}">
+                <hw:PlainCard Height="180" Width="200" CornerRadius="10" Margin="10" Mode="Simple" hw:Icon.Default="{StaticResource success_filled}"  hw:Icon.DefaultColor="{StaticResource color12}" Cursor="Hand" Header="PO" SubHeader="Count" HeaderAlignment="Left" HeaderBackground="{StaticResource panelActiveColor}">
                     <Viewbox Margin="20">
-                        <TextBlock x:Name="txtpo" Text="25" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray"/>
+                        <TextBlock x:Name="txtpo" Text="25" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource color11}"/>
                     </Viewbox>
                 </hw:PlainCard>
-                <hw:PlainCard Height="180" Width="200" CornerRadius="10" Margin="10" Mode="Professional" hw:Icon.Default="{StaticResource avatar_circle}"   hw:Icon.DefaultColor="{StaticResource color1}" Cursor="Hand" Header="Customers" SubHeader="Count" HeaderAlignment="Left" HeaderBackground="{StaticResource titleColor3}">
+                <hw:PlainCard Height="180" Width="200" CornerRadius="10" Margin="10" Mode="Professional" hw:Icon.Default="{StaticResource avatar_circle}"   hw:Icon.DefaultColor="{StaticResource color12}" Cursor="Hand" Header="Customers" SubHeader="Count" HeaderAlignment="Left" HeaderBackground="{StaticResource panelActiveColor}">
                     <Viewbox Margin="20">
-                        <TextBlock x:Name="txtcust" Text="35" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray"/>
+                        <TextBlock x:Name="txtcust" Text="35" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource color11}"/>
                     </Viewbox>
                 </hw:PlainCard>
-                <hw:PlainCard Height="180" Width="200" CornerRadius="10" Margin="10" Mode="Simple" hw:Icon.Default="{StaticResource copy}"  hw:Icon.DefaultColor="{StaticResource color1}" Cursor="Hand" Header="Reports" SubHeader="Printed" HeaderAlignment="Left" HeaderBackground="{StaticResource titleColor3}">
+                <hw:PlainCard Height="180" Width="200" CornerRadius="10" Margin="10" Mode="Simple" hw:Icon.Default="{StaticResource copy}"  hw:Icon.DefaultColor="{StaticResource color12}" Cursor="Hand" Header="Reports" SubHeader="Printed" HeaderAlignment="Left" HeaderBackground="{StaticResource panelActiveColor}">
                     <Viewbox Margin="20">
-                        <TextBlock x:Name="txtrpt" Text="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray"/>
+                        <TextBlock x:Name="txtrpt" Text="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource color11}"/>
                     </Viewbox>
                 </hw:PlainCard>
             </WrapPanel>

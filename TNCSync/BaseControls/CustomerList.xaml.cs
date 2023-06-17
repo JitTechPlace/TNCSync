@@ -14,6 +14,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 using Haley.MVVM;
+using TNCSync.Class.DataBaseClass;
 
 namespace TNCSync.BaseControls
 {
@@ -31,7 +32,8 @@ namespace TNCSync.BaseControls
         //QBConnect qbConnect = new QBConnect();
         SessionManager sessionManager;
         private short maxVersion;
-        public IDialogService ds;
+		private static DBTNCSDataContext db = new DBTNCSDataContext();
+		public IDialogService ds;
 
 		#region CONNECTION TO QB
 		private void connectToQB()
@@ -245,7 +247,8 @@ namespace TNCSync.BaseControls
 			String name = CustName.Text.Trim();
 			if (name.Length == 0)
 			{
-				MessageBox.Show("Please enter a value for Name.", "Input Validation");
+				ds.ShowDialog("Please enter a value for Name.", "Input Validation", Haley.Enums.NotificationIcon.Warning);
+				//MessageBox.Show("Please enter a value for Name.", "Input Validation");
 				return;
 			}
 
@@ -284,7 +287,8 @@ namespace TNCSync.BaseControls
 			}
 			catch (System.Runtime.InteropServices.COMException ex)
 			{
-				MessageBox.Show("COM Error Description = " + ex.Message, "COM error");
+				ds.SendToast("COM Error Description = " + ex.Message, "COM error");
+				//MessageBox.Show("COM Error Description = " + ex.Message, "COM error");
 				return;
 			}
 			finally
@@ -348,55 +352,59 @@ namespace TNCSync.BaseControls
 
 		private void Searchcust_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                //sessionManager.openConnection(ENConnectionType.ctLocalQBD);
-                //sessionManager.beginSession(ENOpenMode.omDontCare);
+			connectToQB();
+			//GetCustomerList();
+			populateDatagrid();
 
-                IMsgSetRequest requestSet = sessionManager.getMsgSetRequest();
-				requestSet.Attributes.OnError = ENRqOnError.roeContinue;
+   //         try
+   //         {
+   //             //sessionManager.openConnection(ENConnectionType.ctLocalQBD);
+   //             //sessionManager.beginSession(ENOpenMode.omDontCare);
 
-				ICustomerQuery customerQuery = requestSet.AppendCustomerQueryRq();
-				customerQuery.IncludeRetElementList.Add("ListID");
-				customerQuery.IncludeRetElementList.Add("Name");
-				customerQuery.IncludeRetElementList.Add("Companyname");
-				customerQuery.IncludeRetElementList.Add("Email");
+			//             IMsgSetRequest requestSet = sessionManager.getMsgSetRequest();
+			//	requestSet.Attributes.OnError = ENRqOnError.roeContinue;
 
-				IMsgSetResponse responseSet = sessionManager.doRequest(true, ref requestSet);
-				IResponse response = responseSet.ResponseList.GetAt(0);
+			//	ICustomerQuery customerQuery = requestSet.AppendCustomerQueryRq();
+			//	customerQuery.IncludeRetElementList.Add("ListID");
+			//	customerQuery.IncludeRetElementList.Add("Name");
+			//	customerQuery.IncludeRetElementList.Add("Companyname");
+			//	customerQuery.IncludeRetElementList.Add("Email");
 
-				if (response.StatusCode == 0)
-				{
-					ICustomerRetList customerList = (ICustomerRetList)response.Detail;
+			//	IMsgSetResponse responseSet = sessionManager.doRequest(true, ref requestSet);
+			//	IResponse response = responseSet.ResponseList.GetAt(0);
 
-					List<Customer> customers = new List<Customer>();
+			//	if (response.StatusCode == 0)
+			//	{
+			//		ICustomerRetList customerList = (ICustomerRetList)response.Detail;
 
-					for (int i = 0; i < customerList.Count; i++)
-					{
-						ICustomerRet customer = customerList.GetAt(i);
-						customers.Add(new Customer
-						{
-							ListID = customer.ListID.GetValue(),
-							Name = customer.Name.GetValue(),
-							Companyname = customer.CompanyName.GetValue(),
-							Email = customer.Email.GetValue()
-						});
-					}
-					//handle the retrived customer data
-					//ProcessRetrivedCustomers(customers);
-					Custgrid.ItemsSource = DataContext.ToString();
-				}
-				else
-				{
-					//Handle the response error
-					ds.SendToast("", "QuickBooks NotResponding", Haley.Enums.NotificationIcon.Error);
-				}
-			}
-			catch(Exception ex)
-            {
-				ds.SendToast("", "QuickBooks response", Haley.Enums.NotificationIcon.Error);
-			}
-			
+			//		List<Customer> customers = new List<Customer>();
+
+			//		for (int i = 0; i < customerList.Count; i++)
+			//		{
+			//			ICustomerRet customer = customerList.GetAt(i);
+			//			customers.Add(new Customer
+			//			{
+			//				ListID = customer.ListID.GetValue(),
+			//				Name = customer.Name.GetValue(),
+			//				Companyname = customer.CompanyName.GetValue(),
+			//				Email = customer.Email.GetValue()
+			//			});
+			//		}
+			//		//handle the retrived customer data
+			//		//ProcessRetrivedCustomers(customers);
+			//		Custgrid.ItemsSource = DataContext.ToString();
+			//	}
+			//	else
+			//	{
+			//		//Handle the response error
+			//		ds.ShowDialog("No Response", "QuickBooks NotResponding", Haley.Enums.NotificationIcon.Error);
+			//	}
+			//}
+			//catch(Exception ex)
+			//         {
+			//	ds.ShowDialog("No Response", "QuickBooks response", Haley.Enums.NotificationIcon.Error);
+			//}
+
 			#region sample
 			//         String name = CustName.Text.Trim();
 
@@ -431,6 +439,271 @@ namespace TNCSync.BaseControls
 			//Custgrid.ItemsSource = DataContext.ToString();
 			//disconnectFromQB();
 			#endregion
+		}
+		public void GetCustomerList(ref bool bError)
+        {
+			try
+			{
+				//IMsgSetRequest msgsetRequest;
+				//msgsetRequest.ClearRequests();
+				//msgsetRequest.Attributes.OnError = ENRqOnError.roeContinue;
+				//ICustomerQuery customerQuery;
+				//customerQuery = msgsetRequest.AppendCustomerQueryRq;
+				//bool bDone = false;
+    //            while (!bDone)
+    //            {
+				//	IMsgSetResponse responseSet = sessionManager.doRequest(true, ref msgs  etRequest);
+				//	CustomerDatatoDatabase(ref msgSetResponse, ref bDone, ref bError);
+				//}
+            }
+            catch
+            {
+
+            }
+        }
+
+		public void CustomerDatatoDatabase( ref IMsgSetResponse msgSetResponse, ref bool bDone, ref bool bError)
+        {
+            try 
+			{
+				if (msgSetResponse is null || msgSetResponse.ResponseList is null || msgSetResponse.ResponseList.Count < 0)
+				{
+					bDone = true;
+					bError = true;
+					return;
+				}
+
+				//ResponseParsing List
+				IResponseList responseList;
+				responseList = msgSetResponse.ResponseList;
+
+				IResponse response;
+				response = responseList.GetAt(0);
+				if (response != null)
+				{
+					if (response.StatusCode != 0)
+					{
+						MessageBox.Show("Error", "Unexpected Error " + response.StatusMessage);
+						bDone = true;
+						bError = true;
+						return;
+					}
+				}
+
+				//make sure we have a response object to handle
+				if (response == null || response.Type == null || response.Detail == null || response.Detail.Type == null)
+				{
+					bDone = true;
+					bError = true;
+					return;
+				}
+
+				//make sure we are processing the CustomerQueryRs and CustomerRetList in the response list
+				ICustomerRetList customerRetList;
+				ENResponseType responseType;
+				ENObjectType responseDetailType;
+				responseType = (ENResponseType)response.Type.GetValue();
+				responseDetailType = (ENObjectType)response.Detail.Type.GetValue();
+				if (responseType == ENResponseType.rtCustomerQueryRs && responseDetailType == ENObjectType.otCustomerRetList)
+				{
+					customerRetList = response.Detail as ICustomerRetList;
+				}
+				else
+				{
+					bDone = true;
+					bError = true;
+					return;
+				}
+				//Parse the query response and add the customer to the customer list box
+				short count;
+				short index;
+				ICustomerRet customerRet;
+				count = (short)customerRetList.Count;
+				short Max_RETURNED;
+				Max_RETURNED = (short)(1 + customerRetList.Count);
+				//We are done with the Customer Quereis if we have not received the Maxreturned
+				if (count < Max_RETURNED)
+				{
+					bDone = true;
+				}
+
+				var loopTo = (short)(count - 1);
+				for (index = 0; index <= loopTo; index++)
+				{
+					//Skip the value if it is repeating from the last query
+					customerRet = customerRetList.GetAt(index);
+					if (customerRet == null || customerRet.ListID == null)
+					{
+						bDone = true;
+						bError = true;
+						return;
+					}
+
+					//Declare variable to Retrive data
+					string ListID = customerRet.ListID.GetValue();
+					DateTime TimeCreated = default;
+					if (customerRet.TimeCreated != null)
+					{
+						TimeCreated = customerRet.TimeCreated.GetValue();
+					}
+					DateTime TimeModified = default;
+					if (customerRet.TimeModified != null)
+					{
+						TimeModified = customerRet.TimeModified.GetValue();
+					}
+					string EditSequence = string.Empty;
+					if (customerRet.EditSequence != null)
+					{
+						EditSequence = customerRet.EditSequence.GetValue();
+					}
+					string Name = string.Empty;
+					if (customerRet.Name != null)
+					{
+						Name = customerRet.Name.GetValue();
+					}
+					string ArName = string.Empty;
+					string FullName = string.Empty;
+					if (customerRet.FullName != null)
+					{
+						FullName = customerRet.FullName.GetValue();
+					}
+					string Parent = string.Empty;
+					string IsActive = string.Empty;
+					if (customerRet.IsActive != null)
+					{
+						IsActive = customerRet.IsActive.GetValue().ToString();
+					}
+					string Sublevel = string.Empty;
+					if (customerRet.Sublevel != null)
+					{
+						Sublevel = customerRet.Sublevel.GetValue().ToString();
+					}
+					string CompanyName = string.Empty;
+					if (customerRet.CompanyName != null)
+					{
+						CompanyName = customerRet.CompanyName.GetValue();
+					}
+					string Salutation = string.Empty;
+					string FirstName = string.Empty;
+					string MiddleName = string.Empty;
+					string LastName = string.Empty;
+					// bill address details
+					string BillAddress1 = string.Empty;
+					string BillAddress2 = string.Empty;
+					string BillAddress3 = string.Empty;
+					string BillAddress4 = string.Empty;
+					string BillCityRefKey = string.Empty;
+					string BillCity = string.Empty;
+					string BillStateRefKey = string.Empty;
+					string BillState = string.Empty;
+					string BillPostalCode = string.Empty;
+					string BillCountryRefKey = string.Empty;
+					string BillCountry = string.Empty;
+
+					if (customerRet.BillAddress != null)
+					{
+
+
+						if (customerRet.BillAddress.Addr1 != null)
+						{
+							BillAddress1 = customerRet.BillAddress.Addr1.GetValue();
+						}
+
+						if (customerRet.BillAddress.Addr2 != null)
+						{
+							BillAddress2 = customerRet.BillAddress.Addr2.GetValue();
+						}
+
+						if (customerRet.BillAddress.Addr3 != null)
+						{
+							BillAddress3 = customerRet.BillAddress.Addr3.GetValue();
+						}
+						if (customerRet.BillAddress.Addr4 != null)
+						{
+							BillAddress4 = customerRet.BillAddress.Addr4.GetValue();
+						}
+						if (customerRet.BillAddress.City != null)
+						{
+							BillCity = customerRet.BillAddress.City.GetValue();
+						}
+						if (customerRet.BillAddress.State != null)
+						{
+							BillState = customerRet.BillAddress.State.GetValue();
+						}
+
+						if (customerRet.BillAddress.PostalCode != null)
+						{
+							BillPostalCode = customerRet.BillAddress.PostalCode.GetValue();
+						}
+						if (customerRet.BillAddress.Country != null)
+						{
+							BillCountry = customerRet.BillAddress.Country.GetValue();
+						}
+					}
+
+					string Phone = string.Empty;
+					if (customerRet.Phone != null)
+					{
+						Phone = customerRet.Phone.GetValue();
+					}
+					string AltPhone = string.Empty;
+					string Fax = string.Empty;
+					string Email = string.Empty;
+					if (customerRet.Email != null)
+					{
+						Email = customerRet.Email.GetValue();
+					}
+					string Cc = string.Empty;
+					string Contact = string.Empty;
+					string AltContact = string.Empty;
+					// customer type ref
+					string CustomerTypeName = string.Empty;
+					string CustomerTypeRef = string.Empty;
+					string TermsRef = string.Empty;
+					string TermsName = string.Empty;
+					string SalesRepRef = string.Empty;
+					string SalesRepName = string.Empty;
+					double Balance = 0.0d;
+					if (customerRet.Balance != null)
+					{
+						Balance = customerRet.Balance.GetValue();
+					}
+					double TotalBalance = 0.0d;
+					if (customerRet.TotalBalance != null)
+					{
+						TotalBalance = customerRet.TotalBalance.GetValue();
+					}
+
+					string SalesTaxCodeName = string.Empty;
+					string SalesTaxCodeRef = string.Empty;
+					string AccountNumber = string.Empty;
+					if (customerRet.AccountNumber != null)
+					{
+						AccountNumber = customerRet.AccountNumber.GetValue();
+					}
+					string CreditLimit = string.Empty;
+					string JobStatus = string.Empty;
+					DateTime JobStartDate = default;
+					DateTime JobProjectedEndDate = default;
+					DateTime JobEndDate = default;
+					string JobDesc = string.Empty;
+					string JobTypeRef = string.Empty;
+					string JobTypeName = string.Empty;
+					string Other13 = string.Empty;
+					string Other14 = string.Empty;
+					string Other15 = string.Empty;
+					string Other16 = string.Empty;
+					int DisplayColor = 0;
+					//Insert into Database
+					//db.tblCustomer_Insert(ListID, TimeCreated, TimeModified, EditSequence, Name, ArName, FullName, Parent, char.Parse(IsActive), int.Parse(Sublevel), CompanyName, Salutation, FirstName, MiddleName, LastName, BillAddress1, BillAddress2, BillAddress3, BillAddress4, BillCityRefKey, BillCity, BillStateRefKey, BillState, BillPostalCode, BillCountryRefKey, BillCountry, Phone, AltPhone, Fax, Email, Cc, Contact, AltContact, CustomerTypeRef, CustomerTypeName, TermsRef, TermsName, SalesRepRef, SalesRepName, (decimal?)Balance, (decimal?)TotalBalance, SalesTaxCodeRef, SalesTaxCodeName, AccountNumber, CreditLimit, JobStatus, Convert.ToString(JobStartDate), Convert.ToString(JobProjectedEndDate), Convert.ToString(JobEndDate), JobDesc, JobTypeRef, JobTypeName, Other13, Other14, Other15, Other16, DisplayColor);
+				}
+
+				return;
+			}
+			catch
+            {
+				return;
+            }
 		}
 
 		public class Customer

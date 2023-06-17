@@ -21,7 +21,7 @@ namespace TNCSync.ViewModel
         private string _caption;
         private IconChar _icon;
 
-        private IUserRepository userRepository;
+       // private IUserRepository userRepository;
 
         ///Properties
         public UserAccountModel CurrentUserAccount
