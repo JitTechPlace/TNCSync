@@ -15,6 +15,7 @@ using System.Data.SqlClient;
 using System.Data;
 using Haley.MVVM;
 using TNCSync.Class.DataBaseClass;
+using TNCSync.Class;
 
 namespace TNCSync.BaseControls
 {
@@ -23,6 +24,7 @@ namespace TNCSync.BaseControls
     /// </summary>
     public partial class CustomerList : UserControl
     {
+		private bool bError;
         public CustomerList()
         {
             InitializeComponent();
@@ -355,106 +357,24 @@ namespace TNCSync.BaseControls
 			connectToQB();
 			//GetCustomerList();
 			populateDatagrid();
-
-   //         try
-   //         {
-   //             //sessionManager.openConnection(ENConnectionType.ctLocalQBD);
-   //             //sessionManager.beginSession(ENOpenMode.omDontCare);
-
-			//             IMsgSetRequest requestSet = sessionManager.getMsgSetRequest();
-			//	requestSet.Attributes.OnError = ENRqOnError.roeContinue;
-
-			//	ICustomerQuery customerQuery = requestSet.AppendCustomerQueryRq();
-			//	customerQuery.IncludeRetElementList.Add("ListID");
-			//	customerQuery.IncludeRetElementList.Add("Name");
-			//	customerQuery.IncludeRetElementList.Add("Companyname");
-			//	customerQuery.IncludeRetElementList.Add("Email");
-
-			//	IMsgSetResponse responseSet = sessionManager.doRequest(true, ref requestSet);
-			//	IResponse response = responseSet.ResponseList.GetAt(0);
-
-			//	if (response.StatusCode == 0)
-			//	{
-			//		ICustomerRetList customerList = (ICustomerRetList)response.Detail;
-
-			//		List<Customer> customers = new List<Customer>();
-
-			//		for (int i = 0; i < customerList.Count; i++)
-			//		{
-			//			ICustomerRet customer = customerList.GetAt(i);
-			//			customers.Add(new Customer
-			//			{
-			//				ListID = customer.ListID.GetValue(),
-			//				Name = customer.Name.GetValue(),
-			//				Companyname = customer.CompanyName.GetValue(),
-			//				Email = customer.Email.GetValue()
-			//			});
-			//		}
-			//		//handle the retrived customer data
-			//		//ProcessRetrivedCustomers(customers);
-			//		Custgrid.ItemsSource = DataContext.ToString();
-			//	}
-			//	else
-			//	{
-			//		//Handle the response error
-			//		ds.ShowDialog("No Response", "QuickBooks NotResponding", Haley.Enums.NotificationIcon.Error);
-			//	}
-			//}
-			//catch(Exception ex)
-			//         {
-			//	ds.ShowDialog("No Response", "QuickBooks response", Haley.Enums.NotificationIcon.Error);
-			//}
-
-			#region sample
-			//         String name = CustName.Text.Trim();
-
-			////step1: create the qbXML request
-			//XmlDocument inputXMLDoc = new XmlDocument();
-			//inputXMLDoc.AppendChild(inputXMLDoc.CreateXmlDeclaration("1.0", null, null));
-			//inputXMLDoc.AppendChild(inputXMLDoc.CreateProcessingInstruction("qbxml", "version=\"2.0\""));
-			//XmlElement qbXML = inputXMLDoc.CreateElement("QBXML");
-			//inputXMLDoc.AppendChild(qbXML);
-			//XmlElement qbXMLMsgsRq = inputXMLDoc.CreateElement("QBXMLMsgsRq");
-			//qbXML.AppendChild(qbXMLMsgsRq);
-			//qbXMLMsgsRq.SetAttribute("onError", "stopOnError");
-			//XmlElement custAddRq = inputXMLDoc.CreateElement("CustomerAddRq");
-			//qbXMLMsgsRq.AppendChild(custAddRq);
-			//custAddRq.SetAttribute("requestID", "1");
-			//XmlElement custAdd = inputXMLDoc.CreateElement("CustomerAdd");
-			//custAddRq.AppendChild(custAdd);
-			//custAdd.AppendChild(inputXMLDoc.CreateElement("Name")).InnerText = name;
-			//if (Phone.Text.Length > 0)
-			//{
-			//	custAdd.AppendChild(inputXMLDoc.CreateElement("Phone")).InnerText = Phone.Text;
-			//}
-
-			//string input = inputXMLDoc.OuterXml;
-
-			////step2: 
-			//string request = "CustomerQueryRq";
-			//connectToQB();
-			//int count = getCount(request);
-			//IMsgSetResponse responseMsgSet = processRequestFromQB(buildCustomerQueryRq(new string[] { "FullName" }, null));
-			//string[] customerList = parseCustomerQueryRs(responseMsgSet, count);
-			//Custgrid.ItemsSource = DataContext.ToString();
-			//disconnectFromQB();
-			#endregion
+			bError = false;
+			GetCustomerList(ref bError);     
 		}
 		public void GetCustomerList(ref bool bError)
         {
 			try
 			{
-				//IMsgSetRequest msgsetRequest;
-				//msgsetRequest.ClearRequests();
-				//msgsetRequest.Attributes.OnError = ENRqOnError.roeContinue;
-				//ICustomerQuery customerQuery;
-				//customerQuery = msgsetRequest.AppendCustomerQueryRq;
-				//bool bDone = false;
-    //            while (!bDone)
-    //            {
-				//	IMsgSetResponse responseSet = sessionManager.doRequest(true, ref msgs  etRequest);
-				//	CustomerDatatoDatabase(ref msgSetResponse, ref bDone, ref bError);
-				//}
+                //IMsgSetRequest msgsetRequest = null;
+				IMsgSetRequest msgsetRequest = sessionManager.getMsgSetRequest();
+				msgsetRequest.ClearRequests();
+                msgsetRequest.Attributes.OnError = ENRqOnError.roeContinue;
+				ICustomerQuery customerQuery = msgsetRequest.AppendCustomerQueryRq();
+                bool bDone = false;
+                while (!bDone)
+                {
+                    IMsgSetResponse responseSet = sessionManager.doRequest(true, ref msgsetRequest);
+                    CustomerDatatoDatabase(ref responseSet, ref bDone, ref bError);
+                }
             }
             catch
             {
@@ -695,7 +615,7 @@ namespace TNCSync.BaseControls
 					string Other16 = string.Empty;
 					int DisplayColor = 0;
 					//Insert into Database
-					//db.tblCustomer_Insert(ListID, TimeCreated, TimeModified, EditSequence, Name, ArName, FullName, Parent, char.Parse(IsActive), int.Parse(Sublevel), CompanyName, Salutation, FirstName, MiddleName, LastName, BillAddress1, BillAddress2, BillAddress3, BillAddress4, BillCityRefKey, BillCity, BillStateRefKey, BillState, BillPostalCode, BillCountryRefKey, BillCountry, Phone, AltPhone, Fax, Email, Cc, Contact, AltContact, CustomerTypeRef, CustomerTypeName, TermsRef, TermsName, SalesRepRef, SalesRepName, (decimal?)Balance, (decimal?)TotalBalance, SalesTaxCodeRef, SalesTaxCodeName, AccountNumber, CreditLimit, JobStatus, Convert.ToString(JobStartDate), Convert.ToString(JobProjectedEndDate), Convert.ToString(JobEndDate), JobDesc, JobTypeRef, JobTypeName, Other13, Other14, Other15, Other16, DisplayColor);
+					db.tblCustomer_Insert(ClearAllControl.gblCompanyID, ListID, TimeCreated, TimeModified, EditSequence, Name, ArName, FullName, Parent, IsActive, int.Parse(Sublevel), CompanyName, Salutation, FirstName, MiddleName, LastName, BillAddress1, BillAddress2, BillAddress3, BillAddress4, BillCityRefKey, BillCity, BillStateRefKey, BillState, BillPostalCode, BillCountryRefKey, BillCountry, Phone, AltPhone, Fax, Email, Cc, Contact, AltContact, CustomerTypeRef, CustomerTypeName, TermsRef, TermsName, SalesRepRef, SalesRepName, (decimal?)Balance, (decimal?)TotalBalance, SalesTaxCodeRef, SalesTaxCodeName, AccountNumber, CreditLimit, JobStatus, Convert.ToString(JobStartDate), Convert.ToString(JobProjectedEndDate), Convert.ToString(JobEndDate), JobDesc, JobTypeRef, JobTypeName, Other13, Other14, Other15, Other16,DisplayColor);
 				}
 
 				return;
