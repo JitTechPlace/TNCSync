@@ -236,7 +236,7 @@
                             <StackPanel Grid.Column="1" Grid.Row="1" Margin="25 15 10 0">
                                 <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
                                 <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
-                                <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                                <ComboBox x:Name="cmbxTmptInvoice" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">

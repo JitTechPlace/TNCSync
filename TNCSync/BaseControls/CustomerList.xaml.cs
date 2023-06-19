@@ -74,11 +74,11 @@ namespace TNCSync.BaseControls
 				}
 			}
 		}
-		#endregion
+        #endregion
 
-
-		#region Request Building
-		private IMsgSetRequest buildDataCountQuery(string request)
+        #region Customer
+        #region Request Building
+        private IMsgSetRequest buildDataCountQuery(string request)
 		{
 			IMsgSetRequest requestMsgSet = sessionManager.getMsgSetRequest();
 			requestMsgSet.Attributes.OnError = ENRqOnError.roeContinue;
@@ -652,5 +652,18 @@ namespace TNCSync.BaseControls
 			Custgrid.ItemsSource = table.DefaultView;
 			sqlconn.Close();
 		}
-	}
+
+        #endregion
+
+
+        #region Invoice
+		private void GetTemplates()
+        {
+			cmbxTmptInvoice.Items.Clear();
+			//sql.
+
+		}
+
+        #endregion
+    }
 }
