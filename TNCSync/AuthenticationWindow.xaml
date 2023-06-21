@@ -19,8 +19,8 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    
-    <Grid x:Name="grdMain">
+
+    <Grid x:Name="grdMain" MouseLeftButtonDown="pnlControlBar_MouseLeftButtonDown" MouseEnter="pnlControlBar_MouseEnter">
         <Image Source="pack://application:,,,/TNCSync;component/AppResources/Images/loginpage_new.png" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.75"/>
         <Grid x:Name="pnlControlBar" MouseLeftButtonDown="pnlControlBar_MouseLeftButtonDown" MouseEnter="pnlControlBar_MouseEnter">
             <Grid.RowDefinitions>

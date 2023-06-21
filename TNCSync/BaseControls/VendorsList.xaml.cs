@@ -135,8 +135,8 @@ namespace TNCSync.BaseControls
             }
             catch
             {
-
-               // Interaction.MsgBox("HRESULT = " + Information.Err().Number + " (" + Conversion.Hex(Information.Err().Number) + ") " + Constants.vbCrLf + Constants.vbCrLf + Information.Err().Description, MsgBoxStyle.Critical, "Error in GetCustomers");
+                ds.SendToast("Not Responding", "Unable to connect with QuickBooks response", Haley.Enums.NotificationIcon.Error);
+                // Interaction.MsgBox("HRESULT = " + Information.Err().Number + " (" + Conversion.Hex(Information.Err().Number) + ") " + Constants.vbCrLf + Constants.vbCrLf + Information.Err().Description, MsgBoxStyle.Critical, "Error in GetCustomers");
                 bError = true;
             }
         }

@@ -181,6 +181,7 @@
     <Compile Include="Class\QuickBookData.cs" />
     <Compile Include="Class\SP\UserSP.cs" />
     <Compile Include="Class\SP\VendorListSP.cs" />
+    <Compile Include="Class\SQLControl.cs" />
     <Compile Include="Class\WriteCheques_DA.cs" />
     <Compile Include="Controls\LoginHelperPage.xaml.cs">
       <DependentUpon>LoginHelperPage.xaml</DependentUpon>

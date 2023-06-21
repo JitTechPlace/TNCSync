@@ -16,6 +16,8 @@ using System.Data;
 using Haley.MVVM;
 using TNCSync.Class.DataBaseClass;
 using TNCSync.Class;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
 
 namespace TNCSync.BaseControls
 {
@@ -378,8 +380,8 @@ namespace TNCSync.BaseControls
             }
             catch
             {
-
-            }
+				ds.SendToast("Not Responding", "Unable to connect with QuickBooks response", Haley.Enums.NotificationIcon.Error);
+			}
         }
 
 		public void CustomerDatatoDatabase( ref IMsgSetResponse msgSetResponse, ref bool bDone, ref bool bError)
@@ -653,15 +655,28 @@ namespace TNCSync.BaseControls
 			sqlconn.Close();
 		}
 
-        #endregion
+		#endregion
 
 
-        #region Invoice
-		private void GetTemplates()
-        {
-			cmbxTmptInvoice.Items.Clear();
-			//sql.
+		#region Invoice
 
+		private void syncalInvoice_Click(object sender, RoutedEventArgs e)
+		{
+			PopulateTempleteCombobox(); 
+		}
+
+		private void PopulateTempleteCombobox()
+		{
+			string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
+			SqlConnection sqlconn = new SqlConnection(conn);
+			sqlconn.Open();
+			SqlCommand cmd = new SqlCommand("SELECT * FROM Templates where TemplateType ='Sales Invoice' and Status='True'", sqlconn);
+			SqlDataAdapter sdr = new SqlDataAdapter(cmd);
+			DataTable table = new DataTable();
+			sdr.Fill(table);
+			cmbxTmptInvoice.ItemsSource = table.DefaultView;
+			cmbxTmptInvoice.DisplayMemberPath = "TemplateName";
+			cmbxTmptInvoice.SelectedIndex = -1;
 		}
 
         #endregion

@@ -103,6 +103,7 @@ namespace TNCSync.Controls
             if((userName == "Superadmin" & password == "Version01"))
             {
                 mw.Show();
+                aw.Close();
                 //cmpyCmbx.Visibility = Visibility.Visible;
             }
             else
@@ -127,6 +128,7 @@ namespace TNCSync.Controls
                         sda.Fill(table);
                         cmd.Dispose();
                         mw.Show();
+                        aw.Close();
                     }
                     catch (Exception ex)
                     {

@@ -32,11 +32,11 @@ namespace TNCSync
             base.OnStartup(e);
 
         }
-        private void Application_Startup(object sender, StartupEventArgs e)
+        private void Application_Startup(object sender, StartupEventArgs e)  //Need to work while closing application
         {
             var _actualmainwindow = new MainWindow();  //Remember to dispose at the end.
-            int maxtries = 0;
-            int trycount = 0;
+            //int maxtries = 0;
+            //int trycount = 0;
             while (!CredentialHolder.Singleton.IsAuthenticated)
             {
                 var _result = ContainerStore.Singleton.Windows.ShowDialog("authmainWindow");
@@ -46,7 +46,7 @@ namespace TNCSync
                     break;
                 }
                 // trycount++; //add one count
-                if (trycount >= maxtries) break;
+               // if (trycount >= maxtries) break;
             }
 
             //if (CredentialHolder.Singleton.IsAuthenticated)
@@ -54,16 +54,16 @@ namespace TNCSync
             //    //Show the main window(amybe add other calidation for feature control)
             //    _actualmainwindow.ShowDialog();
             //}
-            if (!(CredentialHolder.Singleton.IsAuthenticated))
-            {
-                //Application.Current.Shutdown();
-                _ds?.Error("Login Failure", "Unable to authenticate the user. Application will close now");
-                if (Application.Current.MainWindow == null)
-                {
-                    Application.Current.MainWindow.Close();
-                }
-                Application.Current.Shutdown();
-            }
+            //if (!(CredentialHolder.Singleton.IsAuthenticated))
+            //{
+            //    //Application.Current.Shutdown();
+            //    _ds?.Error("Login Failure", "Unable to authenticate the user. Application will close now");
+            //    if (Application.Current.MainWindow == null)
+            //    {
+            //        Application.Current.MainWindow.Close();
+            //    }
+            //    Application.Current.Shutdown();
+            //}
         }
 
         private void ContainerRegistration()

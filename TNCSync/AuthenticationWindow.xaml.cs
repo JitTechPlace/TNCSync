@@ -42,6 +42,7 @@ namespace TNCSync
         private void clsBtn_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.Close();
+            Application.Current.Shutdown();
         }
     }
 }

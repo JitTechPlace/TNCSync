@@ -21,7 +21,8 @@ namespace TNCSync.Sessions
         private short _qbSDKMinorVer = 2;                           // generic locaiton to store the minor version
         private string _appId = "";                                 // storage location for the application ID
         private string _appName = "TNCSync";                               // storage location for the application name
-        private string _qbFile = "C:\\Users\\Public\\Documents\\Intuit\\QuickBooks\\Sample Company Files\\QuickBooks Enterprise Solutions 18.0\\sample_product-based business.qbw";  // storage location for the qbFile entry 
+        private string _qbFile = "";  // storage location for the qbFile entry 
+        //C:\\Users\\Public\\Documents\\Intuit\\QuickBooks\\Sample Company Files\\QuickBooks Enterprise Solutions 13.0\\Test for Integration.qbw
         //C:\\Users\\Public\\Documents\\Intuit\\QuickBooks\\Sample Company Files\\QuickBooks Enterprise Solutions 18.0\\sample_product-based business.qbw
         //C:\\Users\\Public\\Documents\\Intuit\\QuickBooks\\Sample Company Files\\QuickBooks Enterprise Solutions 13.0\\sample_product-based business.qbw"
         private ENConnectionType _connType;                         // SDK connection type

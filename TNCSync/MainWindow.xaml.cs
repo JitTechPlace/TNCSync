@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Haley.Abstractions;
+using Haley.Enums;
 using Haley.MVVM;
 
 namespace TNCSync
@@ -36,6 +37,11 @@ namespace TNCSync
         }
 
         private IDialogService _ds;
+        private bool blurOtherWindows;
+        private bool hideIcon;
+
+        bool EnableBackgroundBlur { get; set; }
+
         [DllImport("user32.dll")]
         public static extern IntPtr SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);
         private void pnlControlBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -80,10 +86,18 @@ namespace TNCSync
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            _ds.ShowDialog("Logout", "Are you sure to logout?", Haley.Enums.NotificationIcon.Warning);
-            this.Close();
-            //Window wnd = new AuthenticationWindow();
-            //wnd.Show();
+            DialogMode dialogMode = DialogMode.Confirmation;
+            var result = _ds.ShowDialog("Logout", "Are you sure to logout?", Haley.Enums.NotificationIcon.Warning,dialogMode,hideIcon=true, blurOtherWindows = true);
+            if (result.DialogResult == true)
+            {
+                this.Close();
+                //AuthenticationWindow awnd = new AuthenticationWindow();
+                //awnd.Show();
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }
