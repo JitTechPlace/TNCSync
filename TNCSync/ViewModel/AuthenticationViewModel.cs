@@ -12,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using TNCSync.Enums;
+using TNCSync.Model;
 
 namespace TNCSync.ViewModel
 {
@@ -77,15 +79,53 @@ namespace TNCSync.ViewModel
         }
 
 
+        private ICommand mCMDSwitchLogOnPages;
+        public ICommand CMDSwitchLogOnPages
+        {
+            get
+            {
+                if (mCMDSwitchLogOnPages == null)
+                { 
+                    mCMDSwitchLogOnPages = new RelayCommand(param => SwithLogOnPages(param), GlobelHelpers.AlwaysExecute);
+                }
+                return mCMDSwitchLogOnPages;
+            }
+        }
+
+        public void SwithLogOnPages(object InputValues)
+        {
+            LogOnPages iparam = (LogOnPages)InputValues;
+            currentPage = iparam;
+        }
+
+        private LogOnPages _currentPage;
+        public LogOnPages currentPage
+        {
+            get { return _currentPage; }
+            set { _currentPage = value; OnPropertyChanged(); }
+        }
+
+        private int mMoveOn;
+        public int MoveOn
+        {
+            get { return mMoveOn; }
+            set
+            {
+                mMoveOn = value;
+                OnPropertyChanged();
+            }
+        }
+
+
 
         #region Commands
 
 
         public ICommand CmdChangeView => new DelegateCommand<object>((o) => CurrentView = o);
 
-        public ICommand CmdCreateAccount => new DelegateCommand(_createAccount);
+        //public ICommand CmdCreateAccount => new DelegateCommand(_createAccount);
 
-        public ICommand CmdSignIn => new DelegateCommand<object>(_signIn);
+        //public ICommand CmdSignIn => new DelegateCommand<object>(_signIn);
 
        // public ICommand CmdResetPassword => new DelegateCommand<object>(_resetpassword);
 
@@ -98,30 +138,30 @@ namespace TNCSync.ViewModel
 
         #region COmmand Methods
 
-        private void _signIn(object obj)
-        {
-            //Signin
-            var _cmp = Company;
-            var _usn = UserName;
-            if (obj is PlainPasswordBox pbox)
-            {
-                var _password = pbox.GetPassword();
-                if (string.IsNullOrWhiteSpace(_password) || !_password.Equals("Admin"))
-                {
-                    ds.SendToast("Authentication Error", "Credentials Mismatch or Missing", NotificationIcon.Error);
-                    return;
-                }
-            }
-            //finally if its sucessfull
-            InvokeVMClosed(this, new FrameClosingEventArgs(true, "Authenticated"));
-        }
+        //private void _signIn(object obj)
+        //{
+        //    //Signin
+        //    var _cmp = Company;
+        //    var _usn = UserName;
+        //    if (obj is PlainPasswordBox pbox)
+        //    {
+        //        var _password = pbox.GetPassword();
+        //        if (string.IsNullOrWhiteSpace(_password) || !_password.Equals("Admin"))
+        //        {
+        //            ds.SendToast("Authentication Error", "Credentials Mismatch or Missing", NotificationIcon.Error);
+        //            return;
+        //        }
+        //    }
+        //    //finally if its sucessfull
+        //    InvokeVMClosed(this, new FrameClosingEventArgs(true, "Authenticated"));
+        //}
 
-        private void _createAccount()
-        {
-            //Create an account by the values
-            //change the view
-            CurrentView = ViewEnums.LoginPage;
-        }
+        //private void _createAccount()
+        //{
+        //    //Create an account by the values
+        //    //change the view
+        //    CurrentView = ViewEnums.LoginPage;
+        //}
 
         //private async void _generateOTP(object param)
         //{
@@ -170,10 +210,20 @@ namespace TNCSync.ViewModel
 
         #endregion
 
-        public AuthenticationViewModel(IDialogService dialogService)
+        public static AuthenticationViewModel Instance = new AuthenticationViewModel(); //Singleton
+        public static void CreateInstance()
         {
-            CurrentView = ViewEnums.LoginPage;
-            ds = dialogService;
+            Instance = null;
+            if (Instance == null) Instance = new AuthenticationViewModel();
+        }
+
+
+        public AuthenticationViewModel()
+        {
+            MoveOn = 1;
+            //currentPage = LogOnPages.login;
+           CurrentView = ViewEnums.LoginPage;
+            //ds = dialogService;
         }
     }
 }

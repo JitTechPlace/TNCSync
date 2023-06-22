@@ -26,9 +26,8 @@ namespace TNCSync.Enums
 
     public enum LogOnPages
     {
-        register,
         login,
-        resetpassword,
-        OTP
+        signup,
+        loginHelper
     }
 }

@@ -358,9 +358,9 @@ namespace TNCSync.BaseControls
         {
 			connectToQB();
 			//GetCustomerList();
-			populateDatagrid();
 			bError = false;
-			GetCustomerList(ref bError);     
+			GetCustomerList(ref bError);
+			populateDatagrid();
 		}
 		public void GetCustomerList(ref bool bError)
         {

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:hw="http://schemas.hpod9.com/haley/wpf"
              xmlns:hm="http://schemas.hpod9.com/haley/mvvm" 
-             xmlns:enums="clr-namespace:TNCSync"
+             xmlns:enums="clr-namespace:TNCSync.Enums"
              xmlns:local="clr-namespace:TNCSync.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="400">
@@ -19,7 +19,7 @@
     <UserControl.Style>
         <Binding Source="{StaticResource MovementAnimation}"/>
     </UserControl.Style>
-    <Grid>
+    <Grid x:Name="gridMainHelper" DataContext="{Binding}">
         <StackPanel Margin="13">
             <TextBlock Text="Welcome Back! Please Proceed" TextWrapping="Wrap" Foreground="Wheat" FontSize="15" Opacity="50" TextAlignment="Center" />
             <TextBlock Text="Email Id" FontSize="15" Foreground="White" FontWeight="Medium" VerticalAlignment="Center"/>
@@ -32,7 +32,7 @@
                               HorizontalAlignment="Center"  Margin="5"/>-->
             <StackPanel  Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
                 <hw:PlainButton CornerRadius="5" Content="Send OTP" Width="120" Background="{StaticResource color11}" Foreground="{StaticResource color1}"/>
-                <hw:LinkedText Text="LoginPage" Foreground="White" CommandParameter="{Binding Source={x:Static enums:ViewEnums.LoginPage}}" Command="{Binding CmdChangeView}" Margin="3"/>
+                <hw:LinkedText Text="LoginPage" Foreground="White" CommandParameter="{x:Static enums:LogOnPages.login}" Command="{Binding DataContext.CMDSwitchLogOnPages, ElementName=gridMainHelper}" Margin="3"/>
             </StackPanel>
             <TextBlock Text="OTP" FontSize="15" Foreground="White" FontWeight="Medium" VerticalAlignment="Center"/>
             <hw:PlainTextBox WaterMark="Enter OTP" CornerRadius="5" Grid.Column="1" Height="30"/>

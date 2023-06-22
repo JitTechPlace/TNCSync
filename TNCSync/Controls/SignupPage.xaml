@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:hw="http://schemas.hpod9.com/haley/wpf"
              xmlns:hm="http://schemas.hpod9.com/haley/mvvm" 
-             xmlns:enums="clr-namespace:TNCSync"
+             xmlns:enums="clr-namespace:TNCSync.Enums"
              xmlns:local="clr-namespace:TNCSync.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="400">
@@ -19,7 +19,7 @@
     <UserControl.Style>
         <Binding Source="{StaticResource MovementAnimation}"/>
     </UserControl.Style>
-    <Grid>
+    <Grid x:Name="gridOverall" DataContext="{Binding}">
         <StackPanel Margin="13">
             <TextBlock Text="Welcome! Please Proceed With Registration" TextWrapping="Wrap" Foreground="Wheat" FontSize="15" Opacity="50" TextAlignment="Center" />
             <TextBlock Text="Email Id" FontSize="15" Foreground="White" FontWeight="Medium" VerticalAlignment="Center"/>
@@ -29,10 +29,9 @@
             <TextBlock Text="Re-EnterPassword" FontSize="15" Foreground="White" FontWeight="Medium" VerticalAlignment="Center" Margin="0 5 0 0"/>
             <hw:PlainPasswordBox WaterMark="Re-Enter password" CornerRadius="5" Grid.Column="1" Margin="5" Height="30"/>
             <TextBlock Text="Choose Company" FontSize="15" Foreground="White" FontWeight="Medium" VerticalAlignment="Center" />
-            <ComboBox x:Name="cmpyCmbx" Height="30" Width="230" Style="{StaticResource RoundComboBox}" IsReadOnly="True"
-                              HorizontalAlignment="Center"  Margin="0 10 0 0"/>
+            <ComboBox x:Name="cmpyCmbx" Height="30" Width="230" Style="{StaticResource RoundComboBox}" IsReadOnly="True" HorizontalAlignment="Center"  Margin="0 10 0 0"/>
             <StackPanel Margin="5" Orientation="Horizontal" HorizontalAlignment="Center">
-                <hw:PlainButton CornerRadius="5" Content="Cancel" Width="100" Background="{StaticResource color11}" Foreground="{StaticResource color1}" Margin="5" CommandParameter="{Binding Source={x:Static enums:ViewEnums.LoginPage}}"  Command="{Binding CmdChangeView}"/>
+                <hw:PlainButton CornerRadius="5" Content="Cancel" Width="100" Background="{StaticResource color11}" Foreground="{StaticResource color1}" Margin="5" CommandParameter="{x:Static enums:LogOnPages.login}"  Command="{Binding ElementName=gridOverall, Path=DataContext.CMDSwitchLogOnPages}"/>
                 <hw:PlainButton CornerRadius="5" Content="Create Account" Width="120" Background="{StaticResource color11}" Foreground="{StaticResource color1}" Command="{Binding CmdCreateAccount}"/>
             </StackPanel>
         </StackPanel>

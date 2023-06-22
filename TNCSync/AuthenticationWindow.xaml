@@ -1,4 +1,4 @@
-﻿<Window x:Class="TNCSync.AuthenticationWindow"
+﻿<Window x:Name="authWindow" x:Class="TNCSync.AuthenticationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,17 +6,27 @@
         xmlns:hw="http://schemas.hpod9.com/haley/wpf"
         xmlns:hm="http://schemas.hpod9.com/haley/mvvm"
         xmlns:crtls="clr-namespace:TNCSync.Controls"
+        xmlns:enum="clr-namespace:TNCSync.Enums"
         xmlns:local="clr-namespace:TNCSync"
         mc:Ignorable="d"
         Icon="pack://application:,,,/TNCSync;component/AppResources/Images/TNCSync_SampleLogo_B.png"
         WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
-        Title="" Height="620" Width="300" Background="Transparent" Foreground="Black" OpacityMask="Black" AllowsTransparency="True"><!--hm:WindowBlurAP.IsEnabled="True"-->
+        Title="" Height="620" Width="300" Background="Transparent" Foreground="Black" OpacityMask="Black" AllowsTransparency="True">
 
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/TNCSync;component/AppResources/Dictionaries/TNCSLCRD.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <DataTemplate x:Key="DTLogonScreen" DataType="{x:Type UserControl}">
+                <crtls:LoginPage DataContext="{Binding ElementName=authWindow, Path=DataContext}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="DTSignup" DataType="{x:Type UserControl}">
+                <crtls:SignupPage DataContext="{Binding ElementName=authWindow, Path=DataContext}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="DTLoginHelper" DataType="{x:Type UserControl}">
+                <crtls:LoginHelperPage DataContext="{Binding ElementName=authWindow, Path=DataContext}"/>
+            </DataTemplate>
         </ResourceDictionary>
     </Window.Resources>
 
@@ -44,16 +54,48 @@
                 </Grid.ColumnDefinitions>
                 <Image Grid.Column="0" Source="pack://application:,,,/TNCSync;component/AppResources/Images/TNCSync_SampleLogo_B.png" Height="100" Width="100"/>
                 <Grid Grid.Column="1">
-                    <TextBlock Text="TNC_SYNC" Foreground="{StaticResource headerTextColor}" FontSize="30" FontFamily="{StaticResource iFontRadleyReg}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="TNC_SYNC" Foreground="{StaticResource headerTextColor}" FontSize="35" FontFamily="{StaticResource iFontRadleyReg}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
             </Grid>
-            <Grid Grid.Row="2" Width="280" Height="350">
-                <hw:ContainerViewer  ViewKey="{Binding CurrentView, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
-                    <hw:ContainerViewer.WelcomeView>
+            <!--<Grid Grid.Row="2" Width="280" Height="350">
+                <ContentControl >
+                    <ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                        <Setter Property="ContentTemplate" Value="{StaticResource DTLogonScreen}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding currentPage}" Value="{x:Static crtls:SignupPage}">
+                                <Setter Property="ContentTemplate" Value="{StaticResource DTRegister}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding currentPage}" Value="{x:Static crtls:LoginHelperPage}">
+                                <Setter Property="ContentTemplate" Value="{StaticResource DTLoginHelper}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+                --><!--//<crtls:LoginPage />-->
+                <!--<hw:ContainerViewer  ViewKey="{Binding CurrentView, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
+                    --><!--<hw:ContainerViewer.WelcomeView>
                         <crtls:WelcomePage/>
-                    </hw:ContainerViewer.WelcomeView>
-                </hw:ContainerViewer>
-            </Grid>
+                    </hw:ContainerViewer.WelcomeView>--><!--
+                </hw:ContainerViewer>--><!--
+            </Grid>-->
+
+            <ContentControl x:Name="contentControl"  Grid.Row="2" Margin="5"  VerticalAlignment="Center" DataContext="{Binding}" RenderTransformOrigin="0.5,0.5" IsTabStop="False">
+                <ContentControl.Style>
+                    <Style TargetType="{x:Type ContentControl}">
+                        <Setter Property="ContentTemplate" Value="{StaticResource DTLogonScreen}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding currentPage}" Value="{x:Static enum:LogOnPages.signup}">
+                                <Setter Property="ContentTemplate" Value="{StaticResource DTSignup}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding currentPage}" Value="{x:Static enum:LogOnPages.loginHelper}">
+                                <Setter Property="ContentTemplate" Value="{StaticResource DTLoginHelper}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
 
             <Grid Grid.Row="3" Background="LightGray" Opacity="0.65" Margin="0,0,1,8">
                 <!--Need To add Footer for Appplication Now Temp Details Added-->

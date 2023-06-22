@@ -48,6 +48,7 @@ namespace TNCSync.ViewModel
             set { _icon = value; OnPropertyChanged(nameof(Icon)); }
         }
 
+      
         //Swith Modules
         private PageId _pageId;
         public PageId PageID
@@ -79,6 +80,7 @@ namespace TNCSync.ViewModel
 
             //SwithPage
             PageID = PageId.Dashboard;
+
 
             #region Initialize Commands
             //ShowHomwViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);

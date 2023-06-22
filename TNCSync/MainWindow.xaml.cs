@@ -57,7 +57,8 @@ namespace TNCSync
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            //Application.Current.Shutdown();
+            this.Close();
         }
 
         private void btnMaximize_Click(object sender, RoutedEventArgs e)

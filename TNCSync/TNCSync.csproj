@@ -197,6 +197,9 @@
     <Compile Include="Enums\PageId.cs" />
     <Compile Include="LoginControl.cs" />
     <Compile Include="Model\BillPaymentCheque.cs" />
+    <Compile Include="Model\CommonModels.cs" />
+    <Compile Include="Model\DataService.cs" />
+    <Compile Include="Model\GlobalMethods.cs" />
     <Compile Include="Model\IUserRepository.cs" />
     <Compile Include="Model\UserAccountModel.cs" />
     <Compile Include="Model\UserModel.cs" />
