@@ -32,17 +32,24 @@ namespace TNCSync
             base.OnStartup(e);
 
         }
-        private void Application_Startup(object sender, StartupEventArgs e)  //Need to work while closing application
+        private void Application_Startup(object sender, StartupEventArgs e)  //Need to work on[Auth window will close while main window opened]
         {
             var _actualmainwindow = new MainWindow();  //Remember to dispose at the end.
+            var _authwindow = new AuthenticationWindow();
+           
+            //if (_authwindow == null)
+            //{
+            //    _actualmainwindow.Show();
+            //}
+            //else
+            //{
+            //    _authwindow.Show();
+            //}
+
             while (!CredentialHolder.Singleton.IsAuthenticated)
             {
                 var _result = ContainerStore.Singleton.Windows.ShowDialog("authmainWindow");
-                if (_result.HasValue && _result.Value)
-                {
-                    CredentialHolder.Singleton.IsAuthenticated = true;
-                    break;
-                }
+                break;
             }
         }
     }

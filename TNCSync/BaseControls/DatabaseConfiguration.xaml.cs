@@ -135,7 +135,7 @@ namespace TNCSync.BaseControls
             else if (cbxAuth.Text.Equals("SQL Server Authentication"))
             {
                 //Set connection string
-                string _connectionString = string.Format("Data Source={0};Initial Catalog={1};User ID={2};Password={3};", cbxserver.Text, ptxtusername.Text, ptxtpassword.Password, cbxdb.Text);
+                string _connectionString = string.Format("Data Source={0};Initial Catalog={1};User ID={2};Password={3};", cbxserver.Text, cbxdb.Text, ptxtusername.Text, ptxtpassword.Password);
                 try
                 {
                     RepositoryBase rb = new RepositoryBase(_connectionString);

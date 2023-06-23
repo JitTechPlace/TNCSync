@@ -525,7 +525,7 @@
     <Resource Include="AppResources\Images\SPTSM.ico" />
     <Resource Include="AppResources\Images\TimeSheet.png" />
     <Resource Include="AppResources\Images\tnc.ico" />
-    <Resource Include="AppResources\Images\TNC_Logo.ico" />
+    <SplashScreen Include="AppResources\Images\TNC_Logo.ico" />
     <Resource Include="AppResources\Images\Today.png" />
     <Resource Include="AppResources\Images\TodayW.png" />
     <Resource Include="AppResources\Images\Toggle N.png" />
