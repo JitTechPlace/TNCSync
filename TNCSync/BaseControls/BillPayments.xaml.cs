@@ -37,6 +37,9 @@ namespace TNCSync.BaseControls
             InitializeComponent();
             dpfrom.SelectedDate = DateTime.Now.Date;
             dpTo.SelectedDate = DateTime.Now.Date;
+            PopulateDataGrid();
+            LoadPayeeCombobox();
+            PopulateTempleteCombobox();
         }
         //QBConnect qbConnect = new QBConnect();
         SessionManager sessionManager;

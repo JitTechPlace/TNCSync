@@ -8,11 +8,13 @@ namespace TNCSync.Model
 {
     public class UserModel
     {
-        public string Id { get; set; }
-        public string LoginName { get; set; }
+        public int ID{ get; set; }
+        public int companyName { get; set; }
+        public string UserName { get; set; }
+        public string Loginname { get; set; }
         public string Password { get; set; }
-        public string CompanyName { get; set; }
-        public string Username { get; set; }
         public string Email { get; set; }
+        public string Contact { get; set; }
+
     }
 }

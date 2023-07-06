@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using Interop.QBFC15;
 
 namespace TNCSync.Sessions
@@ -16,8 +17,8 @@ namespace TNCSync.Sessions
         private QBSessionManager _sessionMgr = null;                // the universal session manager object
         private bool _bConnOpen = false;                            // Maintains state of the connection
         private bool _bSessionOpen = false;                         // Maintains state of the session
-        private double _qbsdkVersion = 16.0;                         // most recent SDK version supported by QB instance
-        private short _qbSDKMajorVer = 16;                           // generic location to store the major version
+        private double _qbsdkVersion = 15.0;                         // most recent SDK version supported by QB instance
+        private short _qbSDKMajorVer = 15;                           // generic location to store the major version
         private short _qbSDKMinorVer = 2;                           // generic locaiton to store the minor version
         private string _appId = "";                                 // storage location for the application ID
         private string _appName = "TNCSync";                               // storage location for the application name
@@ -119,6 +120,7 @@ namespace TNCSync.Sessions
             {
                 logger.logCritical("SessionManager.initialize", e.Message);
                 throw e;
+               // MessageBox.Show(e.Message, "A modal dialog box is showing in the QuickBooks user interface. Your application cannot access QuickBooks until the user dismisses the dialog box.");
             }
         }
 
@@ -312,7 +314,6 @@ namespace TNCSync.Sessions
             {
                 if (!_bConnOpen)
                     openConnection(false, _appId, _appName, _connType);
-                ;
 
                 // If a session is already open, do not create another one
                 if (!_bSessionOpen)

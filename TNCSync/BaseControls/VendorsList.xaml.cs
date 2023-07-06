@@ -34,15 +34,25 @@ namespace TNCSync.BaseControls
     public partial class VendorsList : UserControl
     {
         private bool bError;
+        private short maxVersion;
+        private static DBTNCSDataContext db = new DBTNCSDataContext();
+        public IDialogService ds;
+        //private string listID = null;
+        //private string QvendorName = null;
+        //private string QCompanyName = null;
+        //private string BillAddress1 = null;
+        //private string Phone = null;
+        //private string Fax = null;
+        //private string Email = null;
+        //private string Contact = null;
+
         public VendorsList()
         {
             InitializeComponent();
             ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
+           
         }
         SessionManager sessionManager;
-        private short maxVersion;
-        private static DBTNCSDataContext db = new DBTNCSDataContext();
-        public IDialogService ds;
 
         #region CONNECTION TO QB
         private void connectToQB()
@@ -50,21 +60,21 @@ namespace TNCSync.BaseControls
             sessionManager = SessionManager.getInstance();
             maxVersion = sessionManager.QBsdkMajorVersion;
         }
-        private IMsgSetResponse processRequestFromQB(IMsgSetRequest requestSet)
-        {
-            try
-            {
-                //MessageBox.Show(requestSet.ToXMLString());
-                IMsgSetResponse responseSet = sessionManager.doRequest(true, ref requestSet);
-                //MessageBox.Show(responseSet.ToXMLString());
-                return responseSet;
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-                return null;
-            }
-        }
+        //private IMsgSetResponse processRequestFromQB(IMsgSetRequest requestSet)
+        //{
+        //    try
+        //    {
+        //        //MessageBox.Show(requestSet.ToXMLString());
+        //        IMsgSetResponse responseSet = sessionManager.doRequest(true, ref requestSet);
+        //        //MessageBox.Show(responseSet.ToXMLString());
+        //        return responseSet;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        MessageBox.Show(e.Message);
+        //        return null;
+        //    }
+        //}
         private void disconnectFromQB()
         {
             if (sessionManager != null)
@@ -77,7 +87,8 @@ namespace TNCSync.BaseControls
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(e.Message);
+                    //MessageBox.Show(e.Message);
+                    ds.SendToast(e.Message,"TNC-Sync", Haley.Enums.NotificationIcon.Error);
                 }
             }
         }
@@ -86,9 +97,19 @@ namespace TNCSync.BaseControls
         private void syncVendorList_Click(object sender, RoutedEventArgs e)
         {
             connectToQB();
-            populateDatagrid();
             bError = false;
             getVendor(ref bError);
+            if (!bError)
+            {
+                ds.SendToast("Synchronized ", "Vendors List has been synchronized successfully", Haley.Enums.NotificationIcon.Success);
+                disconnectFromQB();
+                populateDatagrid();
+            }
+            else
+            {
+                disconnectFromQB();
+                //populateDatagrid();
+            }
         }
 
 
@@ -96,14 +117,14 @@ namespace TNCSync.BaseControls
         {
             string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
             SqlConnection sqlconn = new SqlConnection(conn);
-            //string sqlquery = "SELECT * FROM tblVendor";
-            SqlCommand cmd = new SqlCommand("SELECT * FROM tblVendor", sqlconn);
-            sqlconn.Open();
-            SqlDataAdapter sdr = new SqlDataAdapter(cmd);
+            SqlCommand cmd = new SqlCommand("tblVendor_Select_TNCS", sqlconn);
+            cmd.CommandType = CommandType.StoredProcedure;
             DataTable table = new DataTable();
-            sdr.Fill(table);
+            SqlDataAdapter sda = new SqlDataAdapter();
+            sda.SelectCommand = cmd;
+            //cmd.Parameters.Add(param);
+            sda.Fill(table);
             grdVendorLst.ItemsSource = table.DefaultView;
-            sqlconn.Close();
         }
 
         public void getVendor(ref bool bError)
@@ -135,7 +156,7 @@ namespace TNCSync.BaseControls
             }
             catch
             {
-                ds.SendToast("Not Responding", "Unable to connect with QuickBooks response", Haley.Enums.NotificationIcon.Error);
+                ds.SendToast("Not Responding", "Unable to connect with QuickBook,Pls Check QuickBook Company File Opened", Haley.Enums.NotificationIcon.Error);
                 // Interaction.MsgBox("HRESULT = " + Information.Err().Number + " (" + Conversion.Hex(Information.Err().Number) + ") " + Constants.vbCrLf + Constants.vbCrLf + Information.Err().Description, MsgBoxStyle.Critical, "Error in GetCustomers");
                 bError = true;
             }
@@ -182,8 +203,8 @@ namespace TNCSync.BaseControls
                     return;
                 }
 
-                // make sure we are processing the CustomerQueryRs and 
-                // the CustomerRetList responses in this response list
+                // make sure we are processing the VendorQueryRs and 
+                // the IVendorRetList responses in this response list
                 IVendorRetList VendorRetList;
                 ENResponseType responseType;
                 ENObjectType responseDetailType;
@@ -197,7 +218,7 @@ namespace TNCSync.BaseControls
                 }
                 else
                 {
-                    // bail, we do not have the responses we were expecting
+                    // bill, we do not have the responses we were expecting
                     bDone = true;
                     bError = true;
                     return;
@@ -415,6 +436,11 @@ namespace TNCSync.BaseControls
             // MsgBoxStyle.Critical, _
             // "Error in FoundCustomerInListBox")
 
+        }
+
+        private void VendorList_Loaded(object sender, RoutedEventArgs e)
+        {
+           populateDatagrid();
         }
     }
 }

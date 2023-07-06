@@ -26,6 +26,7 @@ namespace TNCSync.BaseControls
         public ManageTemplates()
         {
             InitializeComponent();
+            populateDatagrid();
         }
 
         private void synctmpltList_Click(object sender, RoutedEventArgs e)

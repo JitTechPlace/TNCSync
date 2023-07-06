@@ -22,6 +22,8 @@ using TNCSync.Class.Info;
 using TNCSync.Class.SP;
 using System.IO;
 using Microsoft.Win32;
+using TNCSync.Class;
+using TNCSync.Model;
 
 namespace TNCSync.Controls
 {
@@ -30,6 +32,7 @@ namespace TNCSync.Controls
     /// </summary>
     public partial class LoginPage : UserControl
     {
+        List<UserModel> user = new List<UserModel>();
         public LoginPage()
         {
             InitializeComponent();
@@ -77,6 +80,9 @@ namespace TNCSync.Controls
 
         public void FillCombobox() //need to work some time it not connecting to DB for fetch comapny name
         {
+            //UserModel_DA Umda = new UserModel_DA();
+            //user = Umda.GetUser(cmpyCmbx.Text);
+
             string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
             SqlConnection sqlconn = new SqlConnection(conn);
             sqlconn.Open();
@@ -100,10 +106,18 @@ namespace TNCSync.Controls
             DataTable table = new DataTable();
             SqlDataAdapter sda = new SqlDataAdapter();
 
-            if((userName == "Superadmin" & password == "Version01"))
+            if(userName == "Superadmin" & password == "Version01")
             {
                 mw.Show();
-                aw.Close();
+                if (mw.Visibility == Visibility.Visible)
+                {
+                    aw.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    aw.Visibility = Visibility.Visible;
+                }
+
                 //cmpyCmbx.Visibility = Visibility.Visible;
             }
             else
@@ -121,7 +135,7 @@ namespace TNCSync.Controls
                         SqlConnection sqlconn = new SqlConnection(conn);
                         SqlCommand cmd = new SqlCommand("UserLogin_SelectAll_TNCS", sqlconn);
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@Loginname", ptboxEmail.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Email", ptboxEmail.Text);
                         cmd.Parameters.AddWithValue("@Password", ptboxPass.Password);
                         cmd.Parameters.AddWithValue("@CompanyName", cmpyCmbx.Text);
                         sda.SelectCommand = cmd;
@@ -144,6 +158,11 @@ namespace TNCSync.Controls
         private void cmpnycbx_Checked(object sender, RoutedEventArgs e)
         {
             FillCombobox();
+        }
+
+        private void UpdateBinding()
+        {
+
         }
     }
 }

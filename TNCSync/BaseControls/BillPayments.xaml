@@ -42,7 +42,7 @@
             </StackPanel>
         </Grid>
         <DataGrid x:Name="grdBillPytDtl" Grid.Row="1" Margin="5" GridLinesVisibility="Vertical" HeadersVisibility="All" HorizontalScrollBarVisibility="Visible"  
-           VerticalScrollBarVisibility="Visible" SelectionMode="Extended"/>
+           VerticalScrollBarVisibility="Visible" SelectionMode="Extended" IsReadOnly="True"/>
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
             <ComboBox x:Name="tmpltCmbx" Grid.Column="1" Style="{StaticResource RoundComboBox}" Margin="5" Height="25" Width="200" ToolTip="SelectReport" />
             <Button Content="Print" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120"/>

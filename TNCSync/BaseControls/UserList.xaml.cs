@@ -26,6 +26,7 @@ namespace TNCSync.BaseControls
         public UserList()
         {
             InitializeComponent();
+            populateDatagrid();
         }
 
         private void syncusrList_Click(object sender, RoutedEventArgs e)

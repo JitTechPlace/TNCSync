@@ -70,6 +70,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\Interop.QBXMLRP2\v4.0_27.0.154.7642__8244b228ecdaef5e\Interop.QBXMLRP2.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="SAPBusinessObjects.WPF.Viewer, Version=14.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Windows\assembly\GAC_MSIL\SAPBusinessObjects.WPF.Viewer\13.0.3500.0__692fbea5521e1304\SAPBusinessObjects.WPF.Viewer.dll</HintPath>
@@ -128,6 +129,9 @@
     <Compile Include="BaseControls\CompanyList.xaml.cs">
       <DependentUpon>CompanyList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BaseControls\CreditNote.xaml.cs">
+      <DependentUpon>CreditNote.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BaseControls\CustomCalender.xaml.cs">
       <DependentUpon>CustomCalender.xaml</DependentUpon>
     </Compile>
@@ -136,6 +140,9 @@
     </Compile>
     <Compile Include="BaseControls\DatabaseConfiguration.xaml.cs">
       <DependentUpon>DatabaseConfiguration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BaseControls\Invoice.xaml.cs">
+      <DependentUpon>Invoice.xaml</DependentUpon>
     </Compile>
     <Compile Include="BaseControls\Items.xaml.cs">
       <DependentUpon>Items.xaml</DependentUpon>
@@ -152,8 +159,14 @@
     <Compile Include="BaseControls\Purchase Order.xaml.cs">
       <DependentUpon>Purchase Order.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BaseControls\Receipt.xaml.cs">
+      <DependentUpon>Receipt.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BaseControls\ReportView.xaml.cs">
       <DependentUpon>ReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BaseControls\SalesOrder.xaml.cs">
+      <DependentUpon>SalesOrder.xaml</DependentUpon>
     </Compile>
     <Compile Include="BaseControls\UserList.xaml.cs">
       <DependentUpon>UserList.xaml</DependentUpon>
@@ -181,7 +194,8 @@
     <Compile Include="Class\QuickBookData.cs" />
     <Compile Include="Class\SP\UserSP.cs" />
     <Compile Include="Class\SP\VendorListSP.cs" />
-    <Compile Include="Class\SQLControl.cs" />
+    <Compile Include="Class\SQLControls.cs" />
+    <Compile Include="Class\UserModel_DA.cs" />
     <Compile Include="Class\WriteCheques_DA.cs" />
     <Compile Include="Controls\LoginHelperPage.xaml.cs">
       <DependentUpon>LoginHelperPage.xaml</DependentUpon>
@@ -226,6 +240,7 @@
     <Compile Include="BaseControls\BindablePasswordBox.xaml.cs">
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sessions\Sessions_Test.cs" />
     <Compile Include="ViewModel\AuthenticationViewModel.cs" />
     <Compile Include="ViewModel\COAViewModel.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
@@ -296,6 +311,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="BaseControls\CreditNote.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BaseControls\CustomCalender.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -305,6 +324,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BaseControls\DatabaseConfiguration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BaseControls\Invoice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -328,7 +351,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="BaseControls\Receipt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BaseControls\ReportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BaseControls\SalesOrder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -525,7 +556,7 @@
     <Resource Include="AppResources\Images\SPTSM.ico" />
     <Resource Include="AppResources\Images\TimeSheet.png" />
     <Resource Include="AppResources\Images\tnc.ico" />
-    <SplashScreen Include="AppResources\Images\TNC_Logo.ico" />
+    <None Include="AppResources\Images\TNC_Logo.ico" />
     <Resource Include="AppResources\Images\Today.png" />
     <Resource Include="AppResources\Images\TodayW.png" />
     <Resource Include="AppResources\Images\Toggle N.png" />
@@ -568,6 +599,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="TNCSync_SampleLogo_B.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="AppResources\Images\TNC_Logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

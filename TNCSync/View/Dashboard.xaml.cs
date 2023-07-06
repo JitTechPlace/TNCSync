@@ -26,6 +26,7 @@ namespace TNCSync.View
         public Dashboard()
         {
             InitializeComponent();
+            PopulateDataGrid();
         }
 
         private void PopulateDataGrid()
@@ -40,7 +41,7 @@ namespace TNCSync.View
             sdr.Fill(table);
             DataContext = table;
             sqlconn.Close();
-
+            txtuser.Text = table.ToString();
 
         }
     }

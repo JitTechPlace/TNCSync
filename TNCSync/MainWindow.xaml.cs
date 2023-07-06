@@ -28,6 +28,10 @@ namespace TNCSync
         #region Variable
         public static bool isDeleted = false;
         public static MainWindow objMW = new MainWindow();
+        private IDialogService _ds;
+        private bool blurOtherWindows;
+        bool EnableBackgroundBlur { get; set; }
+        private bool hideIcon;
         #endregion
 
         public MainWindow()
@@ -35,12 +39,6 @@ namespace TNCSync
             InitializeComponent();
             _ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
         }
-
-        private IDialogService _ds;
-        private bool blurOtherWindows;
-        private bool hideIcon;
-
-        bool EnableBackgroundBlur { get; set; }
 
         [DllImport("user32.dll")]
         public static extern IntPtr SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);
@@ -88,7 +86,7 @@ namespace TNCSync
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             DialogMode dialogMode = DialogMode.Confirmation;
-            var result = _ds.ShowDialog("Logout", "Are you sure to logout?", Haley.Enums.NotificationIcon.Warning,dialogMode,hideIcon=true, blurOtherWindows = true);
+            var result = _ds.ShowDialog("Logout", "Are you sure to logout?", Haley.Enums.NotificationIcon.Warning,dialogMode,hideIcon=false, blurOtherWindows = true);
             if (result.DialogResult == true)
             {
                 this.Close();

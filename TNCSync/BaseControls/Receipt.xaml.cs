@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TNCSync.Controls
+namespace TNCSync.BaseControls
 {
     /// <summary>
-    /// Interaction logic for WelcomePage.xaml
+    /// Interaction logic for Receipt.xaml
     /// </summary>
-    public partial class WelcomePage : UserControl
+    public partial class Receipt : UserControl
     {
-        public WelcomePage()
+        public Receipt()
         {
             InitializeComponent();
-            //SplashScreen Sps = new SplashScreen();
         }
     }
 }

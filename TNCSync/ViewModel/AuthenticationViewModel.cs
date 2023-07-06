@@ -221,7 +221,7 @@ namespace TNCSync.ViewModel
         public AuthenticationViewModel()
         {
             MoveOn = 1;
-            //currentPage = LogOnPages.login;
+           currentPage = LogOnPages.login;
            CurrentView = ViewEnums.LoginPage;
             //ds = dialogService;
         }

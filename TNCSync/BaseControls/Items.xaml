@@ -19,7 +19,7 @@
             <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="150"  Margin="10" />
             <Button Content="Search" x:Name="srchCoaList"  Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120"  />
         </StackPanel>
-        <DataGrid x:Name="grdItemLst" Grid.Row="1" Margin="5"/>
+        <DataGrid x:Name="grdItemLst" Grid.Row="1" Margin="5" IsReadOnly="True"/>
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button Content="Sync All" x:Name="syncitemList"  Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120" Click="syncitemList_Click"/>
             <Button Content="Close" Style="{StaticResource SPStyleButton}" Height="30" Width="120" Margin="5"/>

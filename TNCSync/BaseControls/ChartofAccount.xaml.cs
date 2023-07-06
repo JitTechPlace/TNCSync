@@ -33,6 +33,7 @@ namespace TNCSync.BaseControls
         public ChartofAccount()
         {
             InitializeComponent();
+            populateDatagrid();
         }
         //QBConnect qbConnect = new QBConnect();
         SessionManager sessionManager;

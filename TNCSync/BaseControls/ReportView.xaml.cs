@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+
 
 namespace TNCSync.BaseControls
 {
@@ -23,6 +26,13 @@ namespace TNCSync.BaseControls
         public ReportView()
         {
             InitializeComponent();
+
+        }
+
+        public void ShowReportView(ref ReportDocument _ReportDocument)
+        {
+            CRV.ViewerCore.ReportSource = _ReportDocument;
+            ShowReportView(ref _ReportDocument);
         }
     }
 }

@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TNCSync.Controls
+namespace TNCSync.BaseControls
 {
     /// <summary>
-    /// Interaction logic for WelcomePage.xaml
+    /// Interaction logic for CreditNote.xaml
     /// </summary>
-    public partial class WelcomePage : UserControl
+    public partial class CreditNote : UserControl
     {
-        public WelcomePage()
+        public CreditNote()
         {
             InitializeComponent();
-            //SplashScreen Sps = new SplashScreen();
         }
     }
 }

@@ -1507,9 +1507,11 @@ namespace TNCSync.Class.DataBaseClass
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.tblJournalEntry_Select")]
-		public ISingleResult<tblJournalEntry_SelectResult> tblJournalEntry_Select([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CopmanyID", DbType="VarChar(50)")] string copmanyID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="JVDate", DbType="Date")] System.Nullable<System.DateTime> jVDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string voucherName)
+		public ISingleResult<tblJournalEntry_SelectResult> tblJournalEntry_Select([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CopmanyID", DbType="VarChar(50)")] string copmanyID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string voucherName)
+		//public ISingleResult<tblJournalEntry_SelectResult> tblJournalEntry_Select([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CopmanyID", DbType="VarChar(50)")] string copmanyID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="JVDate", DbType="Date")] System.Nullable<System.DateTime> jVDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string voucherName)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), copmanyID, jVDate, voucherName);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), copmanyID, voucherName);
+			//IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), copmanyID, jVDate, voucherName);
 			return ((ISingleResult<tblJournalEntry_SelectResult>)(result.ReturnValue));
 		}
 		

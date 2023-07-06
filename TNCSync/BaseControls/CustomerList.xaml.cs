@@ -31,6 +31,7 @@ namespace TNCSync.BaseControls
         {
             InitializeComponent();
 			ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
+			populateDatagrid();
 		}
 
         //QBConnect qbConnect = new QBConnect();
@@ -667,16 +668,16 @@ namespace TNCSync.BaseControls
 
 		private void PopulateTempleteCombobox()
 		{
-			string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
-			SqlConnection sqlconn = new SqlConnection(conn);
-			sqlconn.Open();
-			SqlCommand cmd = new SqlCommand("SELECT * FROM Templates where TemplateType ='Sales Invoice' and Status='True'", sqlconn);
-			SqlDataAdapter sdr = new SqlDataAdapter(cmd);
-			DataTable table = new DataTable();
-			sdr.Fill(table);
-			cmbxTmptInvoice.ItemsSource = table.DefaultView;
-			cmbxTmptInvoice.DisplayMemberPath = "TemplateName";
-			cmbxTmptInvoice.SelectedIndex = -1;
+			//string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
+			//SqlConnection sqlconn = new SqlConnection(conn);
+			//sqlconn.Open();
+			//SqlCommand cmd = new SqlCommand("SELECT * FROM Templates where TemplateType ='Sales Invoice' and Status='True'", sqlconn);
+			//SqlDataAdapter sdr = new SqlDataAdapter(cmd);
+			//DataTable table = new DataTable();
+			//sdr.Fill(table);
+			//cmbxTmptInvoice.ItemsSource = table.DefaultView;
+			//cmbxTmptInvoice.DisplayMemberPath = "TemplateName";
+			//cmbxTmptInvoice.SelectedIndex = -1;
 		}
 
         #endregion

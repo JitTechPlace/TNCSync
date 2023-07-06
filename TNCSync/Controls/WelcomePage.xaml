@@ -7,9 +7,10 @@
              xmlns:hm="http://schemas.hpod9.com/haley/mvvm"
              xmlns:local="clr-namespace:TNCSync.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="400">
+             d:DesignHeight="450" d:DesignWidth="650" Background="LightSteelBlue">
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">  <!--Sample logo and sample design we need to work on later-->
-        <Image Source="pack://application:,,,/TNCSync;component/AppResources/Images/TNCSync_SampleLogo_B.png" Height="60" Margin="10"/>
-        <TextBlock Text="Welcome To TNC_SYNC" FontFamily="{StaticResource iFontRadleyReg}" Foreground="Crimson" FontSize="15"/>
+        <Image Source="pack://application:,,,/TNCSync;component/AppResources/Images/TNCSync_SampleLogo_B.png" Height="200" Margin="10"/>
+        <TextBlock Text="Welcome To TNC-SYNC" FontFamily="{StaticResource iFontRadleyReg}" Foreground="Crimson" FontSize="50"/>
+        <Image Source="pack://application:,,,/TNCSync;component/AppResources/Images/TNC_Logo.ico" Height="200" Margin="10"/>
     </StackPanel>
 </UserControl>

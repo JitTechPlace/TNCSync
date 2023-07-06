@@ -44,7 +44,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="{Binding ElementName=GrdHeader, Path=ActualHeight}"/>
                 </Grid.ColumnDefinitions>
-                <hw:PlainImage x:Name="clsBtn" hw:Icon.Default="{StaticResource close_circle}" hw:Icon.DefaultColor="LightGray" hw:Icon.HoverColor="Crimson"  Grid.Column="2" Margin="4" HorizontalAlignment="Right" MouseDown="clsBtn_MouseDown"/>
+                <hw:PlainImage x:Name="clsBtn" hw:Icon.Default="{StaticResource close_circle_medium}" hw:Icon.DefaultColor="LightGray" hw:Icon.HoverColor="Crimson"  Grid.Column="2" Margin="4" HorizontalAlignment="Right" MouseDown="clsBtn_MouseDown"/>
             </Grid>
             <Grid Grid.Row="1" Background="LightGray" Opacity="0.65">
                 <!--Need To add Logo and name of the Appplication Now Temp Logo Added-->
@@ -98,13 +98,12 @@
             </ContentControl>
 
             <Grid Grid.Row="3" Background="LightGray" Opacity="0.65" Margin="0,0,1,8">
-                <!--Need To add Footer for Appplication Now Temp Details Added-->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Image Source="pack://application:,,,/TNCSync;component/AppResources/Images/TNC_Logo.ico" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <TextBlock Text="© TransNational Computer LLC" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="10" Foreground="{StaticResource color1}" Margin="5" FontFamily="{StaticResource iFontMontSerratSemiBold}"/>
-                <TextBlock Text="| Ver 1.0[PILOT]" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="10" Foreground="{StaticResource color1}" Margin="5" FontFamily="{StaticResource iFontMontSerratSemiBold}"/>
+                <Image Source="pack://application:,,,/TNCSync;component/AppResources/Images/TNC_Logo.png" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="TNC" />
+                <TextBlock Text="© TransNational Computer LLC" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="10" Foreground="{StaticResource color1}"  FontFamily="{StaticResource iFontArimoBold}" Margin="2" FontWeight="Bold"/>
+                <TextBlock Text="| Ver 1.0[PILOT]" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="10" Foreground="{StaticResource color1}" FontFamily="{StaticResource iFontArimoBold}" Margin="2" FontWeight="Bold"/>
             </Grid>
         </Grid>
     </Grid>

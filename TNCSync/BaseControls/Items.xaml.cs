@@ -26,6 +26,7 @@ namespace TNCSync.BaseControls
         public Items()
         {
             InitializeComponent();
+            populateDatagrid();
         }
 
         private void syncitemList_Click(object sender, RoutedEventArgs e)
