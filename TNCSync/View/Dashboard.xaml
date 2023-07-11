@@ -1,14 +1,21 @@
 ﻿<UserControl x:Class="TNCSync.View.Dashboard"
+             x:Name="Dashboard_UC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:TNCSync.ViewModel"
              xmlns:hw="http://schemas.hpod9.com/haley/wpf"
              xmlns:hm="http://schemas.hpod9.com/haley/mvvm"
              xmlns:local="clr-namespace:TNCSync.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="Dashboard_UC_Loaded">
 
+
+    <!--<UserControl.DataContext>
+        <vm:LoginViewModel/>
+    </UserControl.DataContext>-->
+        
     <Border CornerRadius="10" Background="{StaticResource def_background_tertiary}">
         <Grid Margin="10" DataContext="{Binding}">
             <Grid.RowDefinitions>
@@ -19,7 +26,7 @@
             <WrapPanel Grid.Row="1">
                 <hw:PlainCard Height="180" Width="200" CornerRadius="10" Margin="10" Mode="Professional" hw:Icon.Default="{StaticResource avatar}"  hw:Icon.DefaultColor="{StaticResource color12}" Cursor="Hand" Header="User" SubHeader="Total" HeaderAlignment="Left" HeaderBackground="{StaticResource panelActiveColor}">
                     <Viewbox Margin="20">
-                        <TextBlock x:Name="txtuser" Text="{Binding ID, NotifyOnSourceUpdated=True}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource color11}"/>
+                        <TextBlock x:Name="txtuser" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource color11}"/>
                     </Viewbox>
                 </hw:PlainCard>
                 <hw:PlainCard Height="180" Width="200" CornerRadius="10" Margin="10" Mode="Flyer" hw:Icon.Default="{StaticResource dollar}"  hw:Icon.DefaultColor="{StaticResource color12}" Cursor="Hand"  Header="Invoice" SubHeader="Count" HeaderAlignment="Left" HeaderBackground="{StaticResource panelActiveColor}">

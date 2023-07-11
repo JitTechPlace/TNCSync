@@ -8,7 +8,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock/>
         <cr:CrystalReportsViewer x:Name="CRV" HorizontalAlignment="Left" VerticalAlignment="Top" Height="450" Width="790"/>
     </Grid>
 </UserControl>

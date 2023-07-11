@@ -11,9 +11,9 @@
         <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5">
                 <TextBlock Text="From Date:" FontSize="15"  />
-                <DatePicker Width="120" Margin="5 0" />
+                <DatePicker x:Name="dpFrmDate" Width="120" Margin="5 0" />
                 <TextBlock Text="To Date:" FontSize="15"  />
-                <DatePicker Width="120" />
+                <DatePicker x:Name="dpToDate" Width="120" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Grid>

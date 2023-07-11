@@ -26,7 +26,7 @@ namespace TNCSync.BaseControls
         public CompanyList()
         {
             InitializeComponent();
-            populateDatagrid();
+           // populateDatagrid();
         }
 
         private void syncothernameList_Click(object sender, RoutedEventArgs e)

@@ -16,6 +16,7 @@ using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
 using TNCSync.Sessions;
 using Interop.QBFC15;
+//using Interop.QBFC12;
 using TNCSync.Class.DataBaseClass;
 using Haley.Abstractions;
 using Haley.MVVM;
@@ -98,6 +99,7 @@ namespace TNCSync.BaseControls
             try
             {
                 // make sure we do not have any old requests still defined
+                IMsgSetRequest msgSetRequest = sessionManager.getMsgSetRequest();
                 msgSetRequest.ClearRequests();
                 // set the OnError attribute to continueOnError
                 msgSetRequest.Attributes.OnError = ENRqOnError.roeContinue;
@@ -136,6 +138,7 @@ namespace TNCSync.BaseControls
             try
             {
                 // make sure we do not have any old requests still defined
+                IMsgSetRequest msgSetRequest = sessionManager.getMsgSetRequest();
                 msgSetRequest.ClearRequests();
                 // set the OnError attribute to continueOnError
                 msgSetRequest.Attributes.OnError = ENRqOnError.roeContinue;
@@ -652,11 +655,10 @@ namespace TNCSync.BaseControls
 
                     if (InvoiceRet.ORInvoiceLineRetList != null)
                     {
-                        for (int k = 0, loopTo3 = InvoiceRet.ORInvoiceLineRetList.Count - 1; k <= loopTo3; k++)
+                        for (int k = 0, loopTo3 = InvoiceRet.ORInvoiceLineRetList.Count - 1; k <= loopTo3; k++)   ///Need to check here{Object ref not set to instance of an object}
                         {
                             IORInvoiceLineRet InvoiceLineRetList;
                             InvoiceLineRetList = InvoiceRet.ORInvoiceLineRetList.GetAt(k);
-
 
                             string lineItem = string.Empty;
                             if (InvoiceLineRetList.InvoiceLineRet.ItemRef != null)
@@ -872,8 +874,9 @@ namespace TNCSync.BaseControls
         {
             try
             {
+                connectToQB();
                 bError = false;
-                sessionManager.openConnection();
+                //sessionManager.openConnection();
                 GetInvoiceTransaction(ref bError, dpFrmDate.DisplayDate, dpToDate.DisplayDate);
                 if (bError)
                 {
@@ -893,7 +896,25 @@ namespace TNCSync.BaseControls
 
         private void btnsyncalInvoice_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                connectToQB();
+                bError = false;
+                GetInvoiceTransactions(ref bError);
+                if (bError)
+                {
+                    ds.ShowDialog("TNC-Sync", "Invoice Sync Failed", Haley.Enums.NotificationIcon.Error);
+                }
+                else
+                {
+                    ds.ShowDialog("TNC-Sync", "Invoice Sync Successfully", Haley.Enums.NotificationIcon.Success);
+                }
+                LoadInvoiceCustomer(ClearAllControl.gblCompanyID);
+            }
+            catch
+            {
 
+            }
         }
 
         private void btnInvoicePrint_Click(object sender, RoutedEventArgs e)

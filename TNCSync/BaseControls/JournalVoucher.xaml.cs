@@ -20,6 +20,7 @@ using TNCSync.Sessions;
 using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
 using Interop.QBFC15;
+//using Interop.QBFC12;
 using System.Data;
 
 namespace TNCSync.BaseControls

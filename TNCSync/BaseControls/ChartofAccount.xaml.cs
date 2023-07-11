@@ -16,7 +16,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Haley.Abstractions;
+using Haley.MVVM;
 using Interop.QBFC15;
+//using Interop.QBFC12;
 using SAPBusinessObjects.WPF.Viewer;
 using TNCSync.Class;
 using TNCSync.Class.DataBaseClass;
@@ -30,16 +32,18 @@ namespace TNCSync.BaseControls
     public partial class ChartofAccount : UserControl
     {
         private bool bError;
-        public ChartofAccount()
-        {
-            InitializeComponent();
-            populateDatagrid();
-        }
+        public IDialogService ds;
         //QBConnect qbConnect = new QBConnect();
         SessionManager sessionManager;
         private short maxVersion;
         private static DBTNCSDataContext db = new DBTNCSDataContext();
-        public IDialogService ds;
+
+        public ChartofAccount()
+        {
+            InitializeComponent();
+            populateDatagrid();
+            ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
+        }
 
         #region CONNECTION TO QB
         private void connectToQB()
@@ -85,7 +89,17 @@ namespace TNCSync.BaseControls
             connectToQB();
             bError = false;
             GetChartofAccount(ref bError);
-            populateDatagrid();
+            if (!bError)
+            {
+                ds.SendToast("Synchronized ", "Chart of Accounts List has been synchronized successfully", Haley.Enums.NotificationIcon.Success);
+                disconnectFromQB();
+                populateDatagrid();
+            }
+            else
+            {
+                disconnectFromQB();
+                //populateDatagrid();
+            }
         }
 
         private void populateDatagrid()
@@ -164,7 +178,7 @@ namespace TNCSync.BaseControls
                     if (response.StatusCode != 0)
                     {
                         // If the status is bad, report it to the user
-                        MessageBox.Show("FillChartOfAccountListBox unexpexcted Error - " + response.StatusMessage);
+                        ds.ShowDialog("","FillChartOfAccountListBox unexpexcted Error - " + response.StatusMessage);
                         bDone = true;
                         bError = true;
                         return;

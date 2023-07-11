@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Interop.QBFC15;
+//using Interop.QBFC12;
 
 namespace TNCSync.Sessions
 {

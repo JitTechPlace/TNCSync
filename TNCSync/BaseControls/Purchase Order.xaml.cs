@@ -19,6 +19,7 @@ using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
 using TNCSync.Sessions;
 using Interop.QBFC15;
+//using Interop.QBFC12;
 using TNCSync.Class.DataBaseClass;
 using Haley.Abstractions;
 using Haley.MVVM;
@@ -46,7 +47,7 @@ namespace TNCSync.BaseControls
             ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
             dpFrmDate.SelectedDate = DateTime.Now;
             dpToDate.SelectedDate = DateTime.Now;
-           PopulateTempleteCombobox();
+          // PopulateTempleteCombobox();
 
         }
 

@@ -17,6 +17,7 @@ using CrystalDecisions.Shared;
 using System.Data;
 using TNCSync.Sessions;
 using Interop.QBFC15;
+//using Interop.QBFC12;
 using TNCSync.Class.DataBaseClass;
 using Haley.Abstractions;
 using Haley.MVVM;
@@ -115,7 +116,7 @@ namespace TNCSync.BaseControls
                 //Set the On error attribute to continueonerror
                 msgsetRequest.Attributes.OnError = ENRqOnError.roeContinue;
                 IPurchaseOrderQuery purchaseOrderQuery;
-
+                
                 ISalesOrderQuery receiptQuery = msgsetRequest.AppendSalesOrderQueryRq();
                 receiptQuery.ORTxnNoAccountQuery.TxnFilterNoAccount.ORDateRangeFilter.TxnDateRangeFilter.ORTxnDateRangeFilter.TxnDateFilter.FromTxnDate.SetValue(fromDate);
                 receiptQuery.ORTxnNoAccountQuery.TxnFilterNoAccount.ORDateRangeFilter.TxnDateRangeFilter.ORTxnDateRangeFilter.TxnDateFilter.ToTxnDate.SetValue(todate);
@@ -735,7 +736,7 @@ namespace TNCSync.BaseControls
             catch
             {
                 int w = 0;
-                ds.ShowDialog("","Error to Fill SalesOrder Table DB", Haley.Enums.NotificationIcon.Error);
+                ds.ShowDialog("","Error to Fill SalesOrder Table Database", Haley.Enums.NotificationIcon.Error);
                 bDone = true;
                 bError = true;
             }
@@ -883,9 +884,10 @@ namespace TNCSync.BaseControls
                 var crParameterDiscreteValue = new ParameterDiscreteValue();
                 Tables CrTables;
 
-                ref var withBlock = ref _ReportDocument;
+                //ref var withBlock = ref _ReportDocument;
                 //string startuppath = Application.
-                withBlock.Load(path + tmpltSOCmpx.Text + ".rpt");
+                _ReportDocument.Load(path + tmpltSOCmpx.Text + ".rpt");
+                string startuppath = System.AppDomain.CurrentDomain.BaseDirectory + path+ tmpltSOCmpx.Text +".rpt";
 
                 _ReportDocument.ReportOptions.EnableSaveDataWithReport = false;
                 crConnectionInfo.ServerName = ClearAllControl.gblSQLServerName;
@@ -916,9 +918,9 @@ namespace TNCSync.BaseControls
                 crParameterValues.Add(crParameterDiscreteValue);
                 crParameterFieldDefinition.ApplyCurrentValues(crParameterValues);
 
+
                 var rpt = new ReportView();
-                rpt.ShowReportView(ref _ReportDocument);
-                //rpt.
+                rpt.ShowReportView(ref _ReportDocument);                //rpt.
                 // If _ReportDocument.HasRecords Then  //Need to check
                 // var frm = new ReportFormLinker();
                 //frm.MdiParent = ParentForm;
@@ -929,7 +931,7 @@ namespace TNCSync.BaseControls
             }
             catch(Exception ex)
             {
-                ds.ShowDialog(ex.Message, "TNC-Sync", Haley.Enums.NotificationIcon.Error);
+                ds.ShowDialog("TNC-Sync", ex.Message, Haley.Enums.NotificationIcon.Error);
             }
         }
 

@@ -24,6 +24,8 @@ using System.IO;
 using Microsoft.Win32;
 using TNCSync.Class;
 using TNCSync.Model;
+using TNCSync.Class.DataBaseClass;
+using SimpleAES;
 
 namespace TNCSync.Controls
 {
@@ -33,6 +35,10 @@ namespace TNCSync.Controls
     public partial class LoginPage : UserControl
     {
         List<UserModel> user = new List<UserModel>();
+        private static DBTNCSDataContext db = new DBTNCSDataContext();
+        private string companyChoice = "";
+        public bool binForDifferentUser;
+
         public LoginPage()
         {
             InitializeComponent();
@@ -82,17 +88,23 @@ namespace TNCSync.Controls
         {
             //UserModel_DA Umda = new UserModel_DA();
             //user = Umda.GetUser(cmpyCmbx.Text);
-
-            string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
-            SqlConnection sqlconn = new SqlConnection(conn);
-            sqlconn.Open();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM tblCompany", sqlconn);
-            SqlDataAdapter sdr = new SqlDataAdapter(cmd);
-            DataTable table = new DataTable();
-            sdr.Fill(table);
-            cmpyCmbx.ItemsSource = table.DefaultView;
-            cmpyCmbx.DisplayMemberPath = "CompanyName";
-            cmpyCmbx.SelectedIndex = -1;
+            try
+            {
+                string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
+                SqlConnection sqlconn = new SqlConnection(conn);
+                sqlconn.Open();
+                SqlCommand cmd = new SqlCommand("SELECT * FROM tblCompany", sqlconn);
+                SqlDataAdapter sdr = new SqlDataAdapter(cmd);
+                DataTable table = new DataTable();
+                sdr.Fill(table);
+                cmpyCmbx.ItemsSource = table.DefaultView;
+                cmpyCmbx.DisplayMemberPath = "CompanyName";
+                cmpyCmbx.SelectedIndex = -1;
+            }
+            catch
+            {
+                _ds.SendToast("Unable To Load Company", "Please check with Data Connection", NotificationIcon.Error);
+            }
         }
 
         #region Events
@@ -106,7 +118,7 @@ namespace TNCSync.Controls
             DataTable table = new DataTable();
             SqlDataAdapter sda = new SqlDataAdapter();
 
-            if(userName == "Superadmin" & password == "Version01")
+            if (userName == "Superadmin" & password == "Version01")
             {
                 mw.Show();
                 if (mw.Visibility == Visibility.Visible)
@@ -131,18 +143,38 @@ namespace TNCSync.Controls
                 {
                     try
                     {
-                        string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
-                        SqlConnection sqlconn = new SqlConnection(conn);
-                        SqlCommand cmd = new SqlCommand("UserLogin_SelectAll_TNCS", sqlconn);
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@Email", ptboxEmail.Text);
-                        cmd.Parameters.AddWithValue("@Password", ptboxPass.Password);
-                        cmd.Parameters.AddWithValue("@CompanyName", cmpyCmbx.Text);
-                        sda.SelectCommand = cmd;
-                        sda.Fill(table);
-                        cmd.Dispose();
-                        mw.Show();
-                        aw.Close();
+                        if(!(string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(companyName)))
+                        {
+                            // 'MsgBox(gblUserID)
+                            // to get user information
+                            var UserInfo = db.UserLogin_SelectAll(0, ClearAllControl.gblUserID, null, null, bool.Parse("1"));
+                            var rec = UserInfo.First();
+
+                            if (rec != null)
+                            {
+                                ClearAllControl.gblCompanyID = rec.companyID;
+                                ClearAllControl.gblCompanyName = rec.CompanyName;
+                                ClearAllControl.gblUserName = rec.UserName;
+                                // gblDecimalPlaces = 2
+                            }
+                            //string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
+                            //SqlConnection sqlconn = new SqlConnection(conn);
+                            //SqlCommand cmd = new SqlCommand("UserLogin_SelectAll_TNCS", sqlconn);
+                            //cmd.CommandType = CommandType.StoredProcedure;
+                            //cmd.Parameters.AddWithValue("@Email", ptboxEmail.Text);
+                            //cmd.Parameters.AddWithValue("@Password", ptboxPass.Password);
+                            //cmd.Parameters.AddWithValue("@CompanyName", cmpyCmbx.Text);
+                            //sda.SelectCommand = cmd;
+                            //sda.Fill(table);
+                            //cmd.Dispose();
+                            mw.Show();
+                            //aw.Close();
+                        }
+                        else
+                        {
+                            _ds.SendToast("Authentication Error", "Please Fill All the Credential details to Login", NotificationIcon.Error);
+                            return;
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -152,6 +184,60 @@ namespace TNCSync.Controls
                     aw.Close();
                 }
             }
+            #region Old Login
+            //try
+            //{
+            //    var validUser = default(int);
+            //    if(ptboxEmail.Text == "Superadmin" & ptboxPass.Password == "Version01")
+            //    {
+            //        companyChoice = cmpyCmbx.SelectedValue.ToString();
+            //        int? argvalidUser = validUser;
+            //        db.sp_userlogin(int.Parse(companyChoice), ptboxEmail.Text, ptboxPass.Password, ref argvalidUser);
+            //        validUser = (int)argvalidUser;
+            //        if(validUser == -1 | string.IsNullOrEmpty(ptboxEmail.Text) & string.IsNullOrEmpty(ptboxPass.Password) & string.IsNullOrEmpty(cmpyCmbx.Text))
+            //        {
+            //            _ds.ShowDialog("Login Error", "Either Login ID or Password is Wrong", NotificationIcon.Warning);
+            //        }
+            //        else
+            //        {
+            //            ClearAllControl.gblCompanyID = validUser;
+            //            var UserInfo = db.UserLogin_SelectAll(0, ClearAllControl.gblUserID, null, null, bool.Parse("1"));
+            //            var rec = UserInfo.First();
+
+            //            if(rec != null)
+            //            {
+            //                ClearAllControl.gblCompanyID = rec.companyID;
+            //                ClearAllControl.gblCompanyName = rec.CompanyName;
+            //                ClearAllControl.gblUserName = rec.UserName;
+            //            }
+
+            //            if(binForDifferentUser == false)
+            //            {
+            //                MainWindow mainwnd = new MainWindow();
+            //                mainwnd.Show();
+
+            //            }
+
+            //        }
+            //    }
+            //    else
+            //    {
+            //        ClearAllControl.gblUserName = ptboxEmail.Text.Trim();
+            //        if(binForDifferentUser == false)
+            //        {
+            //            AuthenticationWindow authwind = new AuthenticationWindow();
+            //            authwind.Show();
+            //        }
+            //    }
+            //}
+            //catch(Exception ex)
+            //{
+            //    _ds.ShowDialog("TNC_sync","Authentication Failed", NotificationIcon.Error);
+            //    //_ds.ShowDialog("TNC_sync",ex.Message, NotificationIcon.Error);
+            //}
+
+            #endregion
+
         }
         #endregion
 

@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Haley.Abstractions;
 using Interop.QBFC15;
+//using Interop.QBFC12;
 using Interop.QBXMLRP2;
 using TNCSync.Class;
 using TNCSync.Model;
@@ -37,9 +38,9 @@ namespace TNCSync.BaseControls
             InitializeComponent();
             dpfrom.SelectedDate = DateTime.Now.Date;
             dpTo.SelectedDate = DateTime.Now.Date;
-            PopulateDataGrid();
-            LoadPayeeCombobox();
-            PopulateTempleteCombobox();
+            //PopulateDataGrid();
+            //LoadPayeeCombobox();
+            //PopulateTempleteCombobox();
         }
         //QBConnect qbConnect = new QBConnect();
         SessionManager sessionManager;

@@ -5,7 +5,10 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using Haley.Abstractions;
+using Haley.MVVM;
 using Interop.QBFC15;
+//using Interop.QBFC12;
 
 namespace TNCSync.Sessions
 {
@@ -32,6 +35,7 @@ namespace TNCSync.Sessions
         private IMsgSetResponse _queryResponse = null;              // private storage for the query response
         private ISubscriptionMsgSetResponse _querySubResp = null;   // private storage for the subscription response
         //private ResourceMangager rm = null;                         // Access to strings
+        public IDialogService ds;
 
 
         /// <summary>
@@ -42,6 +46,7 @@ namespace TNCSync.Sessions
         private SessionManager()
         {
             _sessionMgr = new QBSessionManager();
+            ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
         }
 
         /// <summary>
@@ -119,8 +124,7 @@ namespace TNCSync.Sessions
             catch (Exception e)
             {
                 logger.logCritical("SessionManager.initialize", e.Message);
-                throw e;
-               // MessageBox.Show(e.Message, "A modal dialog box is showing in the QuickBooks user interface. Your application cannot access QuickBooks until the user dismisses the dialog box.");
+                 ds.ShowDialog("QuickBook Company File is Not Open", " Your application cannot access QuickBooks until the user dismisses the dialog box that already opened.",Haley.Enums.NotificationIcon.Error);
             }
         }
 
@@ -1130,7 +1134,7 @@ namespace TNCSync.Sessions
             // return of beginSession does not need to be checked because an Exception will be
             // thrown if the object cannot be obtained.
             IMsgSetRequest msgset = beginSession(false, "", ENOpenMode.omDontCare).
-                   CreateMsgSetRequest(QBEdition.getEdition(Defaults.EDITION), 1, 0);
+                   CreateMsgSetRequest(QBEdition.getEdition(Defaults.EDITION), 1, 0);    //Before(1,0)
 
             if (msgset == null)
                 throw new Exception("Unable to create the Session's message set request object");

@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:TNCSync"
              StartupUri="MainWindow.xaml">
     <!--Startup="Application_Startup"-->
+    <!--StartupUri="MainWindow.xaml"-->
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

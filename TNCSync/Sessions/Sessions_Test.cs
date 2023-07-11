@@ -7,6 +7,7 @@ using System.Windows;
 using Haley.Abstractions;
 using Haley.MVVM;
 using Interop.QBFC15;
+//using Interop.QBFC12;
 using Microsoft.VisualBasic;
 using TNCSync.Class;
 using TNCSync.Class.DataBaseClass;

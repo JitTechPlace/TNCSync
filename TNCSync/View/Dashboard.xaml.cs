@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TNCSync.ViewModel;
 
 namespace TNCSync.View
 {
@@ -26,7 +27,7 @@ namespace TNCSync.View
         public Dashboard()
         {
             InitializeComponent();
-            PopulateDataGrid();
+            this.DataContext = new LoginViewModel();
         }
 
         private void PopulateDataGrid()
@@ -34,7 +35,7 @@ namespace TNCSync.View
             string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
             SqlConnection sqlconn = new SqlConnection(conn);
             //string sqlquery = "SELECT * FROM tblVendor";
-            SqlCommand cmd = new SqlCommand("SELECT count(ID) FROM UserLogin", sqlconn);
+            SqlCommand cmd = new SqlCommand("SELECT count(Loginname) FROM UserLogin WHERE IsActive = '1'", sqlconn);
             sqlconn.Open();
             SqlDataAdapter sdr = new SqlDataAdapter(cmd);
             DataTable table = new DataTable();
@@ -42,7 +43,11 @@ namespace TNCSync.View
             DataContext = table;
             sqlconn.Close();
             txtuser.Text = table.ToString();
+        }
 
+        private void Dashboard_UC_Loaded(object sender, RoutedEventArgs e)
+        {
+           // PopulateDataGrid();
         }
     }
 }

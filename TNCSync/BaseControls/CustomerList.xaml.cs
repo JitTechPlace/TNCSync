@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Xml;
 using TNCSync.Sessions;
 using Interop.QBFC15;
+//using Interop.QBFC12;
 using Interop.QBXMLRP2;
 using Haley.Abstractions;
 using System.Configuration;
@@ -46,21 +47,6 @@ namespace TNCSync.BaseControls
 			sessionManager = SessionManager.getInstance();
 			maxVersion = sessionManager.QBsdkMajorVersion;
 		}
-		private IMsgSetResponse processRequestFromQB(IMsgSetRequest requestSet)
-		{
-			try
-			{
-				//MessageBox.Show(requestSet.ToXMLString());
-				IMsgSetResponse responseSet = sessionManager.doRequest(true, ref requestSet);
-				//MessageBox.Show(responseSet.ToXMLString());
-				return responseSet;
-			}
-			catch (Exception e)
-			{
-				MessageBox.Show(e.Message);
-				return null;
-			}
-		}
 		private void disconnectFromQB()
 		{
 			if (sessionManager != null)
@@ -80,171 +66,6 @@ namespace TNCSync.BaseControls
         #endregion
 
         #region Customer
-        #region Request Building
-        private IMsgSetRequest buildDataCountQuery(string request)
-		{
-			IMsgSetRequest requestMsgSet = sessionManager.getMsgSetRequest();
-			requestMsgSet.Attributes.OnError = ENRqOnError.roeContinue;
-			switch (request)
-			{
-				case "CustomerQueryRq":
-					ICustomerQuery custQuery = requestMsgSet.AppendCustomerQueryRq();
-					custQuery.metaData.SetValue(ENmetaData.mdMetaDataOnly);
-					break;
-				case "ItemQueryRq":
-					IItemQuery itemQuery = requestMsgSet.AppendItemQueryRq();
-					itemQuery.metaData.SetValue(ENmetaData.mdMetaDataOnly);
-					break;
-				case "TermsQueryRq":
-					ITermsQuery termsQuery = requestMsgSet.AppendTermsQueryRq();
-					termsQuery.metaData.SetValue(ENmetaData.mdMetaDataOnly);
-					break;
-				case "SalesTaxCodeQueryRq":
-					ISalesTaxCodeQuery salesTaxQuery = requestMsgSet.AppendSalesTaxCodeQueryRq();
-					salesTaxQuery.metaData.SetValue(ENmetaData.mdMetaDataOnly);
-					break;
-				case "CustomerMsgQueryRq":
-					ICustomerMsgQuery custMsgQuery = requestMsgSet.AppendCustomerMsgQueryRq();
-					custMsgQuery.metaData.SetValue(ENmetaData.mdMetaDataOnly);
-					break;
-				default:
-					break;
-			}
-			return requestMsgSet;
-		}
-
-		private IMsgSetRequest buildCustomerQueryRq(string[] includeRetElement, string fullName)
-		{
-			IMsgSetRequest requestMsgSet = sessionManager.getMsgSetRequest();
-			requestMsgSet.Attributes.OnError = ENRqOnError.roeContinue;
-			ICustomerQuery custQuery = requestMsgSet.AppendCustomerQueryRq();
-			if (fullName != null)
-			{
-				custQuery.ORCustomerListQuery.FullNameList.Add(fullName);
-			}
-			for (int x = 0; x < includeRetElement.Length; x++)
-			{
-				custQuery.IncludeRetElementList.Add(includeRetElement[x]);
-			}
-			return requestMsgSet;
-		}
-		#endregion
-
-		#region Response Parsing
-		private int getCount(string request)
-		{
-			IMsgSetResponse responseMsgSet = processRequestFromQB(buildDataCountQuery(request));
-			int count = parseRsForCount(responseMsgSet);
-			return count;
-		}
-		private int parseRsForCount(IMsgSetResponse responseMsgSet)
-		{
-			int ret = -1;
-			try
-			{
-				IResponse response = responseMsgSet.ResponseList.GetAt(0);
-				ret = response.retCount;
-			}
-			catch (Exception e)
-			{
-				MessageBox.Show("Error encountered: " + e.Message);
-				ret = -1;
-			}
-			return ret;
-		}
-
-		private string[] parseCustomerQueryRs(IMsgSetResponse responseMsgSet, int count)
-		{
-			/*
-             <?xml version="1.0" ?> 
-             <QBXML>
-             <QBXMLMsgsRs>
-             <CustomerQueryRs requestID="1" statusCode="0" statusSeverity="Info" statusMessage="Status OK">
-                 <CustomerRet>
-                     <FullName>Abercrombie, Kristy</FullName> 
-                 </CustomerRet>
-             </CustomerQueryRs>
-             </QBXMLMsgsRs>
-             </QBXML>    
-            */
-			string[] retVal = new string[count];
-			IResponse response = responseMsgSet.ResponseList.GetAt(0);
-			int statusCode = response.StatusCode;
-			if (statusCode == 0)
-			{
-				ICustomerRetList custRetList = response.Detail as ICustomerRetList;
-				for (int i = 0; i < count; i++)
-				{
-					string fullName = null;
-					if (custRetList.GetAt(i).FullName != null)
-					{
-						fullName = custRetList.GetAt(i).FullName.GetValue().ToString();
-						if (fullName != null)
-						{
-							retVal[i] = fullName;
-						}
-					}
-					IAddress billAddress = null;
-					if (custRetList.GetAt(i).BillAddress != null)
-					{
-						billAddress = custRetList.GetAt(i).BillAddress;
-						string addr1 = "", addr2 = "", addr3 = "", addr4 = "", addr5 = "";
-						string city = "", state = "", postalcode = "";
-						if (billAddress != null)
-						{
-							if (billAddress.Addr1 != null) addr1 = billAddress.Addr1.GetValue().ToString();
-							if (billAddress.Addr1 != null) addr1 = billAddress.Addr1.GetValue().ToString();
-							if (billAddress.Addr2 != null) addr2 = billAddress.Addr2.GetValue().ToString();
-							if (billAddress.Addr3 != null) addr3 = billAddress.Addr3.GetValue().ToString();
-							if (billAddress.Addr4 != null) addr4 = billAddress.Addr4.GetValue().ToString();
-							if (billAddress.Addr5 != null) addr5 = billAddress.Addr5.GetValue().ToString();
-							if (billAddress.City != null) city = billAddress.City.GetValue().ToString();
-							if (billAddress.State != null) state = billAddress.State.GetValue().ToString();
-							if (billAddress.PostalCode != null) postalcode = billAddress.PostalCode.GetValue().ToString();
-
-							retVal[i] = addr1 + "\r\n" + addr2 + "\r\n"
-								+ addr3 + "\r\n"
-								+ city + "\r\n" + state + "\r\n" + postalcode;
-						}
-					}
-					//IAddress shipAddress = null;
-					//if (custRetList.GetAt(i).ShipAddress != null)
-					//{
-					//    shipAddress = custRetList.GetAt(i).ShipAddress;
-					//    string addr1 = "", addr2 = "", addr3 = "", addr4 = "", addr5 = "";
-					//    string city = "", state = "", postalcode = "";
-					//    if (shipAddress != null)
-					//    {
-					//        if (shipAddress.Addr1 != null) addr1 = shipAddress.Addr1.GetValue().ToString();
-					//        if (shipAddress.Addr1 != null) addr1 = shipAddress.Addr1.GetValue().ToString();
-					//        if (shipAddress.Addr2 != null) addr2 = shipAddress.Addr2.GetValue().ToString();
-					//        if (shipAddress.Addr3 != null) addr3 = shipAddress.Addr3.GetValue().ToString();
-					//        if (shipAddress.Addr4 != null) addr4 = shipAddress.Addr4.GetValue().ToString();
-					//        if (shipAddress.Addr5 != null) addr5 = shipAddress.Addr5.GetValue().ToString();
-					//        if (shipAddress.City != null) city = shipAddress.City.GetValue().ToString();
-					//        if (shipAddress.State != null) state = shipAddress.State.GetValue().ToString();
-					//        if (shipAddress.PostalCode != null) postalcode = shipAddress.PostalCode.GetValue().ToString();
-
-					//        // RESUME HERE
-					//        retVal[i] = addr1 + "\r\n" + addr2 + "\r\n"
-					//            + addr3 + "\r\n"
-					//            + city + "\r\n" + state + "\r\n" + postalcode;
-					//    }
-					//}
-					string currencyRef = null;
-					if (custRetList.GetAt(i).CurrencyRef != null)
-					{
-						currencyRef = custRetList.GetAt(i).CurrencyRef.FullName.GetValue().ToString();
-						if (currencyRef != null)
-						{
-							retVal[i] = currencyRef;
-						}
-					}
-				}
-			}
-			return retVal;
-		}
-		#endregion
 
 		private void Addcust_Click(object sender, RoutedEventArgs e)
 		{
@@ -357,11 +178,7 @@ namespace TNCSync.BaseControls
 
 		private void Searchcust_Click(object sender, RoutedEventArgs e)
         {
-			connectToQB();
-			//GetCustomerList();
-			bError = false;
-			GetCustomerList(ref bError);
-			populateDatagrid();
+		
 		}
 		public void GetCustomerList(ref bool bError)
         {
@@ -616,6 +433,7 @@ namespace TNCSync.BaseControls
 					string Other14 = string.Empty;
 					string Other15 = string.Empty;
 					string Other16 = string.Empty;
+					//string TaxRegistrationNumber = string.Empty;    //Need to add in Database table as well
 					int DisplayColor = 0;
 					//Insert into Database
 					db.tblCustomer_Insert(ClearAllControl.gblCompanyID, ListID, TimeCreated, TimeModified, EditSequence, Name, ArName, FullName, Parent, IsActive, int.Parse(Sublevel), CompanyName, Salutation, FirstName, MiddleName, LastName, BillAddress1, BillAddress2, BillAddress3, BillAddress4, BillCityRefKey, BillCity, BillStateRefKey, BillState, BillPostalCode, BillCountryRefKey, BillCountry, Phone, AltPhone, Fax, Email, Cc, Contact, AltContact, CustomerTypeRef, CustomerTypeName, TermsRef, TermsName, SalesRepRef, SalesRepName, (decimal?)Balance, (decimal?)TotalBalance, SalesTaxCodeRef, SalesTaxCodeName, AccountNumber, CreditLimit, JobStatus, Convert.ToString(JobStartDate), Convert.ToString(JobProjectedEndDate), Convert.ToString(JobEndDate), JobDesc, JobTypeRef, JobTypeName, Other13, Other14, Other15, Other16,DisplayColor);
@@ -639,8 +457,22 @@ namespace TNCSync.BaseControls
 
         private void btnShowall_Click(object sender, RoutedEventArgs e)
         {
-			populateDatagrid();
-        }
+			connectToQB();
+			//GetCustomerList();
+			bError = false;
+			GetCustomerList(ref bError);
+			if (!bError)
+			{
+				ds.SendToast("Synchronized ", "Customer List has been synchronized successfully", Haley.Enums.NotificationIcon.Success);
+				disconnectFromQB();
+				populateDatagrid();
+			}
+			else
+			{
+				disconnectFromQB();
+				//populateDatagrid();
+			}
+		}
 
 		private void populateDatagrid()
 		{

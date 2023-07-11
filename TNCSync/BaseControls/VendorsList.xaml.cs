@@ -1,6 +1,7 @@
 ﻿using Haley.Abstractions;
 using Haley.MVVM;
 using Interop.QBFC15;
+//using Interop.QBFC12;
 using Microsoft.Xaml.Behaviors;
 using System;
 using System.Collections.Generic;
@@ -37,14 +38,14 @@ namespace TNCSync.BaseControls
         private short maxVersion;
         private static DBTNCSDataContext db = new DBTNCSDataContext();
         public IDialogService ds;
-        //private string listID = null;
-        //private string QvendorName = null;
-        //private string QCompanyName = null;
-        //private string BillAddress1 = null;
-        //private string Phone = null;
-        //private string Fax = null;
-        //private string Email = null;
-        //private string Contact = null;
+        private string listID = null;
+        private string QvendorName = null;
+        private string QCompanyName = null;
+        private string BillAddress1 = null;
+        private string Phone = null;
+        private string Fax = null;
+        private string Email = null;
+        private string Contact = null;
 
         public VendorsList()
         {
@@ -115,16 +116,28 @@ namespace TNCSync.BaseControls
 
         private void populateDatagrid()
         {
-            string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
-            SqlConnection sqlconn = new SqlConnection(conn);
-            SqlCommand cmd = new SqlCommand("tblVendor_Select_TNCS", sqlconn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            DataTable table = new DataTable();
-            SqlDataAdapter sda = new SqlDataAdapter();
-            sda.SelectCommand = cmd;
-            //cmd.Parameters.Add(param);
-            sda.Fill(table);
-            grdVendorLst.ItemsSource = table.DefaultView;
+            try
+            {
+                //var query = from tblVendor in db.tblVendor_Select(ClearAllControl.gblCompanyID, listID, Name, QCompanyName, BillAddress1, Phone, Fax, Email, Contact)select tblVendor;
+                var result = db.tblVendor_Select(ClearAllControl.gblCompanyID, listID, QvendorName, QCompanyName, BillAddress1, Phone, Fax, Email, Contact);
+                grdVendorLst.ItemsSource = result.ToList();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            #region old
+            //string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
+            //SqlConnection sqlconn = new SqlConnection(conn);
+            //SqlCommand cmd = new SqlCommand("tblVendor_Select_TNCS", sqlconn);
+            //cmd.CommandType = CommandType.StoredProcedure;
+            //DataTable table = new DataTable();
+            //SqlDataAdapter sda = new SqlDataAdapter();
+            //sda.SelectCommand = cmd;
+            ////cmd.Parameters.Add(param);
+            //sda.Fill(table);
+            //grdVendorLst.ItemsSource = table.DefaultView;
+            #endregion
         }
 
         public void getVendor(ref bool bError)
@@ -440,7 +453,7 @@ namespace TNCSync.BaseControls
 
         private void VendorList_Loaded(object sender, RoutedEventArgs e)
         {
-           populateDatagrid();
+          // populateDatagrid();
         }
     }
 }
