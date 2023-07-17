@@ -24,5 +24,20 @@ namespace TNCSync.BaseControls
         {
             InitializeComponent();
         }
+
+        private void btnsyncQuotation_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnsyncalQuotation_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnQuotaionPrint_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

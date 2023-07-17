@@ -36,15 +36,15 @@
                     <TextBlock Text="Template Name:" FontSize="15"  Margin="10"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Grid.Row="1" Margin="25 15 10 0">
-                    <ComboBox x:Name="cmbxInvoice" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" SelectionChanged="cmbxInvoice_SelectionChanged" />
-                    <ComboBox x:Name="cmbxtimateNum" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
-                    <ComboBox x:Name="cmbxTmptInvoice" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" SelectionChanged="cmbxTmptInvoice_SelectionChanged" />
+                    <ComboBox x:Name="cmbxEstimateCust" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                    <ComboBox x:Name="cmbxEstimateNum" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                    <ComboBox x:Name="cmbxTmptEstimate" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Name="btnsyncInvoice" Content="Sync" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110" Click="btnsyncInvoice_Click"/>
-                <Button x:Name="btnsyncalInvoice" Content="SyncAll" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110" Margin="5" Click="btnsyncalInvoice_Click"/>
-                <Button x:Name="btnInvoicePrint" Content="Print" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110" Click="btnInvoicePrint_Click"/>
+                <Button x:Name="btnsyncQuotation" Content="Sync" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110" Click="btnsyncQuotation_Click"/>
+                <Button x:Name="btnsyncalQuotation" Content="SyncAll" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110" Margin="5" Click="btnsyncalQuotation_Click"/>
+                <Button x:Name="btnQuotaionPrint" Content="Print" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110" Click="btnQuotaionPrint_Click"/>
                 <Button Content="Clear" Style="{StaticResource SPStyleButton}"  Height="30" Width="110" Margin="5"/>
             </StackPanel>
         </StackPanel>

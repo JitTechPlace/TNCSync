@@ -40,7 +40,7 @@
             <TabItem Header="CreditNote" BorderBrush="Transparent" >
                 <bc:CreditNote/>
             </TabItem>
-            <TabItem Header="CreditNote" BorderBrush="Transparent" >
+            <TabItem Header="Estimates" BorderBrush="Transparent" >
                 <bc:Estimates/>
             </TabItem>
         </TabControl>
