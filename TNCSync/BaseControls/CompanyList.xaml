@@ -23,7 +23,8 @@
         <DataGrid x:Name="grdCmpnyLst" Grid.Row="1" Margin="5" IsReadOnly="True"/>
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button Content="Sync All" x:Name="syncothernameList"  Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120" Click="syncothernameList_Click" />
-            <Button Content="Clear" Style="{StaticResource SPStyleButton}" Height="30" Width="120" Margin="5"/>
+            <Button Content="Add New" x:Name="btnAddNew"  Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120" Margin="5" Click="btnAddNew_Click" />
+            <Button Content="Clear" Style="{StaticResource SPStyleButton}" Height="30" Width="120"/>
         </StackPanel>
     </Grid>
 </UserControl>

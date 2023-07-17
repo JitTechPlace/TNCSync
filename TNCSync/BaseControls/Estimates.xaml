@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="TNCSync.BaseControls.Estimates"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TNCSync.BaseControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <Grid>
+        <TextBlock Text="Sync Estimate/Quotation" VerticalAlignment="Top" Margin="5" FontSize="15" Foreground="{StaticResource color1}"/>
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5">
+                <TextBlock Text="From Date:" FontSize="15"  />
+                <DatePicker x:Name="dpFrmDate" Width="120" Margin="5 0" />
+                <TextBlock Text="To Date:" FontSize="15"  />
+                <DatePicker x:Name="dpToDate" Width="120" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                </Grid>
+
+                <StackPanel Grid.Column="0" Grid.Row="1" Margin="25 15 10 0">
+                    <TextBlock Text="Customer Name:" FontSize="15"  Margin="10"/>
+                    <TextBlock Text="Estimate Number:" FontSize="15"  Margin="10"/>
+                    <TextBlock Text="Template Name:" FontSize="15"  Margin="10"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="1" Margin="25 15 10 0">
+                    <ComboBox x:Name="cmbxInvoice" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" SelectionChanged="cmbxInvoice_SelectionChanged" />
+                    <ComboBox x:Name="cmbxtimateNum" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                    <ComboBox x:Name="cmbxTmptInvoice" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" SelectionChanged="cmbxTmptInvoice_SelectionChanged" />
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btnsyncInvoice" Content="Sync" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110" Click="btnsyncInvoice_Click"/>
+                <Button x:Name="btnsyncalInvoice" Content="SyncAll" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110" Margin="5" Click="btnsyncalInvoice_Click"/>
+                <Button x:Name="btnInvoicePrint" Content="Print" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110" Click="btnInvoicePrint_Click"/>
+                <Button Content="Clear" Style="{StaticResource SPStyleButton}"  Height="30" Width="110" Margin="5"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

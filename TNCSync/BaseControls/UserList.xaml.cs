@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TNCSync.View;
 
 namespace TNCSync.BaseControls
 {
@@ -46,6 +47,12 @@ namespace TNCSync.BaseControls
             sdr.Fill(table);
             grdUsersLst.ItemsSource = table.DefaultView;
             sqlconn.Close();
+        }
+
+        private void btnAddNew_Click(object sender, RoutedEventArgs e)
+        {
+            AddNewUser addUser = new AddNewUser();
+            addUser.ShowDialog();
         }
     }
 }

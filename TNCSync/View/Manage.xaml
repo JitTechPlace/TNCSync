@@ -34,15 +34,15 @@
             <TabItem Header="DBConfig" BorderBrush="Transparent" >
                 <bc:DatabaseConfiguration/>
             </TabItem>
-            <TabItem Header="AddCompany" BorderBrush="Transparent" >
+            <!--<TabItem Header="AddCompany" BorderBrush="Transparent" >
                 <bc:AddCompany/>
-            </TabItem>
+            </TabItem>-->
             <TabItem Header="CompanyList" BorderBrush="Transparent" >
                 <bc:CompanyList/>
             </TabItem>
-            <TabItem Header="Adduser" BorderBrush="Transparent" >
+            <!--<TabItem Header="Adduser" BorderBrush="Transparent" >
                 <bc:AddUser/>
-            </TabItem>
+            </TabItem>-->
             <TabItem Header="UserList" BorderBrush="Transparent" >
                 <bc:UserList/>
             </TabItem>

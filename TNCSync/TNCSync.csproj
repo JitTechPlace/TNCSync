@@ -146,6 +146,9 @@
     <Compile Include="BaseControls\DatabaseConfiguration.xaml.cs">
       <DependentUpon>DatabaseConfiguration.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BaseControls\Estimates.xaml.cs">
+      <DependentUpon>Estimates.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BaseControls\Invoice.xaml.cs">
       <DependentUpon>Invoice.xaml</DependentUpon>
     </Compile>
@@ -257,6 +260,12 @@
     <Compile Include="ViewModel\VendorViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\ViewModelCommand.cs" />
+    <Compile Include="View\AddNewCompany.xaml.cs">
+      <DependentUpon>AddNewCompany.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddNewUser.xaml.cs">
+      <DependentUpon>AddNewUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ChartofAccounts.xaml.cs">
       <DependentUpon>ChartofAccounts.xaml</DependentUpon>
     </Compile>
@@ -330,6 +339,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BaseControls\DatabaseConfiguration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BaseControls\Estimates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -417,6 +430,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="RulerControl\RulerStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddNewCompany.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddNewUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
