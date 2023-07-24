@@ -19,8 +19,8 @@ using TNCSync.Class.DataBaseClass;
 using TNCSync.Sessions;
 using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
-using Interop.QBFC15;
-//using Interop.QBFC12;
+//using Interop.QBFC15;
+using Interop.QBFC16;
 using System.Data;
 
 namespace TNCSync.BaseControls

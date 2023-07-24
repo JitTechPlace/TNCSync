@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using Haley.Abstractions;
 using Haley.MVVM;
-using Interop.QBFC15;
-//using Interop.QBFC12;
+//using Interop.QBFC15;
+using Interop.QBFC16;
 
 namespace TNCSync.Sessions
 {
@@ -20,9 +20,9 @@ namespace TNCSync.Sessions
         private QBSessionManager _sessionMgr = null;                // the universal session manager object
         private bool _bConnOpen = false;                            // Maintains state of the connection
         private bool _bSessionOpen = false;                         // Maintains state of the session
-        private double _qbsdkVersion = 15.0;                         // most recent SDK version supported by QB instance
-        private short _qbSDKMajorVer = 15;                           // generic location to store the major version
-        private short _qbSDKMinorVer = 2;                           // generic locaiton to store the minor version
+        private double _qbsdkVersion = 16.0;                         // most recent SDK version supported by QB instance
+        private short _qbSDKMajorVer = 16;                           // generic location to store the major version
+        private short _qbSDKMinorVer = 0;                           // generic locaiton to store the minor version
         private string _appId = "";                                 // storage location for the application ID
         private string _appName = "TNCSync";                               // storage location for the application name
         private string _qbFile = "";  // storage location for the qbFile entry 

@@ -15,14 +15,14 @@ using System.Windows.Shapes;
 using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
 using TNCSync.Sessions;
-using Interop.QBFC15;
-//using Interop.QBFC12;
+//using Interop.QBFC15;
 using TNCSync.Class.DataBaseClass;
 using Haley.Abstractions;
 using Haley.MVVM;
 using TNCSync.Class;
 using Microsoft.VisualBasic;
 using System.Data;
+using Interop.QBFC16;
 
 namespace TNCSync.BaseControls
 {

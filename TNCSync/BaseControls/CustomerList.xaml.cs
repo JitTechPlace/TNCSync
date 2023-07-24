@@ -7,8 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
 using TNCSync.Sessions;
-using Interop.QBFC15;
-//using Interop.QBFC12;
+//using Interop.QBFC15;
+using Interop.QBFC16;
 using Interop.QBXMLRP2;
 using Haley.Abstractions;
 using System.Configuration;
@@ -32,7 +32,7 @@ namespace TNCSync.BaseControls
         {
             InitializeComponent();
 			ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
-			populateDatagrid();
+			//populateDatagrid();
 		}
 
         //QBConnect qbConnect = new QBConnect();
@@ -99,38 +99,38 @@ namespace TNCSync.BaseControls
 			}
 
 			string input = inputXMLDoc.OuterXml;
-			//step3: do the qbXMLRP request
-			RequestProcessor2 rp = null;
-			string ticket = null;
-			string response = null;
-			try
-			{
-				rp = new RequestProcessor2();
-				rp.OpenConnection("", "IDN CustomerAdd");
-				ticket = rp.BeginSession("", QBFileMode.qbFileOpenDoNotCare);
-				response = rp.ProcessRequest(ticket, input);
+            //step3: do the qbXMLRP request
+            RequestProcessor2 rp = null;
+            string ticket = null;
+            string response = null;
+            try
+            {
+                rp = new RequestProcessor2();
+                rp.OpenConnection("", "IDN CustomerAdd");
+                ticket = rp.BeginSession("", QBFileMode.qbFileOpenDoNotCare);
+                response = rp.ProcessRequest(ticket, input);
 
-			}
-			catch (System.Runtime.InteropServices.COMException ex)
-			{
-				ds.SendToast("COM Error Description = " + ex.Message, "COM error");
-				//MessageBox.Show("COM Error Description = " + ex.Message, "COM error");
-				return;
-			}
-			finally
-			{
-				if (ticket != null)
-				{
-					rp.EndSession(ticket);
-				}
-				if (rp != null)
-				{
-					rp.CloseConnection();
-				}
-			};
+            }
+            catch (System.Runtime.InteropServices.COMException ex)
+            {
+                ds.SendToast("COM Error Description = " + ex.Message, "COM error");
+                //MessageBox.Show("COM Error Description = " + ex.Message, "COM error");
+                return;
+            }
+            finally
+            {
+                if (ticket != null)
+                {
+                    rp.EndSession(ticket);
+                }
+                if (rp != null)
+                {
+                    rp.CloseConnection();
+                }
+            };
 
-			//step4: parse the XML response and show a message
-			XmlDocument outputXMLDoc = new XmlDocument();
+            //step4: parse the XML response and show a message
+            XmlDocument outputXMLDoc = new XmlDocument();
 			outputXMLDoc.LoadXml(response);
 			XmlNodeList qbXMLMsgsRsNodeList = outputXMLDoc.GetElementsByTagName("CustomerAddRs");
 
@@ -470,6 +470,7 @@ namespace TNCSync.BaseControls
 			else
 			{
 				disconnectFromQB();
+				ds.SendToast("Synchronized ", "Customer List has been synchronized successfully", Haley.Enums.NotificationIcon.Success);
 				//populateDatagrid();
 			}
 		}

@@ -60,15 +60,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Windows\assembly\GAC_MSIL\CrystalDecisions.Windows.Forms.resources\13.0.2000.0_en_692fbea5521e1304\CrystalDecisions.Windows.Forms.resources.dll</HintPath>
     </Reference>
-    <Reference Include="Interop.QBFC12, Version=12.0.0.29, Culture=neutral, PublicKeyToken=31d8aec643e18259">
+    <Reference Include="Interop.QBFC16, Version=16.0.0.1, Culture=neutral, PublicKeyToken=31d8aec643e18259, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>C:\Windows\assembly\GAC\Interop.QBFC12\12.0.0.29__31d8aec643e18259\Interop.QBFC12.dll</HintPath>
-    </Reference>
-    <Reference Include="Interop.QBFC15, Version=16.0.0.1, Culture=neutral, PublicKeyToken=31d8aec643e18259, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>C:\Windows\assembly\GAC_MSIL\Interop.QBFC15\15.0.0.1__31d8aec643e18259\Interop.QBFC15.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\Intuit\QuickBooks\Interop.QBFC16.dll</HintPath>
     </Reference>
     <Reference Include="Interop.QBXMLRP2, Version=27.0.154.7642, Culture=neutral, PublicKeyToken=8244b228ecdaef5e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Interop.QBFC15;
-//using Interop.QBFC12;
+//using Interop.QBFC15;
+using Interop.QBFC16;
 
 namespace TNCSync.Class
 {
