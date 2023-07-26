@@ -21,6 +21,7 @@ using Haley.MVVM;
 using Microsoft.Win32;
 using System.Configuration;
 
+
 namespace TNCSync.BaseControls
 {
     /// <summary>
@@ -38,12 +39,14 @@ namespace TNCSync.BaseControls
             _ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
             //Add Default server Name to combobox
             cbxserver.SelectedItem = string.Concat(Environment.MachineName, @"\SQLEXPRESS");
+            cbxserver.Items.Add(string.Concat(Environment.MachineName, @"\SQLEXPRESS"));
             //cbxserver.Items.Add(".");
             //cbxserver.Items.Add("(local)");
             //cbxserver.SelectedIndex = 3;
-            cbxserver.Items.Add(@".\SQLEXPRESS");
+            //cbxserver.Items.Add(@".\SQLEXPRESS");
             //cbxserver.Items.Add(@".\sql2012");
-            cbxserver.Items.Add(string.Concat(Environment.MachineName, @"\SQLEXPRESS"));
+            //cbxAuth.SelectedItem = 
+            //ptxtusername.Text = string.Concat
         }
 
         private IDialogService _ds;
@@ -72,7 +75,7 @@ namespace TNCSync.BaseControls
                     //MessageBox.Show("Test Connection Failed", "Message", MessageBoxButton.OK, MessageBoxImage.Error);
                     //_ds.Warning("Test Connection Failed", "Application not able to connect with Current Company File ");
                     DialogMode dialogMode = DialogMode.Confirmation;
-                    var result = _ds.ShowDialog("Test Connection Failed", "Application not able to connect with Current Company File", Haley.Enums.NotificationIcon.Warning, dialogMode, hideIcon = false, blurOtherWindows = true);
+                    var result = _ds.ShowDialog("Test Connection Failed", ex.Message, Haley.Enums.NotificationIcon.Warning, dialogMode, hideIcon = false, blurOtherWindows = true);
                 }
             }
             else if (cbxAuth.Text.Equals("SQL Server Authentication"))
@@ -94,7 +97,7 @@ namespace TNCSync.BaseControls
                     //MessageBox.Show("Test Connection Failed", "Message", MessageBoxButton.OK, MessageBoxImage.Error);
                    // _ds.Warning("Test Connection Failed", "Application not able to connect with Current Company File "); 
                     DialogMode dialogMode = DialogMode.Confirmation;
-                    var result = _ds.ShowDialog("Test Connection Failed", "Application not able to connect with Current Company File", Haley.Enums.NotificationIcon.Warning, dialogMode, hideIcon = false, blurOtherWindows = true);
+                    var result = _ds.ShowDialog("Test Connection Failed", ex.Message, Haley.Enums.NotificationIcon.Warning, dialogMode, hideIcon = false, blurOtherWindows = true);
                 }
             }
             #region OldConnect
@@ -116,8 +119,8 @@ namespace TNCSync.BaseControls
         }
         /// <summary>
         /// It save the Correct connection in your App.config file for later 
-        /// </summary>
-        /// <param name="sender"></param>
+        /// </summary>to delivre xml.
+        /// <param name="sender"></param>that could be resolved version public token version=7..0.1
         /// <param name="e"></param>
         private void btnSavecon_Click(object sender, RoutedEventArgs e)
         {
@@ -143,7 +146,7 @@ namespace TNCSync.BaseControls
                 {
                     //_ds.Warning("Unable to save the Connection", "Please check the connection details");
                     DialogMode dialogMode = DialogMode.Confirmation;
-                    var result = _ds.ShowDialog("Unable to save the Connection", "Please check the connection details", Haley.Enums.NotificationIcon.Warning, dialogMode, hideIcon = false, blurOtherWindows = true);
+                    var result = _ds.ShowDialog("Unable to save the Connection", ex.Message, Haley.Enums.NotificationIcon.Warning, dialogMode, hideIcon = false, blurOtherWindows = true);
                 }
             }
             //SQL Server Authentication Save
@@ -158,6 +161,7 @@ namespace TNCSync.BaseControls
                     {
                         AppSetting setting = new AppSetting();
                         setting.SaveConnectionString("TNCSync_Connection", _connectionString);
+                        setting.SaveConnectionString("TNCSync.Properties.Settings.CMSConnectionString", _connectionString);
                         DialogMode dialogMode = DialogMode.Confirmation;
                         var result = _ds.ShowDialog("Connection Saved", "Now you can access QB Data", Haley.Enums.NotificationIcon.Success, dialogMode, hideIcon = false, blurOtherWindows = true);
                     }
@@ -165,7 +169,7 @@ namespace TNCSync.BaseControls
                 catch (Exception ex)
                 {
                     DialogMode dialogMode = DialogMode.Confirmation;
-                    var result = _ds.ShowDialog("Unable to save the Connection", "Please check the connection details", Haley.Enums.NotificationIcon.Warning, dialogMode, hideIcon = false, blurOtherWindows = true);
+                    var result = _ds.ShowDialog("Unable to save the Connection", ex.Message, Haley.Enums.NotificationIcon.Warning, dialogMode, hideIcon = false, blurOtherWindows = true);
                 }
             }
 
@@ -243,6 +247,11 @@ namespace TNCSync.BaseControls
                 ptxtusername.IsEnabled = true;
                 ptxtpassword.IsEnabled = true;
             }
+        }
+
+        private void DBConfigure_Loaded(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

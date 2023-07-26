@@ -32,7 +32,7 @@ namespace TNCSync.BaseControls
         public void ShowReportView(ref ReportDocument _ReportDocument)
         {
             CRV.ViewerCore.ReportSource = _ReportDocument;
-            ShowReportView(ref _ReportDocument);
+            //ShowReportView(ref _ReportDocument);
         }
     }
 }

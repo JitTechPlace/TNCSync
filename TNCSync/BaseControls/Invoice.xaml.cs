@@ -49,7 +49,7 @@ namespace TNCSync.BaseControls
             ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
             dpFrmDate.SelectedDate = DateTime.Now;
             dpToDate.SelectedDate = DateTime.Now;
-           // PopulateTempleteCombobox();
+           PopulateTempleteCombobox();
         }
 
         #region CONNECTION TO QB
@@ -661,11 +661,14 @@ namespace TNCSync.BaseControls
                             InvoiceLineRetList = InvoiceRet.ORInvoiceLineRetList.GetAt(k);
 
                             string lineItem = string.Empty;
-                            if (InvoiceLineRetList.InvoiceLineRet.ItemRef != null)
+                            //if (InvoiceLineRetList.InvoiceLineRet.ItemRef != null)
+                            //{
+                            //   // lineItem = InvoiceLineRetList.InvoiceLineRet.ItemRef.FullName.GetValue();
+                            //}
+                            if (string.IsNullOrEmpty(lineItem))
                             {
-                                lineItem = InvoiceLineRetList.InvoiceLineRet.ItemRef.FullName.GetValue();
+                                goto caltchnullline;
                             }
-
 
                             string lineDesc = string.Empty;
                             if (InvoiceLineRetList.InvoiceLineRet.Desc != null)
@@ -775,6 +778,8 @@ namespace TNCSync.BaseControls
 
                             }
                             db.tblInvoiceLine_Insert(TxnID, decimal.Parse(lineAmount), lineDesc, lineItem, lineRate, customefield, customeFeild2, lineUOM, decimal.Parse(lineQuantity), lineUOMOrg, lineTxnID, txaCode, (decimal?)taxAmount, other1, other2, ServDate);
+                        caltchnullline:
+                            ;
                         }
                     }
                 }
@@ -838,7 +843,7 @@ namespace TNCSync.BaseControls
         private void PopulateTempleteCombobox()
         {
             cmbxTmptInvoice.Items.Clear();
-            sql.execquery("Select TemplateName from Templates where TemplateType='Purchase Order' and Status='True' ");
+            sql.execquery("Select TemplateName from Templates where TemplateType='Sales Invoice' and Status='True' ");
             if (sql.recordcount > 0)
             {
                 foreach (DataRow r in sql.sqlds.Tables[0].Rows)
@@ -933,9 +938,9 @@ namespace TNCSync.BaseControls
                 Tables CrTables;
 
                 {
-                    ref var withBlock = ref _ReportDocument;
+                    //ref var withBlock = ref _ReportDocument;
                     //string startuppatah = Application.StartupPath;
-                    withBlock.Load(path + cmbxTmptInvoice.Text + ".rpt");
+                    _ReportDocument.Load(path + cmbxTmptInvoice.Text + ".rpt");
                 }
 
                 _ReportDocument.ReportOptions.EnableSaveDataWithReport = false;
@@ -966,7 +971,8 @@ namespace TNCSync.BaseControls
                 crParameterValues.Add(crParameterDiscreteValue);
                 crParameterFieldDefinition.ApplyCurrentValues(crParameterValues);
 
-
+                var rpt = new ReportView();
+                rpt.ShowReportView(ref _ReportDocument);               
                 // If _ReportDocument.HasRecords Then
                 //var frm = new ReportFormLinker();
                 //frm.MdiParent = ParentForm;
@@ -978,7 +984,7 @@ namespace TNCSync.BaseControls
 
             catch (Exception ex)
             {
-                ds.ShowDialog(ex.Message, "TNC-Sync", Haley.Enums.NotificationIcon.Error);
+                ds.ShowDialog("TNC-Sync", ex.Message, Haley.Enums.NotificationIcon.Error);
             }
         }
 

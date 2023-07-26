@@ -347,10 +347,10 @@ namespace TNCSync.BaseControls
                 }
                 return;
             }
-            catch
+            catch(Exception ex)
             {
                 //Interaction.MsgBox("HRESULT = :" + Information.Err().Number + " (" + Conversion.Hex(Information.Err().Number) + ") " + Constants.vbCrLf + Constants.vbCrLf + Information.Err().Description, MsgBoxStyle.Critical, "Error in FillChartOfAccountListBox");
-                ds.ShowDialog("", "Error to Fill JV Table DB", Haley.Enums.NotificationIcon.Error);
+                ds.ShowDialog("", ex.Message, Haley.Enums.NotificationIcon.Error);
                 bDone = true;
                 bError = true;
             }
@@ -397,7 +397,7 @@ namespace TNCSync.BaseControls
 
             catch (Exception ex)
             {
-
+                ds.ShowDialog("TNC-Sync", ex.Message, Haley.Enums.NotificationIcon.Error);
             }
         }
 
@@ -439,11 +439,11 @@ namespace TNCSync.BaseControls
                 GetJournalTransaction(ref bError);
                 if (bError)
                 {
-                    ds.ShowDialog("TNC-Sync", "JV Sync Failed", Haley.Enums.NotificationIcon.Error);
+                    ds.ShowDialog("TNC-Sync", "JV Records Sync Failed", Haley.Enums.NotificationIcon.Error);
                 }
                 else
                 {
-                    ds.ShowDialog("TNC-Sync", "JV Sync Successfully", Haley.Enums.NotificationIcon.Success);
+                    ds.ShowDialog("TNC-Sync", "JV Records Sync Successfully", Haley.Enums.NotificationIcon.Success);
                 }
 
                 // populateGrid()
@@ -451,7 +451,7 @@ namespace TNCSync.BaseControls
             }
             catch (Exception ex)
             {
-
+                ds.ShowDialog("TNC-Sync", ex.Message, Haley.Enums.NotificationIcon.Error);
 
             }
         }
@@ -477,9 +477,14 @@ namespace TNCSync.BaseControls
                 var crParameterDiscreteValue = new ParameterDiscreteValue();
                 Tables CrTables;
 
-                //ref var withBlock = ref _ReportDocument{ }
-                //string startuppatah = Application.StartupPath;
-                _ReportDocument.Load(path + tmpltJVCmbx.Text + ".rpt");
+                //_ReportDocument.Load(path + tmpltJVCmbx.Text + ".rpt");
+                //_ReportDocument.Load(Server.MapPath(path + tmpltJVCmbx.Text + ".rpt"));
+
+                ref var withBlock = ref _ReportDocument;
+                //string startuppatah = Environment.CurrentDirectory;
+                withBlock.Load(path + tmpltJVCmbx.Text + ".rpt");
+
+
                 //{
                 //    ref var withBlock = ref _ReportDocument;
                 //    //string startuppatah = Application.StartupPath;
@@ -550,7 +555,7 @@ namespace TNCSync.BaseControls
 
             catch (Exception ex)
             {
-                ds.ShowDialog(ex.Message, "TNC-Sync", Haley.Enums.NotificationIcon.Error);
+                ds.ShowDialog("TNC-Sync", ex.Message, Haley.Enums.NotificationIcon.Error);
             }
         }
         #endregion
