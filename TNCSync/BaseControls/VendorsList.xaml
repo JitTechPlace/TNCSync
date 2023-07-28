@@ -3,21 +3,61 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:hw="http://schemas.hpod9.com/haley/wpf"
+             xmlns:hm="http://schemas.hpod9.com/haley/mvvm"
              xmlns:local="clr-namespace:TNCSync.BaseControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Loaded="VendorList_Loaded">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="DGSelectedRowStyle" TargetType="{x:Type DataGridRow}">
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="Salmon"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="DGColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
+                <Setter Property="Background" Value="#ff2c3e50"/>
+                <Setter Property="Foreground" Value="white"/>
+                <Setter Property="BorderBrush" Value="white"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="MinHeight" Value="30"/>
+                <Setter Property="MinHeight" Value="40"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="13"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Vendor Details:" FontSize="13" TextDecorations="Underline" FontFamily="{StaticResource iFontMontSerratReg}"/>
+        <TextBlock Text="Vendor Details:" FontSize="13" Margin="0 0 0 35" TextDecorations="Underline" FontFamily="{StaticResource iFontMontSerratReg}"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0 10 0 0" >
+            <TextBlock Text="Payee Name:" FontSize="13" FontFamily="{StaticResource iFontMontSerratReg}"/>
+            <ComboBox x:Name="cbxpayeeNameVendor" Grid.Column="1" Style="{StaticResource RoundComboBox}" IsEnabled="True" Height="25" Width="200" ToolTip="SelectReport" />
+            <Button x:Name="srchBtn" Content="Search" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="25" Width="100" Margin="5 0" Click="srchBtn_Click"/>
+        </StackPanel>
         <DataGrid x:Name="grdVendorLst" Grid.Row="1" Margin="5" GridLinesVisibility="Vertical" HeadersVisibility="All" HorizontalScrollBarVisibility="Visible"  
-           VerticalScrollBarVisibility="Visible" SelectionMode="Extended" IsReadOnly="True" />
+           VerticalScrollBarVisibility="Visible" SelectionMode="Extended" IsReadOnly="True">
+            <DataGrid.Resources>
+                <!--Default datagrid has a resource with key HighlightBrushKey. we will over write that key here with a color. so that our color will be used instead of default one-->
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="IndianRed"/>
+                <!--Same concept as above. but we are not over writing any key but overwriting the style of datagridcolumn header itself-->
+                <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource DGColumnHeaderStyle}"/>
+            </DataGrid.Resources>
+            <!--<DataGrid.Columns>
+                <DataGridCheckBoxColumn Header="Select" Width="50" Visibility="Visible" />
+            </DataGrid.Columns>-->
+        </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button Content="Sync All" x:Name="syncVendorList"  Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120" Click="syncVendorList_Click" />
-            <Button Content="Clear" Style="{StaticResource SPStyleButton}" Height="30" Width="120" Margin="5"/>
+            <Button Content="Clear" x:Name="Clear" Style="{StaticResource SPStyleButton}" Height="30" Width="120" Margin="5" Click="Clear_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>

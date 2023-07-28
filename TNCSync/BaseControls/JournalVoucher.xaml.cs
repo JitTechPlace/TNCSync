@@ -480,10 +480,10 @@ namespace TNCSync.BaseControls
                 //_ReportDocument.Load(path + tmpltJVCmbx.Text + ".rpt");
                 //_ReportDocument.Load(Server.MapPath(path + tmpltJVCmbx.Text + ".rpt"));
 
-                ref var withBlock = ref _ReportDocument;
-                //string startuppatah = Environment.CurrentDirectory;
-                withBlock.Load(path + tmpltJVCmbx.Text + ".rpt");
-
+                //ref var withBlock = ref _ReportDocument;
+                ////string startuppatah = Environment.CurrentDirectory;
+                //withBlock.Load(path + tmpltJVCmbx.Text + ".rpt");
+                _ReportDocument.Load(path + tmpltJVCmbx.Text + ".rpt");
 
                 //{
                 //    ref var withBlock = ref _ReportDocument;

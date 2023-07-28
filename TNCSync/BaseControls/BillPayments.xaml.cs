@@ -16,10 +16,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Haley.Abstractions;
+using Haley.MVVM;
 //using Interop.QBFC15;
 using Interop.QBFC16;
+using Microsoft.VisualBasic.CompilerServices;
 //using Interop.QBXMLRP2;
 using TNCSync.Class;
+using TNCSync.Class.DataBaseClass;
 using TNCSync.Model;
 using TNCSync.Sessions;
 
@@ -30,43 +33,36 @@ namespace TNCSync.BaseControls
     /// </summary>
     public partial class BillPayments : UserControl
     {
+        private bool bError;
+        private static DBTNCSDataContext db = new DBTNCSDataContext();
         List<BillPaymentCheque> BpCheques = new List<BillPaymentCheque>();
+        private SQLControls sql = new SQLControls();
         DataTable table = new DataTable();
         SqlDataAdapter sda = new SqlDataAdapter();
+        SessionManager sessionManager;
+        private short maxVersion;
+        private string path = null;
+        //private string payeeFullName;
+
         public BillPayments()
         {
             InitializeComponent();
+            ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
             dpfrom.SelectedDate = DateTime.Now.Date;
             dpTo.SelectedDate = DateTime.Now.Date;
             //PopulateDataGrid();
             //LoadPayeeCombobox();
-            //PopulateTempleteCombobox();
+            PopulateTempleteCombobox();
+            PopulateDataGridInitial();
         }
-        //QBConnect qbConnect = new QBConnect();
-        SessionManager sessionManager;
-        private short maxVersion;
+
         public IDialogService ds;
 
-        #region CONNECTION TO QB
+        #region Connect to QuickBooks
         private void connectToQB()
         {
             sessionManager = SessionManager.getInstance();
             maxVersion = sessionManager.QBsdkMajorVersion;
-        }
-        private IMsgSetResponse processRequestFromQB(IMsgSetRequest requestSet)
-        {
-            try
-            {
-                //MessageBox.Show(requestSet.ToXMLString());
-                IMsgSetResponse responseSet = sessionManager.doRequest(true, ref requestSet);
-                //MessageBox.Show(responseSet.ToXMLString());
-                return responseSet;
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-                return null;
-            }
         }
         private void disconnectFromQB()
         {
@@ -86,223 +82,331 @@ namespace TNCSync.BaseControls
         }
         #endregion
 
-        #region Load Common Controls
-        //private void loadPayeeName()
-        //{
-        //    string request = "PayeeNameQueryRq";
-        //    connectToQB();
-        //    int count = getCount(request);
-        //    IMsgSetResponse responseMsgSet = processRequestFromQB(buildCustomerQueryRq(new string[] { "Fullname" }, null));
-        //    string[] customerlist = parseCustomerQueryRs(responseMsgSet, count);
-        //    disconnectFromQB();
-        //    fillComboBox(this.cbxpayeeName, customerlist);
-        //}
+        #region BillPayment Methods
+        public void GetBillPaymentTransactionDate(ref bool bError, DateTime fromDate, DateTime todate)
+        {
+            try
+            {
+                //Make sure we do not have any old requests still define
+                IMsgSetRequest msgsetRequest = sessionManager.getMsgSetRequest();
+                msgsetRequest.ClearRequests();
+                //Set the On error attribute to continueonerror
+                msgsetRequest.Attributes.OnError = ENRqOnError.roeContinue;
+                IBillPaymentCheckQuery billPaymentCheckQuery = msgsetRequest.AppendBillPaymentCheckQueryRq();
+                billPaymentCheckQuery.IncludeLineItems.SetValue(true);
+                DateTime billTxnDate;
+                billTxnDate = Microsoft.VisualBasic.DateAndTime.DateAdd(Microsoft.VisualBasic.DateInterval.Day, -30, DateTime.Now);
+                billPaymentCheckQuery.ORTxnQuery.TxnFilter.ORDateRangeFilter.TxnDateRangeFilter.ORTxnDateRangeFilter.TxnDateFilter.FromTxnDate.SetValue(fromDate);
+                billPaymentCheckQuery.ORTxnQuery.TxnFilter.ORDateRangeFilter.TxnDateRangeFilter.ORTxnDateRangeFilter.TxnDateFilter.ToTxnDate.SetValue(todate);
 
-        #endregion
+                bool bDone = false;
+                while (!bDone)
+                {
+                    // send the request to QB
+                    IMsgSetResponse responseSet = sessionManager.doRequest(true, ref msgsetRequest);
 
-        #region RequestBuilding
-        //private IMsgSetRequest buildDataCountQuery(string request)
-        //{
-        //    IMsgSetRequest requestMsgSet = sessionManager.getMsgSetRequest();
-        //    requestMsgSet.Attributes.OnError = ENRqOnError.roeContinue;
-        //    switch (request)
-        //    {
-        //        case "CustomerQueryRq":
-        //            ICustomerQuery custQuery = requestMsgSet.AppendCustomerQueryRq();
-        //            custQuery.metaData.SetValue(ENmetaData.mdMetaDataOnly);
-        //            break;
-        //        case "ItemQueryRq":
-        //            IItemQuery itemQuery = requestMsgSet.AppendItemQueryRq();
-        //            itemQuery.metaData.SetValue(ENmetaData.mdMetaDataOnly);
-        //            break;
-        //        case "TermsQueryRq":
-        //            ITermsQuery termsQuery = requestMsgSet.AppendTermsQueryRq();
-        //            termsQuery.metaData.SetValue(ENmetaData.mdMetaDataOnly);
-        //            break;
-        //        case "SalesTaxCodeQueryRq":
-        //            ISalesTaxCodeQuery salesTaxQuery = requestMsgSet.AppendSalesTaxCodeQueryRq();
-        //            salesTaxQuery.metaData.SetValue(ENmetaData.mdMetaDataOnly);
-        //            break;
-        //        case "CustomerMsgQueryRq":
-        //            ICustomerMsgQuery custMsgQuery = requestMsgSet.AppendCustomerMsgQueryRq();
-        //            custMsgQuery.metaData.SetValue(ENmetaData.mdMetaDataOnly);
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //    return requestMsgSet;
-        //}
+                    FillBillCheckinDataBase(ref responseSet, ref bDone, ref bError);
+                }
+                return;
+            }
+            catch
+            {
+                bError = true;
+            }
+        }
 
-        //private IMsgSetRequest buildCustomerQueryRq(string[] includeRetElement, string fullName)
-        //{
-        //    IMsgSetRequest requestMsgSet = sessionManager.getMsgSetRequest();
-        //    requestMsgSet.Attributes.OnError = ENRqOnError.roeContinue;
-        //    ICustomerQuery custQuery = requestMsgSet.AppendCustomerQueryRq();
-        //    if (fullName != null)
-        //    {
-        //        custQuery.ORCustomerListQuery.FullNameList.Add(fullName);
-        //    }
-        //    for (int x = 0; x < includeRetElement.Length; x++)
-        //    {
-        //        custQuery.IncludeRetElementList.Add(includeRetElement[x]);
-        //    }
-        //    return requestMsgSet;
-        //}
-        #endregion
+        public void GetBillPaymentTransaction(ref bool bError)
+        {
+            try
+            {
+                //Make sure we do not have any old requests still define
+                IMsgSetRequest msgsetRequest = sessionManager.getMsgSetRequest();
+                msgsetRequest.ClearRequests();
+                //Set the On error attribute to continueonerror
+                msgsetRequest.Attributes.OnError = ENRqOnError.roeContinue;
+
+                IBillPaymentCheckQuery billPaymentCheckQuery = msgsetRequest.AppendBillPaymentCheckQueryRq();
+                billPaymentCheckQuery.IncludeLineItems.SetValue(true);
+                DateTime billTxnDate;
+                billTxnDate = Microsoft.VisualBasic.DateAndTime.DateAdd(Microsoft.VisualBasic.DateInterval.Day, -30, DateTime.Now);
+
+                bool bDone = false;
+                while (!bDone)
+                {
+                    // send the request to QB
+                    IMsgSetResponse responseSet = sessionManager.doRequest(true, ref msgsetRequest);
+
+                    FillBillCheckinDataBase(ref responseSet, ref bDone, ref bError);
+                }
+                return;
+            }
+            catch
+            {
+                bError = true;
+            }
+        }
+
+        public void FillBillCheckinDataBase(ref IMsgSetResponse msgSetResponse, ref bool bDone, ref bool bError)
+        {
+            try
+            {
+                //Check to make sure we have objects to access first and then there are response in the list
+                if (msgSetResponse is null | msgSetResponse.ResponseList is null | msgSetResponse.ResponseList.Count <= 0)
+
+                {
+                    bDone = true;
+                    bError = true;
+                    return;
+                }
+
+                //Start Parsing the response List
+                IResponseList responseList;
+                responseList = msgSetResponse.ResponseList;
+                IResponse response;
+                response = responseList.GetAt(0);
+                if (response != null)
+                {
+                    if (response.StatusCode != double.Parse("0"))
+                    {
+                        // If the status is bad, report it to the user
+                         ds.ShowDialog("TNCSync","FillBillpaymentListBox unexpexcted Error - " + response.StatusMessage,Haley.Enums.NotificationIcon.Warning);
+                        bDone = true;
+                        bError = true;
+                        return;
+                    }
+                }
+                // first make sure we have a response object to handle
+                if (response is null | response.Type is null | response.Detail is null | response.Detail.Type is null)
 
 
+                {
+                    bDone = true;
+                    bError = true;
+                    return;
+                }
 
-        #region Response Parsing
-        //private int getCount(string request)
-        //{
-        //    IMsgSetResponse responseMsgSet = processRequestFromQB(buildDataCountQuery(request));
-        //    int count = parseRsForCount(responseMsgSet);
-        //    return count;
-        //}
+                //Make sure We are Processing the BillpaymentQueryRs and the SalesorderRetList responses in this list
+                IBillPaymentCheckRetList billPaymentCheckRetList;  //BillpaymentRetlist
+                ENResponseType responseType;
+                ENObjectType responseDetailType;
+                responseType = (ENResponseType)response.Type.GetValue();
+                responseDetailType = (ENObjectType)response.Detail.Type.GetValue();
+                if (responseType == ENResponseType.rtBillPaymentCheckQueryRs & responseDetailType == ENObjectType.otBillPaymentCheckRetList)
+                {
+                    // save the response detail in the appropriate object type
+                    // since we have first verified the type of the response object
+                    billPaymentCheckRetList = (IBillPaymentCheckRetList)response.Detail;
+                }
+                else
+                {
+                    // bill, we do not have the responses we were expecting
+                    bDone = true;
+                    bError = true;
+                    return;
+                }
 
-        //private int parseRsForCount(IMsgSetResponse responseMsgSet)
-        //{
-        //    int ret = -1;
-        //    try
-        //    {
-        //        IResponse response = responseMsgSet.ResponseList.GetAt(0);
-        //        ret = response.retCount;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        MessageBox.Show("Error encountered: " + e.Message);
-        //        ret = -1;
-        //    }
-        //    return ret;
-        //}
+                //Parse the query response and add the BillPayment to the BPlist
+                short count;
+                short index;
+                IBillPaymentCheckRet billPaymentCheckRet;
+                count = (short)billPaymentCheckRetList.Count;
+                short Max_Returned;
+                Max_Returned = (short)(1 + billPaymentCheckRetList.Count);
+                //we are done with the Billpayment Queries if we have not received the MaxReturned
+                if (count < Max_Returned)
+                {
+                    bDone = true;
+                }
+                db.tblQBBillPayCheck_Delete();
+                db.tblQBBillPayCheckLInes_Delete();
+                var billLineAmount = default(decimal);
+                var balanceRemaining = default(decimal);
+                var discountAmount = default(decimal);
+                var BillLineTxnDate = default(DateTime);
+                var loopTo = (short)(count - 1);
+                for(index =0; index<= loopTo; index++)
+                {
+                    //Skip this bill if this is a repeat from the last query
+                    billPaymentCheckRet = billPaymentCheckRetList.GetAt(index);
+                    if(billPaymentCheckRet is null | billPaymentCheckRet.APAccountRef is null | billPaymentCheckRet.TxnID is null)
+                    {
+                        bDone = true;
+                        bError = true;
+                        return;
+                    }
+                    //Only the first BPCheckRet should be repeating and then lets just check to make sure we do not have the BP
+                    //Just in case another app chenged a BP right between out
 
-        //private string[] parseCustomerQueryRs(IMsgSetResponse responseMsgSet, int count)
-        //{
-        //    /*
-        //     <?xml version="1.0" ?> 
-        //     <QBXML>
-        //     <QBXMLMsgsRs>
-        //     <CustomerQueryRs requestID="1" statusCode="0" statusSeverity="Info" statusMessage="Status OK">
-        //         <CustomerRet>
-        //             <FullName>Abercrombie, Kristy</FullName> 
-        //         </CustomerRet>
-        //     </CustomerQueryRs>
-        //     </QBXMLMsgsRs>
-        //     </QBXML>    
-        //    */
-        //    string[] retVal = new string[count];
-        //    IResponse response = responseMsgSet.ResponseList.GetAt(0);
-        //    int statusCode = response.StatusCode;
-        //    if (statusCode == 0)
-        //    {
-        //        ICustomerRetList custRetList = response.Detail as ICustomerRetList;
-        //        for (int i = 0; i < count; i++)
-        //        {
-        //            string fullName = null;
-        //            if (custRetList.GetAt(i).FullName != null)
-        //            {
-        //                fullName = custRetList.GetAt(i).FullName.GetValue().ToString();
-        //                if (fullName != null)
-        //                {
-        //                    retVal[i] = fullName;
-        //                }
-        //            }
-        //            IAddress billAddress = null;
-        //            if (custRetList.GetAt(i).BillAddress != null)
-        //            {
-        //                billAddress = custRetList.GetAt(i).BillAddress;
-        //                string addr1 = "", addr2 = "", addr3 = "", addr4 = "", addr5 = "";
-        //                string city = "", state = "", postalcode = "";
-        //                if (billAddress != null)
-        //                {
-        //                    if (billAddress.Addr1 != null) addr1 = billAddress.Addr1.GetValue().ToString();
-        //                    if (billAddress.Addr1 != null) addr1 = billAddress.Addr1.GetValue().ToString();
-        //                    if (billAddress.Addr2 != null) addr2 = billAddress.Addr2.GetValue().ToString();
-        //                    if (billAddress.Addr3 != null) addr3 = billAddress.Addr3.GetValue().ToString();
-        //                    if (billAddress.Addr4 != null) addr4 = billAddress.Addr4.GetValue().ToString();
-        //                    if (billAddress.Addr5 != null) addr5 = billAddress.Addr5.GetValue().ToString();
-        //                    if (billAddress.City != null) city = billAddress.City.GetValue().ToString();
-        //                    if (billAddress.State != null) state = billAddress.State.GetValue().ToString();
-        //                    if (billAddress.PostalCode != null) postalcode = billAddress.PostalCode.GetValue().ToString();
+                    //Declare Variable to retrive data
+                    string Amount = string.Empty;
+                    if (billPaymentCheckRet.Amount != null)
+                    {
+                        Amount = billPaymentCheckRet.Amount.GetValue().ToString();
+                    }
+                    string APName = null;
+                    if (billPaymentCheckRet.APAccountRef != null)
+                    {
+                        APName = billPaymentCheckRet.APAccountRef.FullName.GetValue();
+                    }
+                    string bankName = null;
+                    if (billPaymentCheckRet.BankAccountRef != null)
+                    {
+                        bankName = billPaymentCheckRet.BankAccountRef.FullName.GetValue();
+                    }
+                    string memo = null;
+                    if (billPaymentCheckRet.Memo != null)
+                    {
+                        memo = billPaymentCheckRet.Memo.GetValue();
+                    }
+                    string payeeFullName = null;
+                    if (billPaymentCheckRet.PayeeEntityRef != null)
+                    {
+                        payeeFullName = billPaymentCheckRet.PayeeEntityRef.FullName.GetValue();
+                    }
 
-        //                    retVal[i] = addr1 + "\r\n" + addr2 + "\r\n"
-        //                        + addr3 + "\r\n"
-        //                        + city + "\r\n" + state + "\r\n" + postalcode;
-        //                }
-        //            }
-        //            //IAddress shipAddress = null;
-        //            //if (custRetList.GetAt(i).ShipAddress != null)
-        //            //{
-        //            //    shipAddress = custRetList.GetAt(i).ShipAddress;
-        //            //    string addr1 = "", addr2 = "", addr3 = "", addr4 = "", addr5 = "";
-        //            //    string city = "", state = "", postalcode = "";
-        //            //    if (shipAddress != null)
-        //            //    {
-        //            //        if (shipAddress.Addr1 != null) addr1 = shipAddress.Addr1.GetValue().ToString();
-        //            //        if (shipAddress.Addr1 != null) addr1 = shipAddress.Addr1.GetValue().ToString();
-        //            //        if (shipAddress.Addr2 != null) addr2 = shipAddress.Addr2.GetValue().ToString();
-        //            //        if (shipAddress.Addr3 != null) addr3 = shipAddress.Addr3.GetValue().ToString();
-        //            //        if (shipAddress.Addr4 != null) addr4 = shipAddress.Addr4.GetValue().ToString();
-        //            //        if (shipAddress.Addr5 != null) addr5 = shipAddress.Addr5.GetValue().ToString();
-        //            //        if (shipAddress.City != null) city = shipAddress.City.GetValue().ToString();
-        //            //        if (shipAddress.State != null) state = shipAddress.State.GetValue().ToString();
-        //            //        if (shipAddress.PostalCode != null) postalcode = shipAddress.PostalCode.GetValue().ToString();
+                    string refNumber = null;
+                    if (billPaymentCheckRet.RefNumber != null)
+                    {
+                        refNumber = billPaymentCheckRet.RefNumber.GetValue();
+                    }
+                    DateTime txnDate = default;
+                    if (billPaymentCheckRet.TxnDate != null)
+                    {
+                        txnDate = billPaymentCheckRet.TxnDate.GetValue();
+                    }
+                    string txnNUmber = null;
+                    if (billPaymentCheckRet.TxnNumber != null)
+                    {
+                        txnNUmber = billPaymentCheckRet.TxnNumber.GetValue().ToString();
+                    }
+                    string type = null;
+                    if (billPaymentCheckRet.Type != null)
+                    {
+                        type = billPaymentCheckRet.Type.GetAsString();
+                    }
 
-        //            //        // RESUME HERE
-        //            //        retVal[i] = addr1 + "\r\n" + addr2 + "\r\n"
-        //            //            + addr3 + "\r\n"
-        //            //            + city + "\r\n" + state + "\r\n" + postalcode;
-        //            //    }
-        //            //}
-        //            string currencyRef = null;
-        //            if (custRetList.GetAt(i).CurrencyRef != null)
-        //            {
-        //                currencyRef = custRetList.GetAt(i).CurrencyRef.FullName.GetValue().ToString();
-        //                if (currencyRef != null)
-        //                {
-        //                    retVal[i] = currencyRef;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return retVal;
-        //}
+                    db.tblQBBillPayCheck_Insert(txnNUmber, type, txnDate, refNumber, payeeFullName, memo, bankName, APName, Amount, ClearAllControl.gblCompanyID);
+
+                    IAppliedToTxnRet appliedTxnRet;
+                    if (billPaymentCheckRet.AppliedToTxnRetList != null)
+                    {
+                        for (int j = 0, loopTo1 = billPaymentCheckRet.AppliedToTxnRetList.Count - 1; j <= loopTo1; j++)
+                        {
+                            appliedTxnRet = billPaymentCheckRet.AppliedToTxnRetList.GetAt(j);
+                            if (appliedTxnRet.Amount != null)
+                            {
+                                billLineAmount = (decimal)appliedTxnRet.Amount.GetValue();
+                            }
+                            if (appliedTxnRet.BalanceRemaining != null)
+                            {
+                                balanceRemaining = (decimal)appliedTxnRet.BalanceRemaining.GetValue();
+                            }
+                            if (appliedTxnRet.DiscountAmount != null)
+                            {
+                                discountAmount = (decimal)appliedTxnRet.DiscountAmount.GetValue();
+                            }
+
+                            string billRefNumber = null;
+                            if (appliedTxnRet.RefNumber != null)
+                            {
+                                billRefNumber = appliedTxnRet.RefNumber.GetValue();
+                            }
+                            if (appliedTxnRet.TxnDate != null)
+                            {
+                                BillLineTxnDate = appliedTxnRet.TxnDate.GetValue();
+                            }
+                            string billLineTxnId = null;
+                            if (appliedTxnRet.TxnID != null)
+                            {
+                                billLineTxnId = appliedTxnRet.TxnID.GetValue();
+                            }
+                            string BillLineTxnType = null;
+                            if (appliedTxnRet.TxnType != null)
+                            {
+                                BillLineTxnType = ((int)appliedTxnRet.TxnType.GetValue()).ToString();
+                            }
+                            string billLineType = null;
+                            if (appliedTxnRet.Type != null)
+                            {
+                                billLineType = appliedTxnRet.Type.GetValue().ToString();
+                            }
+                            db.tblQBBillPayCheckLInes_Insert(txnNUmber, billLineTxnId, BillLineTxnDate, billLineType, BillLineTxnType, billRefNumber, discountAmount, balanceRemaining, billLineAmount);
+                        }
+                    }
+                }
+                return;
+            }
+            catch
+            {
+                int w = 0;
+                ds.ShowDialog("TNCSync", "Error to Fill Billpayment", Haley.Enums.NotificationIcon.Error);
+                bDone = true;
+                bError = true;
+            }
+        }
+
         #endregion
 
         #region Methods
-        //private void fillComboBox(ComboBox cbxpayeeName, string[] values)
-        //{
-        //    for(int i=0; i< values.Length; i++)
-        //    {
-        //        if (values[i] != null) cbxpayeeName.Items.Add(values[i]);
-        //    }
-        //}
-        #endregion
-
-        private void btnsycall_Click(object sender, RoutedEventArgs e)
+        private void LoadPayeeName(int cID)
         {
-            PopulateDataGrid();
-            LoadPayeeCombobox();
-            PopulateTempleteCombobox();
+            try
+            {
+                cbxpayeeName.Items.Clear();
+                sql.addparam("@CompanyID", cID);
+                sql.execquery("SELECT distinct payeeFullName from tblQBBillPayCheck where companyID=@CompanyID");
+                if (sql.recordcount > 0)
+                {
+                    foreach (DataRow r in sql.sqlds.Tables[0].Rows)
+                        cbxpayeeName.Items.Add(r["payeeFullName"]);
+                    cbxpayeeName.SelectedIndex = -1;
+                }
+
+                ///Need to check when it was working or not
+                var col = new System.Windows.Forms.AutoCompleteStringCollection();
+                for (int i = 0, loopTo = sql.sqlds.Tables[0].Rows.Count - 1; i <= loopTo; i++)
+                    col.Add(sql.sqlds.Tables[0].Rows[i]["payeeFullName"].ToString());
+                cbxpayeeName.SelectedItem = System.Windows.Forms.AutoCompleteSource.CustomSource;
+                cbxpayeeName.ItemsSource = col;
+                cbxpayeeName.SelectedItem = System.Windows.Forms.AutoCompleteMode.Suggest;
+
+            }
+            catch
+            {
+
+            }
         }
+
 
         private void PopulateDataGrid()
         {
-            string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
-            SqlConnection sqlconn = new SqlConnection(conn);
-            SqlCommand cmd = new SqlCommand("tblQBBillPayCheckP_Select_TNCS", sqlconn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            //SqlParameter param = new SqlParameter();
-            //param.ParameterName = "@payeeFullName";
-            sda.SelectCommand = cmd;
-            //cmd.Parameters.Add(param);
-            sda.Fill(table);
-            grdBillPytDtl.ItemsSource = table.DefaultView;
+            var result = db.tblQBBillPayCheckP_Select_TNCS();
+            grdBillPytDtl.ItemsSource = result.ToList();
+
+            // string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
+            // SqlConnection sqlconn = new SqlConnection(conn);
+            // SqlCommand cmd = new SqlCommand("tblQBBillPayCheckP_Select", sqlconn);
+            // cmd.CommandType = CommandType.StoredProcedure;
+            // SqlParameter param = new SqlParameter();
+            // param.ParameterName = "@payeeFullName";
+            // //sda.SelectCommand = cmd;
+            // //cmd.Parameters.Add(param);
+            //// sda.Fill(table);
+            // grdBillPytDtl.ItemsSource = table.DefaultView;
         }
 
-        public static void billPaymenr(ref bool bError)
+        private void PopulateDataGridInitial()
         {
-            
+            try
+            {
+                var result = db.tblQBBillPayCheck_Select_Initial(ClearAllControl.gblCompanyID);
+                grdBillPytDtl.Columns.Clear();
+                grdBillPytDtl.ItemsSource = result.ToList();
+            }
+            catch
+            {
+
+            }
         }
 
         private void LoadPayeeCombobox()
@@ -317,13 +421,6 @@ namespace TNCSync.BaseControls
             cbxpayeeName.ItemsSource = table.DefaultView;
             cbxpayeeName.DisplayMemberPath = "payeeFullName";
         }
-
-        private void srchBtn_Click(object sender, RoutedEventArgs e)
-        {
-            BillPaymentCheques_DA Bpcda = new BillPaymentCheques_DA();
-            BpCheques = Bpcda.GetCheques(cbxpayeeName.Text);
-            UpdateBinding();
-        }
         private void UpdateBinding()
         {
             grdBillPytDtl.ItemsSource = BpCheques;
@@ -332,21 +429,214 @@ namespace TNCSync.BaseControls
 
         private void PopulateTempleteCombobox()
         {
-            string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
-            SqlConnection sqlconn = new SqlConnection(conn);
-            sqlconn.Open();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Templates where TemplateType ='Check Payment Voucher'", sqlconn);
-            SqlDataAdapter sdr = new SqlDataAdapter(cmd);
-            DataTable table = new DataTable();
-            sdr.Fill(table);
-            tmpltCmbx.ItemsSource = table.DefaultView;
-            tmpltCmbx.DisplayMemberPath = "TemplateName";
-            tmpltCmbx.SelectedIndex = -1;
+            tmpltCmbx.Items.Clear();
+            sql.execquery("Select TemplateName from Templates where TemplateType='Bill Payment Voucher' and Status='True' ");
+            if (sql.recordcount > 0)
+            {
+                foreach (DataRow r in sql.sqlds.Tables[0].Rows)
+                    tmpltCmbx.Items.Add(r["TemplateName"]);
+                tmpltCmbx.SelectedIndex = 0;
+            }
+
+            #region Old
+            //string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
+            //SqlConnection sqlconn = new SqlConnection(conn);
+            //sqlconn.Open();
+            //SqlCommand cmd = new SqlCommand("SELECT * FROM Templates where TemplateType ='Check Payment Voucher'", sqlconn);
+            //SqlDataAdapter sdr = new SqlDataAdapter(cmd);
+            //DataTable table = new DataTable();
+            //sdr.Fill(table);
+            //tmpltCmbx.ItemsSource = table.DefaultView;
+            //tmpltCmbx.DisplayMemberPath = "TemplateName";
+            //tmpltCmbx.SelectedIndex = -1;
+
+            #endregion
+        }
+
+        private void GetTempPath(string Paths)
+        {
+            sql.addparam("@name", Paths);
+            sql.execquery("Select TemplatePath from Templates where TemplateName = @name ");
+            if (sql.recordcount > 0)
+            {
+                path = sql.sqlds.Tables[0].Rows[0]["Templatepath"].ToString();
+            }
+        }
+        #endregion
+
+
+        #region Events
+        private void btnsycall_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                connectToQB();
+                bError = false;
+                GetBillPaymentTransaction(ref bError);
+                if (bError)
+                {
+                    ds.ShowDialog("TNC-Sync", "BillPayment Sync Failed", Haley.Enums.NotificationIcon.Error);
+                }
+                else
+                {
+                    ds.ShowDialog("TNC-Sync", "BillPayment Sync Successfully", Haley.Enums.NotificationIcon.Success);
+                }
+                PopulateDataGridInitial();
+                LoadPayeeName(ClearAllControl.gblCompanyID);
+            }
+            catch
+            {
+
+            }
         }
 
         private void btnSync_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                connectToQB();
+                bError = false;
+                GetBillPaymentTransactionDate(ref bError, dpfrom.DisplayDate, dpTo.DisplayDate);
+                if (bError)
+                {
+                    ds.ShowDialog("TNC-Sync", "Sync Failed", Haley.Enums.NotificationIcon.Error);
+                }
+                else
+                {
+                    ds.ShowDialog("TNC-Sync", "Synced successfully", Haley.Enums.NotificationIcon.Success);
+                }
+                PopulateDataGridInitial();
+                LoadPayeeName(ClearAllControl.gblCompanyID);
+            }
+            catch
+            {
 
+            }
+        }
+
+        private void srchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            BillPaymentCheques_DA Bpcda = new BillPaymentCheques_DA();
+            BpCheques = Bpcda.GetCheques(cbxpayeeName.Text);
+            UpdateBinding();
+        }
+
+        private void btnBillPrint_Click(object sender, RoutedEventArgs e)
+        {
+            //try
+            //{
+            //    for (int i = 0, loopTo = grdBillPytDtl.Columns.Count - 1; i <= loopTo; i++)
+            //    {
+            //        if (Operators.ConditionalCompareObjectEqual(grdBillPytDtl.Columns[i].Value, 1, false))
+            //        {
+            //            var _ReportDocument = new ReportDocument();
+            //            var crtableLogoninfos = new TableLogOnInfos();
+            //            var crtableLogoninfo = new TableLogOnInfo();
+            //            var crConnectionInfo = new ConnectionInfo();
+            //            ParameterFieldDefinitions crParameterFieldDefinitions;
+            //            ParameterFieldDefinition crParameterFieldDefinition;
+            //            var crParameterValues = new ParameterValues();
+            //            var crParameterDiscreteValue = new ParameterDiscreteValue();
+            //            Tables CrTables;
+            //            string extra = null;
+
+            //            {
+            //                ref var withBlock = ref _ReportDocument;
+            //                string startuppatah = Application.StartupPath;
+            //                if (chkIsAccountPayee.Checked)
+            //                {
+            //                    extra = " AP";
+            //                    if (chkWithOutDate.Checked)
+            //                    {
+            //                        extra = " APWD";
+            //                    }
+            //                }
+            //                else if (chkWithOutDate.Checked)
+            //                {
+            //                    extra = " WD";
+            //                }
+            //                else
+            //                {
+            //                    extra = "";
+            //                }
+
+            //                withBlock.Load(path + "BP " + tempname.Text + extra + ".rpt");
+
+            //            }
+
+            //            _ReportDocument.ReportOptions.EnableSaveDataWithReport = false;
+            //            crConnectionInfo.ServerName = ClearAllControl.gblSQLServerName;
+            //            crConnectionInfo.DatabaseName = ClearAllControl.gblDatabaseName;
+            //            crConnectionInfo.UserID = ClearAllControl.gblSQLServerUserName;
+            //            crConnectionInfo.Password = ClearAllControl.gblSQLServerPassword;
+            //            crConnectionInfo.AllowCustomConnection = false;
+            //            crConnectionInfo.IntegratedSecurity = false;
+
+            //            CrTables = _ReportDocument.Database.Tables;
+
+            //            // _ReportDocument.SetParameterValue("@CompanyID", gblCompanyID)
+            //            foreach (Table CrTable in CrTables)
+            //            {
+            //                crtableLogoninfo = CrTable.LogOnInfo;
+            //                crtableLogoninfo.ConnectionInfo = crConnectionInfo;
+            //                crtableLogoninfo.ReportName = _ReportDocument.Name;
+            //                crtableLogoninfo.TableName = CrTable.Name;
+            //                CrTable.ApplyLogOnInfo(crtableLogoninfo);
+            //            }
+
+            //            crParameterDiscreteValue.Value = dgvCheck.Rows[i].Cells["cTxnID"].Value;
+            //            crParameterFieldDefinitions = _ReportDocument.DataDefinition.ParameterFields;
+            //            crParameterFieldDefinition = crParameterFieldDefinitions["@txnNumber"];
+            //            crParameterValues = crParameterFieldDefinition.CurrentValues;
+            //            crParameterValues.Clear();
+            //            crParameterValues.Add(crParameterDiscreteValue);
+            //            crParameterFieldDefinition.ApplyCurrentValues(crParameterValues);
+
+            //            if (chkNameOnCheck.Checked)
+            //            {
+            //                crParameterDiscreteValue.Value = txtNameOnCheck.EditValue;
+            //            }
+            //            else
+            //            {
+            //                string payeeName;
+
+            //                payeeName = Strings.Trim(Conversions.ToString(dgvCheck.Rows[i].Cells["payeename"].Value));
+            //                crParameterDiscreteValue.Value = payeeName;
+            //                // 'crParameterDiscreteValue.Value = payeename
+            //            }
+            //            crParameterFieldDefinitions = _ReportDocument.DataDefinition.ParameterFields;
+            //            crParameterFieldDefinition = crParameterFieldDefinitions["@payeename"];
+            //            crParameterValues = crParameterFieldDefinition.CurrentValues;
+            //            crParameterValues.Clear();
+            //            crParameterValues.Add(crParameterDiscreteValue);
+            //            crParameterFieldDefinition.ApplyCurrentValues(crParameterValues);
+
+            //            var rpt = new ReportView();
+            //            rpt.ShowReportView(ref _ReportDocument);
+            //            return;
+            //        }
+            //    }
+            //}
+            //catch(Exception ex)
+            //{
+            //    ds.ShowDialog(ex.Message, "TNC-Sync", Haley.Enums.NotificationIcon.Error);
+            //}
+        }
+
+        private void btnClear_Click(object sender, RoutedEventArgs e)
+        {
+            cbxpayeeName.Text = "";
+            dpfrom.SelectedDate = DateTime.Now.Date;
+            dpTo.SelectedDate = DateTime.Now.Date;
+            PopulateDataGridInitial();
+        }
+        #endregion
+
+
+
+        public static void billPaymenr(ref bool bError)
+        {
+            
         }
     }
 }

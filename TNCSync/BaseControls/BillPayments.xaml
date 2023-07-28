@@ -8,6 +8,30 @@
              xmlns:local="clr-namespace:TNCSync.BaseControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="DGSelectedRowStyle" TargetType="{x:Type DataGridRow}">
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="Salmon"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="DGColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
+                <Setter Property="Background" Value="#ff2c3e50"/>
+                <Setter Property="Foreground" Value="white"/>
+                <Setter Property="BorderBrush" Value="white"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="MinHeight" Value="30"/>
+                <Setter Property="MinHeight" Value="40"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="13"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="120"/>
@@ -42,11 +66,21 @@
             </StackPanel>
         </Grid>
         <DataGrid x:Name="grdBillPytDtl" Grid.Row="1" Margin="5" GridLinesVisibility="Vertical" HeadersVisibility="All" HorizontalScrollBarVisibility="Visible"  
-           VerticalScrollBarVisibility="Visible" SelectionMode="Extended" IsReadOnly="True"/>
+           VerticalScrollBarVisibility="Visible" SelectionMode="Extended"  IsReadOnly="True">
+            <DataGrid.Resources>
+                <!--Default datagrid has a resource with key HighlightBrushKey. we will over write that key here with a color. so that our color will be used instead of default one-->
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="IndianRed"/>
+                <!--Same concept as above. but we are not over writing any key but overwriting the style of datagridcolumn header itself-->
+                <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource DGColumnHeaderStyle}"/>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Header="Select" Width="50" Visibility="Visible" />
+            </DataGrid.Columns>
+        </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
             <ComboBox x:Name="tmpltCmbx" Grid.Column="1" Style="{StaticResource RoundComboBox}" Margin="5" Height="25" Width="200" ToolTip="SelectReport" />
-            <Button Content="Print" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120"/>
-            <Button Content="Clear" Style="{StaticResource SPStyleButton}" Height="30" Width="120" Margin="5"/>
+            <Button Content="Print" x:Name="btnBillPrint" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120" Click="btnBillPrint_Click"/>
+            <Button Content="Clear" x:Name="btnClear" Style="{StaticResource SPStyleButton}" Height="30" Width="120" Margin="5" Click="btnClear_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>

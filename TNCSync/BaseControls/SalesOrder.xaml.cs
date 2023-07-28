@@ -192,7 +192,6 @@ namespace TNCSync.BaseControls
                     if (response.StatusCode != double.Parse("0"))
                     {
                         // If the status is bad, report it to the user
-                        // ds.ShowDialog("","FillVendorListBox unexpexcted Error - " + response.StatusMessage,Haley.Enums.NotificationIcon.Error);
                         bDone = true;
                         bError = true;
                         return;
@@ -228,7 +227,7 @@ namespace TNCSync.BaseControls
                     return;
                 }
 
-                // Parse the query response and add the Customers to the Customer list box
+                // Parse the query response and add the Salesorder to the Salesorder list
                 short count;
                 short index;
                 ISalesOrderRet salesOrderRet;

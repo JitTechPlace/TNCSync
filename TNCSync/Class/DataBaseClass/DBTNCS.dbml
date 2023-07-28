@@ -96,9 +96,10 @@
     <Parameter Name="LinkedTxnAmount" Parameter="linkedTxnAmount" Type="System.Decimal" DbType="Decimal(13,2)" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.Check_Number_Splt" Method="Check_Number_Splt">
+  <Function Name="dbo.Check_Number_Splt" Method="Check_Number_Splt" IsComposable="true">
     <Parameter Name="checkstring" Type="System.String" DbType="VarChar(500)" />
     <Parameter Name="delimeter" Type="System.String" DbType="VarChar(10)" />
+    <Return Type="object" />
   </Function>
   <Function Name="dbo.checkforLinkedTransaction" Method="checkforLinkedTransaction">
     <Parameter Name="txnID" Type="System.String" DbType="NVarChar(36)" />
@@ -187,9 +188,10 @@
       <Column Name="voucherNo" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.PaymentVoucher_Report" Method="PaymentVoucher_Report">
+  <Function Name="dbo.PaymentVoucher_Report" Method="PaymentVoucher_Report" IsComposable="true">
     <Parameter Name="companyID" Type="System.Int32" DbType="Int" />
     <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="object" />
   </Function>
   <Function Name="dbo.PurchaseOrderDataExtRetList_Insert" Method="PurchaseOrderDataExtRetList_Insert">
     <Parameter Name="OwnerID" Parameter="ownerID" Type="System.String" DbType="NVarChar(36)" />
@@ -1733,12 +1735,15 @@
     <Parameter Name="companyID" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.tblBillLtxn_delete" Method="tblBillLtxn_delete" />
-  <Function Name="dbo.tblBillLtxn_insert" Method="tblBillLtxn_insert">
+  <Function Name="dbo.tblBillLtxn_delete" Method="tblBillLtxn_delete" IsComposable="true">
+    <Return Type="object" />
+  </Function>
+  <Function Name="dbo.tblBillLtxn_insert" Method="tblBillLtxn_insert" IsComposable="true">
     <Parameter Name="billLRefNUmber" Type="System.String" DbType="NVarChar(50)" />
     <Parameter Name="billLDate" Type="System.DateTime" DbType="Date" />
     <Parameter Name="billLAmount" Type="System.Decimal" DbType="Decimal(18,2)" />
     <Parameter Name="billLType" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="object" />
   </Function>
   <Function Name="dbo.tblBillPaid_Insert" Method="tblBillPaid_Insert">
     <Parameter Name="CheckNo" Parameter="checkNo" Type="System.String" DbType="NVarChar(50)" />
@@ -4029,6 +4034,68 @@
       <Column Name="Amount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
       <Column Name="txnID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="accountRef" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.tblVendor_Select_TNCS" Method="tblVendor_Select_TNCS">
+    <ElementType Name="tblVendor_Select_TNCSResult">
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="BillAddress1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Contact" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.tblVendor_Select_TNCS_Param" Method="tblVendor_Select_TNCS_Param">
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(255)" />
+    <ElementType Name="tblVendor_Select_TNCS_ParamResult">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="companyID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ListID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TimeCreated" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TimeModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EditSequence" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="ArName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.String" DbType="NVarChar(1)" CanBeNull="true" />
+      <Column Name="Sublevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Salutation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BillAddress1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BillAddress2" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AltPhone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Contact" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="AltContact" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Balance" Type="System.Decimal" DbType="Decimal(15,2)" CanBeNull="true" />
+      <Column Name="TotalBalance" Type="System.Decimal" DbType="Decimal(15,2)" CanBeNull="true" />
+      <Column Name="AccountNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreditLimit" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PrintChequeAs" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Cc" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ActName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="BankName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="ActNumber" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Branch" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="type" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.tblQBBillPayCheckP_Select_TNCS" Method="tblQBBillPayCheckP_Select_TNCS">
+    <ElementType Name="tblQBBillPayCheckP_Select_TNCSResult">
+      <Column Name="CheckNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PayeeName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Check_Pay_Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Txn_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CheckID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Bank" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

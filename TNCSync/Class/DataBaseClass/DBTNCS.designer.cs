@@ -144,10 +144,10 @@ namespace TNCSync.Class.DataBaseClass
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Check_Number_Splt")]
-		public void Check_Number_Splt([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(500)")] string checkstring, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string delimeter)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Check_Number_Splt", IsComposable=true)]
+		public object Check_Number_Splt([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(500)")] string checkstring, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string delimeter)
 		{
-			this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), checkstring, delimeter);
+			return ((object)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), checkstring, delimeter).ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.checkforLinkedTransaction")]
@@ -221,10 +221,10 @@ namespace TNCSync.Class.DataBaseClass
 			return ((ISingleResult<PaidInvoice_SelectResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.PaymentVoucher_Report")]
-		public void PaymentVoucher_Report([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> companyID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="NVarChar(50)")] string name)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.PaymentVoucher_Report", IsComposable=true)]
+		public object PaymentVoucher_Report([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> companyID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="NVarChar(50)")] string name)
 		{
-			this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), companyID, name);
+			return ((object)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), companyID, name).ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.PurchaseOrderDataExtRetList_Insert")]
@@ -789,16 +789,16 @@ namespace TNCSync.Class.DataBaseClass
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.tblBillLtxn_delete")]
-		public void tblBillLtxn_delete()
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.tblBillLtxn_delete", IsComposable=true)]
+		public object tblBillLtxn_delete()
 		{
-			this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((object)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod()))).ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.tblBillLtxn_insert")]
-		public void tblBillLtxn_insert([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(50)")] string billLRefNUmber, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Date")] System.Nullable<System.DateTime> billLDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Decimal(18,2)")] System.Nullable<decimal> billLAmount, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(50)")] string billLType)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.tblBillLtxn_insert", IsComposable=true)]
+		public object tblBillLtxn_insert([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(50)")] string billLRefNUmber, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Date")] System.Nullable<System.DateTime> billLDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Decimal(18,2)")] System.Nullable<decimal> billLAmount, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(50)")] string billLType)
 		{
-			this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), billLRefNUmber, billLDate, billLAmount, billLType);
+			return ((object)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), billLRefNUmber, billLDate, billLAmount, billLType).ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.tblBillPaid_Insert")]
@@ -1507,11 +1507,9 @@ namespace TNCSync.Class.DataBaseClass
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.tblJournalEntry_Select")]
-		public ISingleResult<tblJournalEntry_SelectResult> tblJournalEntry_Select([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CopmanyID", DbType="VarChar(50)")] string copmanyID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string voucherName)
-		//public ISingleResult<tblJournalEntry_SelectResult> tblJournalEntry_Select([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CopmanyID", DbType="VarChar(50)")] string copmanyID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="JVDate", DbType="Date")] System.Nullable<System.DateTime> jVDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string voucherName)
+		public ISingleResult<tblJournalEntry_SelectResult> tblJournalEntry_Select([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CopmanyID", DbType="VarChar(50)")] string copmanyID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="JVDate", DbType="Date")] System.Nullable<System.DateTime> jVDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string voucherName)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), copmanyID, voucherName);
-			//IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), copmanyID, jVDate, voucherName);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), copmanyID, jVDate, voucherName);
 			return ((ISingleResult<tblJournalEntry_SelectResult>)(result.ReturnValue));
 		}
 		
@@ -1718,7 +1716,14 @@ namespace TNCSync.Class.DataBaseClass
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), payeeFullName);
 			return ((ISingleResult<tblQBBillPayCheckP_SelectResult>)(result.ReturnValue));
 		}
-		
+
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name = "dbo.tblQBBillPayCheckP_Select_TNCS")]
+		public ISingleResult<tblQBBillPayCheckP_Select_TNCSResult> tblQBBillPayCheckP_Select_TNCS()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<tblQBBillPayCheckP_Select_TNCSResult>)(result.ReturnValue));
+		}
+
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.tblQbCheck_Delete")]
 		public int tblQbCheck_Delete()
 		{
@@ -2283,6 +2288,20 @@ namespace TNCSync.Class.DataBaseClass
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), payEntityRef);
 			return ((ISingleResult<WriteCheque_TNCS_ParamResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.tblVendor_Select_TNCS")]
+		public ISingleResult<tblVendor_Select_TNCSResult> tblVendor_Select_TNCS()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<tblVendor_Select_TNCSResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.tblVendor_Select_TNCS_Param")]
+		public ISingleResult<tblVendor_Select_TNCS_ParamResult> tblVendor_Select_TNCS_Param([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="NVarChar(255)")] string name)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), name);
+			return ((ISingleResult<tblVendor_Select_TNCS_ParamResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -37209,6 +37228,912 @@ namespace TNCSync.Class.DataBaseClass
 				if ((this._accountRef != value))
 				{
 					this._accountRef = value;
+				}
+			}
+		}
+	}
+	
+	public partial class tblVendor_Select_TNCSResult
+	{
+		
+		private string _Name;
+		
+		private string _CompanyName;
+		
+		private string _BillAddress1;
+		
+		private string _Phone;
+		
+		private string _Fax;
+		
+		private string _Email;
+		
+		private string _Contact;
+		
+		public tblVendor_Select_TNCSResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(255)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompanyName", DbType="NVarChar(255)")]
+		public string CompanyName
+		{
+			get
+			{
+				return this._CompanyName;
+			}
+			set
+			{
+				if ((this._CompanyName != value))
+				{
+					this._CompanyName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillAddress1", DbType="NVarChar(50)")]
+		public string BillAddress1
+		{
+			get
+			{
+				return this._BillAddress1;
+			}
+			set
+			{
+				if ((this._BillAddress1 != value))
+				{
+					this._BillAddress1 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="NVarChar(50)")]
+		public string Phone
+		{
+			get
+			{
+				return this._Phone;
+			}
+			set
+			{
+				if ((this._Phone != value))
+				{
+					this._Phone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fax", DbType="NVarChar(50)")]
+		public string Fax
+		{
+			get
+			{
+				return this._Fax;
+			}
+			set
+			{
+				if ((this._Fax != value))
+				{
+					this._Fax = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(50)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this._Email = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contact", DbType="NVarChar(255)")]
+		public string Contact
+		{
+			get
+			{
+				return this._Contact;
+			}
+			set
+			{
+				if ((this._Contact != value))
+				{
+					this._Contact = value;
+				}
+			}
+		}
+	}
+	
+	public partial class tblVendor_Select_TNCS_ParamResult
+	{
+		
+		private long _ID;
+		
+		private int _companyID;
+		
+		private string _ListID;
+		
+		private System.Nullable<System.DateTime> _TimeCreated;
+		
+		private System.Nullable<System.DateTime> _TimeModified;
+		
+		private System.Nullable<int> _EditSequence;
+		
+		private string _Name;
+		
+		private string _ArName;
+		
+		private string _FullName;
+		
+		private string _IsActive;
+		
+		private System.Nullable<int> _Sublevel;
+		
+		private string _CompanyName;
+		
+		private string _Salutation;
+		
+		private string _FirstName;
+		
+		private string _MiddleName;
+		
+		private string _LastName;
+		
+		private string _BillAddress1;
+		
+		private string _BillAddress2;
+		
+		private string _Phone;
+		
+		private string _AltPhone;
+		
+		private string _Fax;
+		
+		private string _Email;
+		
+		private string _Contact;
+		
+		private string _AltContact;
+		
+		private System.Nullable<decimal> _Balance;
+		
+		private System.Nullable<decimal> _TotalBalance;
+		
+		private string _AccountNumber;
+		
+		private string _CreditLimit;
+		
+		private string _PrintChequeAs;
+		
+		private string _Cc;
+		
+		private string _ActName;
+		
+		private string _BankName;
+		
+		private string _ActNumber;
+		
+		private string _Branch;
+		
+		private string _type;
+		
+		public tblVendor_Select_TNCS_ParamResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="BigInt NOT NULL")]
+		public long ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_companyID", DbType="Int NOT NULL")]
+		public int companyID
+		{
+			get
+			{
+				return this._companyID;
+			}
+			set
+			{
+				if ((this._companyID != value))
+				{
+					this._companyID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListID", DbType="NVarChar(50)")]
+		public string ListID
+		{
+			get
+			{
+				return this._ListID;
+			}
+			set
+			{
+				if ((this._ListID != value))
+				{
+					this._ListID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeCreated", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TimeCreated
+		{
+			get
+			{
+				return this._TimeCreated;
+			}
+			set
+			{
+				if ((this._TimeCreated != value))
+				{
+					this._TimeCreated = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeModified", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TimeModified
+		{
+			get
+			{
+				return this._TimeModified;
+			}
+			set
+			{
+				if ((this._TimeModified != value))
+				{
+					this._TimeModified = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EditSequence", DbType="Int")]
+		public System.Nullable<int> EditSequence
+		{
+			get
+			{
+				return this._EditSequence;
+			}
+			set
+			{
+				if ((this._EditSequence != value))
+				{
+					this._EditSequence = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(255)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ArName", DbType="NVarChar(255)")]
+		public string ArName
+		{
+			get
+			{
+				return this._ArName;
+			}
+			set
+			{
+				if ((this._ArName != value))
+				{
+					this._ArName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullName", DbType="NVarChar(255)")]
+		public string FullName
+		{
+			get
+			{
+				return this._FullName;
+			}
+			set
+			{
+				if ((this._FullName != value))
+				{
+					this._FullName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsActive", DbType="NVarChar(1)")]
+		public string IsActive
+		{
+			get
+			{
+				return this._IsActive;
+			}
+			set
+			{
+				if ((this._IsActive != value))
+				{
+					this._IsActive = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sublevel", DbType="Int")]
+		public System.Nullable<int> Sublevel
+		{
+			get
+			{
+				return this._Sublevel;
+			}
+			set
+			{
+				if ((this._Sublevel != value))
+				{
+					this._Sublevel = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompanyName", DbType="NVarChar(255)")]
+		public string CompanyName
+		{
+			get
+			{
+				return this._CompanyName;
+			}
+			set
+			{
+				if ((this._CompanyName != value))
+				{
+					this._CompanyName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Salutation", DbType="NVarChar(50)")]
+		public string Salutation
+		{
+			get
+			{
+				return this._Salutation;
+			}
+			set
+			{
+				if ((this._Salutation != value))
+				{
+					this._Salutation = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="NVarChar(50)")]
+		public string FirstName
+		{
+			get
+			{
+				return this._FirstName;
+			}
+			set
+			{
+				if ((this._FirstName != value))
+				{
+					this._FirstName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MiddleName", DbType="NVarChar(50)")]
+		public string MiddleName
+		{
+			get
+			{
+				return this._MiddleName;
+			}
+			set
+			{
+				if ((this._MiddleName != value))
+				{
+					this._MiddleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="NVarChar(50)")]
+		public string LastName
+		{
+			get
+			{
+				return this._LastName;
+			}
+			set
+			{
+				if ((this._LastName != value))
+				{
+					this._LastName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillAddress1", DbType="NVarChar(50)")]
+		public string BillAddress1
+		{
+			get
+			{
+				return this._BillAddress1;
+			}
+			set
+			{
+				if ((this._BillAddress1 != value))
+				{
+					this._BillAddress1 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillAddress2", DbType="NVarChar(50)")]
+		public string BillAddress2
+		{
+			get
+			{
+				return this._BillAddress2;
+			}
+			set
+			{
+				if ((this._BillAddress2 != value))
+				{
+					this._BillAddress2 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="NVarChar(50)")]
+		public string Phone
+		{
+			get
+			{
+				return this._Phone;
+			}
+			set
+			{
+				if ((this._Phone != value))
+				{
+					this._Phone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AltPhone", DbType="NVarChar(50)")]
+		public string AltPhone
+		{
+			get
+			{
+				return this._AltPhone;
+			}
+			set
+			{
+				if ((this._AltPhone != value))
+				{
+					this._AltPhone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fax", DbType="NVarChar(50)")]
+		public string Fax
+		{
+			get
+			{
+				return this._Fax;
+			}
+			set
+			{
+				if ((this._Fax != value))
+				{
+					this._Fax = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(50)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this._Email = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contact", DbType="NVarChar(255)")]
+		public string Contact
+		{
+			get
+			{
+				return this._Contact;
+			}
+			set
+			{
+				if ((this._Contact != value))
+				{
+					this._Contact = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AltContact", DbType="NVarChar(50)")]
+		public string AltContact
+		{
+			get
+			{
+				return this._AltContact;
+			}
+			set
+			{
+				if ((this._AltContact != value))
+				{
+					this._AltContact = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Balance", DbType="Decimal(15,2)")]
+		public System.Nullable<decimal> Balance
+		{
+			get
+			{
+				return this._Balance;
+			}
+			set
+			{
+				if ((this._Balance != value))
+				{
+					this._Balance = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalBalance", DbType="Decimal(15,2)")]
+		public System.Nullable<decimal> TotalBalance
+		{
+			get
+			{
+				return this._TotalBalance;
+			}
+			set
+			{
+				if ((this._TotalBalance != value))
+				{
+					this._TotalBalance = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AccountNumber", DbType="NVarChar(50)")]
+		public string AccountNumber
+		{
+			get
+			{
+				return this._AccountNumber;
+			}
+			set
+			{
+				if ((this._AccountNumber != value))
+				{
+					this._AccountNumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreditLimit", DbType="NVarChar(50)")]
+		public string CreditLimit
+		{
+			get
+			{
+				return this._CreditLimit;
+			}
+			set
+			{
+				if ((this._CreditLimit != value))
+				{
+					this._CreditLimit = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrintChequeAs", DbType="NVarChar(255)")]
+		public string PrintChequeAs
+		{
+			get
+			{
+				return this._PrintChequeAs;
+			}
+			set
+			{
+				if ((this._PrintChequeAs != value))
+				{
+					this._PrintChequeAs = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cc", DbType="NVarChar(50)")]
+		public string Cc
+		{
+			get
+			{
+				return this._Cc;
+			}
+			set
+			{
+				if ((this._Cc != value))
+				{
+					this._Cc = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActName", DbType="NVarChar(255)")]
+		public string ActName
+		{
+			get
+			{
+				return this._ActName;
+			}
+			set
+			{
+				if ((this._ActName != value))
+				{
+					this._ActName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BankName", DbType="NVarChar(255)")]
+		public string BankName
+		{
+			get
+			{
+				return this._BankName;
+			}
+			set
+			{
+				if ((this._BankName != value))
+				{
+					this._BankName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActNumber", DbType="NVarChar(255)")]
+		public string ActNumber
+		{
+			get
+			{
+				return this._ActNumber;
+			}
+			set
+			{
+				if ((this._ActNumber != value))
+				{
+					this._ActNumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Branch", DbType="NVarChar(255)")]
+		public string Branch
+		{
+			get
+			{
+				return this._Branch;
+			}
+			set
+			{
+				if ((this._Branch != value))
+				{
+					this._Branch = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_type", DbType="NChar(10)")]
+		public string type
+		{
+			get
+			{
+				return this._type;
+			}
+			set
+			{
+				if ((this._type != value))
+				{
+					this._type = value;
+				}
+			}
+		}
+	}
+	
+	public partial class tblQBBillPayCheckP_Select_TNCSResult
+	{
+		
+		private string _CheckNo;
+		
+		private string _PayeeName;
+		
+		private System.Nullable<System.DateTime> _Check_Pay_Date;
+		
+		private System.Nullable<decimal> _Amount;
+		
+		private string _Txn_ID;
+		
+		private string _CheckID;
+		
+		private string _Bank;
+		
+		public tblQBBillPayCheckP_Select_TNCSResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CheckNo", DbType="VarChar(50)")]
+		public string CheckNo
+		{
+			get
+			{
+				return this._CheckNo;
+			}
+			set
+			{
+				if ((this._CheckNo != value))
+				{
+					this._CheckNo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PayeeName", DbType="VarChar(50)")]
+		public string PayeeName
+		{
+			get
+			{
+				return this._PayeeName;
+			}
+			set
+			{
+				if ((this._PayeeName != value))
+				{
+					this._PayeeName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Check_Pay_Date", DbType="Date")]
+		public System.Nullable<System.DateTime> Check_Pay_Date
+		{
+			get
+			{
+				return this._Check_Pay_Date;
+			}
+			set
+			{
+				if ((this._Check_Pay_Date != value))
+				{
+					this._Check_Pay_Date = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Amount", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> Amount
+		{
+			get
+			{
+				return this._Amount;
+			}
+			set
+			{
+				if ((this._Amount != value))
+				{
+					this._Amount = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Txn_ID", DbType="VarChar(50)")]
+		public string Txn_ID
+		{
+			get
+			{
+				return this._Txn_ID;
+			}
+			set
+			{
+				if ((this._Txn_ID != value))
+				{
+					this._Txn_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CheckID", DbType="NVarChar(50)")]
+		public string CheckID
+		{
+			get
+			{
+				return this._CheckID;
+			}
+			set
+			{
+				if ((this._CheckID != value))
+				{
+					this._CheckID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Bank", DbType="VarChar(200)")]
+		public string Bank
+		{
+			get
+			{
+				return this._Bank;
+			}
+			set
+			{
+				if ((this._Bank != value))
+				{
+					this._Bank = value;
 				}
 			}
 		}

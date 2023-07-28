@@ -26,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -199,6 +200,7 @@
     <Compile Include="Class\SP\VendorListSP.cs" />
     <Compile Include="Class\SQLControls.cs" />
     <Compile Include="Class\UserModel_DA.cs" />
+    <Compile Include="Class\VendorsList_DA.cs" />
     <Compile Include="Class\WriteCheques_DA.cs" />
     <Compile Include="Controls\LoginHelperPage.xaml.cs">
       <DependentUpon>LoginHelperPage.xaml</DependentUpon>
@@ -225,6 +227,7 @@
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppSetting.cs" />
+    <Compile Include="Model\VendorList.cs" />
     <Compile Include="Model\WriteCheques.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\UserRepository.cs" />

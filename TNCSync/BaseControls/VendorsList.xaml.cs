@@ -23,6 +23,7 @@ using System.Windows.Shapes;
 using TNCSync.Class;
 using TNCSync.Class.DataBaseClass;
 using TNCSync.Class.SP;
+using TNCSync.Model;
 using TNCSync.Sessions;
 using TNCSync.ViewModel;
 ////using TNCSync.Class.QuickBookData;
@@ -38,20 +39,23 @@ namespace TNCSync.BaseControls
         private short maxVersion;
         private static DBTNCSDataContext db = new DBTNCSDataContext();
         public IDialogService ds;
-        private string listID = null;
-        private string QvendorName = null;
-        private string QCompanyName = null;
-        private string BillAddress1 = null;
-        private string Phone = null;
-        private string Fax = null;
-        private string Email = null;
-        private string Contact = null;
+        //private string CompanyName = null;
+        //private string BillAddress1 = null;
+        //private string Phone = null;
+        //private string Fax = null;
+        //private string Email = null;
+        //private string Contact = null;
+
+        List<VendorList> Vl = new List<VendorList>();
+        DataTable table = new DataTable();
+        SqlDataAdapter sda = new SqlDataAdapter();
 
         public VendorsList()
         {
             InitializeComponent();
             ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
-           
+            populateDatagrid();
+            LoadPayeeCombobox();
         }
         SessionManager sessionManager;
 
@@ -61,21 +65,7 @@ namespace TNCSync.BaseControls
             sessionManager = SessionManager.getInstance();
             maxVersion = sessionManager.QBsdkMajorVersion;
         }
-        //private IMsgSetResponse processRequestFromQB(IMsgSetRequest requestSet)
-        //{
-        //    try
-        //    {
-        //        //MessageBox.Show(requestSet.ToXMLString());
-        //        IMsgSetResponse responseSet = sessionManager.doRequest(true, ref requestSet);
-        //        //MessageBox.Show(responseSet.ToXMLString());
-        //        return responseSet;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        MessageBox.Show(e.Message);
-        //        return null;
-        //    }
-        //}
+
         private void disconnectFromQB()
         {
             if (sessionManager != null)
@@ -105,6 +95,7 @@ namespace TNCSync.BaseControls
                 ds.SendToast("Synchronized ", "Vendors List has been synchronized successfully", Haley.Enums.NotificationIcon.Success);
                 disconnectFromQB();
                 populateDatagrid();
+                LoadPayeeCombobox();
             }
             else
             {
@@ -119,7 +110,7 @@ namespace TNCSync.BaseControls
             try
             {
                 //var query = from tblVendor in db.tblVendor_Select(ClearAllControl.gblCompanyID, listID, Name, QCompanyName, BillAddress1, Phone, Fax, Email, Contact)select tblVendor;
-                var result = db.tblVendor_Select(ClearAllControl.gblCompanyID, listID, QvendorName, QCompanyName, BillAddress1, Phone, Fax, Email, Contact);
+                var result = db.tblVendor_Select_TNCS();
                 grdVendorLst.ItemsSource = result.ToList();
             }
             catch (Exception ex)
@@ -454,6 +445,35 @@ namespace TNCSync.BaseControls
         private void VendorList_Loaded(object sender, RoutedEventArgs e)
         {
           // populateDatagrid();
+        }
+        private void LoadPayeeCombobox()
+        {
+            string conn = ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ConnectionString;
+            SqlConnection sqlconn = new SqlConnection(conn);
+            sqlconn.Open();
+            SqlCommand cmd = new SqlCommand("SELECT distinct Name FROM tblVendor", sqlconn);
+            SqlDataAdapter sdr = new SqlDataAdapter(cmd);
+            DataTable table = new DataTable();
+            sdr.Fill(table);
+            cbxpayeeNameVendor.ItemsSource = table.DefaultView;
+            cbxpayeeNameVendor.DisplayMemberPath = "Name";
+        }
+        private void srchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            VendorsList_DA vlda = new VendorsList_DA();
+            Vl = vlda.GetVendorList(cbxpayeeNameVendor.Text);
+            UpdateBinding();
+        }
+        private void UpdateBinding()
+        {
+            grdVendorLst.ItemsSource = Vl;
+            grdVendorLst.DisplayMemberPath = "VendorList";
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            cbxpayeeNameVendor.Text = "";
+            populateDatagrid();
         }
     }
 }
