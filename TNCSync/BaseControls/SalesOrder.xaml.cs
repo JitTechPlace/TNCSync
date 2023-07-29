@@ -734,7 +734,7 @@ namespace TNCSync.BaseControls
             }
             catch
             {
-                int w = 0;
+               // int w = 0;
                 ds.ShowDialog("","Error to Fill SalesOrder Table Database", Haley.Enums.NotificationIcon.Error);
                 bDone = true;
                 bError = true;
@@ -828,11 +828,11 @@ namespace TNCSync.BaseControls
                 GetSOTransaction(ref bError, dpFrmDate.DisplayDate, dpToDate.DisplayDate);
                 if (bError)
                 {
-                    ds.ShowDialog("TNC-Sync", "Sync Failed", Haley.Enums.NotificationIcon.Error);
+                    ds.ShowDialog("TNC-Sync", "Sales Order Sync Failed", Haley.Enums.NotificationIcon.Error);
                 }
                 else
                 {
-                    ds.ShowDialog("TNC-Sync", "Synced successfully", Haley.Enums.NotificationIcon.Success);
+                    ds.ShowDialog("TNC-Sync", "Sales Order Synced successfully", Haley.Enums.NotificationIcon.Success);
                 }
                 LoadSOCustomer(ClearAllControl.gblCompanyID);
                //Sessions.Sessions.EndSessionCloseConnection();

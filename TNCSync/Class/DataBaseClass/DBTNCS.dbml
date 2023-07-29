@@ -4098,4 +4098,15 @@
       <Column Name="Bank" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.tblQBCheck_Select_TNCS" Method="tblQBCheck_Select_TNCS">
+    <ElementType Name="tblQBCheck_Select_TNCSResult">
+      <Column Name="CheckNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PayeeName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PaymentDate" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CheckWithDate" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="CheckID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BankID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>

@@ -46,7 +46,7 @@
                 </Grid.ColumnDefinitions>
                 <hw:PlainImage x:Name="clsBtn" hw:Icon.Default="{StaticResource close_circle_medium}" hw:Icon.DefaultColor="LightGray" hw:Icon.HoverColor="Crimson"  Grid.Column="2" Margin="4" HorizontalAlignment="Right" MouseDown="clsBtn_MouseDown"/>
             </Grid>
-            <Grid Grid.Row="1" Background="LightGray" Opacity="0.65">
+            <Grid Grid.Row="1" Background="LightGray" Opacity="0.95">
                 <!--Need To add Logo and name of the Appplication Now Temp Logo Added-->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -97,11 +97,11 @@
                 </ContentControl.Style>
             </ContentControl>
 
-            <Grid Grid.Row="3" Background="LightGray" Opacity="0.65" Margin="0,0,1,8">
+            <Grid Grid.Row="3" Background="LightGray" Opacity="0.95" Margin="0,0,1,8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Image Source="pack://application:,,,/TNCSync;component/AppResources/Images/TNC_Logo.png" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="TNC" />
+                <Image Source="pack://application:,,,/TNCSync;component/AppResources/Images/TNC.png" Height="140" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="TNC" Margin="10 0 0 20" />
                 <TextBlock Text="© TransNational Computer LLC" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="10" Foreground="{StaticResource color1}"  FontFamily="{StaticResource iFontArimoBold}" Margin="2" FontWeight="Bold"/>
                 <TextBlock Text="| Ver 1.0[PILOT]" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="10" Foreground="{StaticResource color1}" FontFamily="{StaticResource iFontArimoBold}" Margin="2" FontWeight="Bold"/>
             </Grid>

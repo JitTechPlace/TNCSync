@@ -631,5 +631,8 @@
   <ItemGroup>
     <Resource Include="AppResources\Images\TNC_Logo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="AppResources\Images\TNC.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

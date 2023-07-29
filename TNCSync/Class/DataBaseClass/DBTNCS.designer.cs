@@ -1716,14 +1716,7 @@ namespace TNCSync.Class.DataBaseClass
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), payeeFullName);
 			return ((ISingleResult<tblQBBillPayCheckP_SelectResult>)(result.ReturnValue));
 		}
-
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name = "dbo.tblQBBillPayCheckP_Select_TNCS")]
-		public ISingleResult<tblQBBillPayCheckP_Select_TNCSResult> tblQBBillPayCheckP_Select_TNCS()
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
-			return ((ISingleResult<tblQBBillPayCheckP_Select_TNCSResult>)(result.ReturnValue));
-		}
-
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.tblQbCheck_Delete")]
 		public int tblQbCheck_Delete()
 		{
@@ -2302,6 +2295,20 @@ namespace TNCSync.Class.DataBaseClass
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), name);
 			return ((ISingleResult<tblVendor_Select_TNCS_ParamResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.tblQBBillPayCheckP_Select_TNCS")]
+		public ISingleResult<tblQBBillPayCheckP_Select_TNCSResult> tblQBBillPayCheckP_Select_TNCS()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<tblQBBillPayCheckP_Select_TNCSResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.tblQBCheck_Select_TNCS")]
+		public ISingleResult<tblQBCheck_Select_TNCSResult> tblQBCheck_Select_TNCS()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<tblQBCheck_Select_TNCSResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -38134,6 +38141,140 @@ namespace TNCSync.Class.DataBaseClass
 				if ((this._Bank != value))
 				{
 					this._Bank = value;
+				}
+			}
+		}
+	}
+	
+	public partial class tblQBCheck_Select_TNCSResult
+	{
+		
+		private string _CheckNumber;
+		
+		private string _PayeeName;
+		
+		private string _PaymentDate;
+		
+		private string _CheckWithDate;
+		
+		private System.Nullable<decimal> _Amount;
+		
+		private string _CheckID;
+		
+		private string _BankID;
+		
+		public tblQBCheck_Select_TNCSResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CheckNumber", DbType="NVarChar(50)")]
+		public string CheckNumber
+		{
+			get
+			{
+				return this._CheckNumber;
+			}
+			set
+			{
+				if ((this._CheckNumber != value))
+				{
+					this._CheckNumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PayeeName", DbType="NVarChar(50)")]
+		public string PayeeName
+		{
+			get
+			{
+				return this._PayeeName;
+			}
+			set
+			{
+				if ((this._PayeeName != value))
+				{
+					this._PayeeName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PaymentDate", DbType="NVarChar(50)")]
+		public string PaymentDate
+		{
+			get
+			{
+				return this._PaymentDate;
+			}
+			set
+			{
+				if ((this._PaymentDate != value))
+				{
+					this._PaymentDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CheckWithDate", DbType="NVarChar(50)")]
+		public string CheckWithDate
+		{
+			get
+			{
+				return this._CheckWithDate;
+			}
+			set
+			{
+				if ((this._CheckWithDate != value))
+				{
+					this._CheckWithDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Amount", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> Amount
+		{
+			get
+			{
+				return this._Amount;
+			}
+			set
+			{
+				if ((this._Amount != value))
+				{
+					this._Amount = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CheckID", DbType="NVarChar(50)")]
+		public string CheckID
+		{
+			get
+			{
+				return this._CheckID;
+			}
+			set
+			{
+				if ((this._CheckID != value))
+				{
+					this._CheckID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BankID", DbType="NVarChar(50)")]
+		public string BankID
+		{
+			get
+			{
+				return this._BankID;
+			}
+			set
+			{
+				if ((this._BankID != value))
+				{
+					this._BankID = value;
 				}
 			}
 		}

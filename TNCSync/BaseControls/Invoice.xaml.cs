@@ -229,7 +229,7 @@ namespace TNCSync.BaseControls
                 }
                 else
                 {
-                    // bail, we do not have the responses we were expecting
+                    // bill, we do not have the responses we were expecting
                     bDone = true;
                     bError = true;
                     return;

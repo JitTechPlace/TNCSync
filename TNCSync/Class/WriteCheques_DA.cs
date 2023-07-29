@@ -15,8 +15,8 @@ namespace TNCSync.Class
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("TNCSync_Connection")))
             {
-                // var output = connection.Query<WriteCheques>($"SELECT * FROM tblQbCheck where payEntityRef ='{ payEntityRef }'").ToList();
-                var output = connection.Query<WriteCheques>("dbo.WriteCheque_TNCS_Param @payEntityRef", new { payEntityRef = payEntityRef }).ToList();
+                 var output = connection.Query<WriteCheques>($"SELECT * FROM tblQbCheck where payEntityRef ='{ payEntityRef }'").ToList();
+                //var output = connection.Query<WriteCheques>("dbo.tblQBCheck_Select @payEntityRef", new { payEntityRef = payEntityRef }).ToList();
                 return output;
             }
         }

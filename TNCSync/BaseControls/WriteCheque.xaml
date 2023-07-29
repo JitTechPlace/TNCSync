@@ -23,10 +23,10 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Height="24" Margin="0 15 0 0">
                 <TextBlock Text="From Date:" FontSize="13" FontFamily="{StaticResource iFontMontSerratReg}" Margin="5"/>
-                <DatePicker/>
+                <DatePicker x:Name="dpFrmDate"/>
                 <TextBlock Text="To Date:" FontSize="13" FontFamily="{StaticResource iFontMontSerratReg}" Margin="5"/>
-                <DatePicker/>
-                <Button x:Name="chequeDGSync" Content="Sync" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="20" Width="100" Margin="5 0"/>
+                <DatePicker x:Name="dpToDate"/>
+                <Button x:Name="chequeDGSync" Content="Sync" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="20" Width="100" Margin="5 0" Click="chequeDGSync_Click"/>
                 <Button x:Name="chequeDGSyncall" Content="SyncAll" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="20" Width="100" Click="chequeDGSyncall_Click" />
             </StackPanel>
             <StackPanel Grid.Row="1" Orientation="Horizontal" >
@@ -45,9 +45,9 @@
            
         </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <ComboBox x:Name="tmpltCmbx" Grid.Column="1" Style="{StaticResource RoundComboBox}" Margin="5" Height="25" Width="200" ToolTip="SelectReport" />
-            <Button Content="Print" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120"/>
-            <Button Content="Clear" Style="{StaticResource SPStyleButton}" Height="30" Width="120" Margin="5"/>
+            <ComboBox x:Name="tmpltCmbx" Grid.Column="1" Style="{StaticResource RoundComboBox}" Margin="5" Height="25" Width="200" ToolTip="SelectReport" SelectionChanged="tmpltCmbx_SelectionChanged"/>
+            <Button Content="Print" x:Name="btnPrint" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="120" Click="btnPrint_Click"/>
+            <Button Content="Clear" x:Name="btnClear" Style="{StaticResource SPStyleButton}" Height="30" Width="120" Margin="5" Click="btnClear_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>
