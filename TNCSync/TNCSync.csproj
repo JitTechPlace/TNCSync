@@ -74,17 +74,18 @@
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="SAPBusinessObjects.WPF.Viewer, Version=14.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Windows\assembly\GAC_MSIL\SAPBusinessObjects.WPF.Viewer\13.0.3500.0__692fbea5521e1304\SAPBusinessObjects.WPF.Viewer.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Windows\assembly\GAC_MSIL\SAPBusinessObjects.WPF.Viewer\13.0.3500.0__692fbea5521e1304\SAPBusinessObjects.WPF.Viewer.dll</HintPath>
     </Reference>
     <Reference Include="SAPBusinessObjects.WPF.ViewerShared, Version=14.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Windows\assembly\GAC_MSIL\SAPBusinessObjects.WPF.ViewerShared\13.0.3500.0__692fbea5521e1304\SAPBusinessObjects.WPF.ViewerShared.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Windows\assembly\GAC_MSIL\SAPBusinessObjects.WPF.ViewerShared\13.0.3500.0__692fbea5521e1304\SAPBusinessObjects.WPF.ViewerShared.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.SqlXml" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Numerics" />
@@ -285,6 +286,9 @@
     <Compile Include="View\Manage.xaml.cs">
       <DependentUpon>Manage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Report.xaml.cs">
+      <DependentUpon>Report.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Vendor.xaml.cs">
       <DependentUpon>Vendor.xaml</DependentUpon>
     </Compile>
@@ -464,6 +468,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Manage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Report.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

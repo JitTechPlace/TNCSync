@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
+using SAPBusinessObjects.WPF.ViewerShared;
+using SAPBusinessObjects.WPF.Viewer;
 using TNCSync.Sessions;
 //using Interop.QBFC15;
 using TNCSync.Class.DataBaseClass;
@@ -23,6 +25,9 @@ using TNCSync.Class;
 using Microsoft.VisualBasic;
 using System.Data;
 using Interop.QBFC16;
+using System.Data.SqlClient;
+using System.Configuration;
+using TNCSync.View;
 
 namespace TNCSync.BaseControls
 {
@@ -32,12 +37,12 @@ namespace TNCSync.BaseControls
     public partial class Invoice : UserControl
     {
         private bool bError;
-        private string path = null;
+        private string path;
         private SQLControls sql = new SQLControls();
         SessionManager sessionManager;
         private short maxVersion;
         private bool booSessionBegun = false;
-        private IMsgSetRequest msgSetRequest;
+        //private IMsgSetRequest msgSetRequest;
         private static DBTNCSDataContext db = new DBTNCSDataContext();
         public IDialogService ds;
 
@@ -49,7 +54,8 @@ namespace TNCSync.BaseControls
             ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
             dpFrmDate.SelectedDate = DateTime.Now;
             dpToDate.SelectedDate = DateTime.Now;
-           PopulateTempleteCombobox();
+            PopulateTempleteCombobox();
+            LoadInvoiceCustomer(ClearAllControl.gblCompanyID);
         }
 
         #region CONNECTION TO QB
@@ -59,21 +65,21 @@ namespace TNCSync.BaseControls
             booSessionBegun = true;
             maxVersion = sessionManager.QBsdkMajorVersion;
         }
-        private IMsgSetResponse processRequestFromQB(IMsgSetRequest requestSet)
-        {
-            try
-            {
-                //MessageBox.Show(requestSet.ToXMLString());
-                IMsgSetResponse responseSet = sessionManager.doRequest(true, ref requestSet);
-                //MessageBox.Show(responseSet.ToXMLString());
-                return responseSet;
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-                return null;
-            }
-        }
+        //private IMsgSetResponse processRequestFromQB(IMsgSetRequest requestSet)
+        //{
+        //    try
+        //    {
+        //        //MessageBox.Show(requestSet.ToXMLString());
+        //        IMsgSetResponse responseSet = sessionManager.doRequest(true, ref requestSet);
+        //        //MessageBox.Show(responseSet.ToXMLString());
+        //        return responseSet;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        MessageBox.Show(e.Message);
+        //        return null;
+        //    }
+        //}
         private void disconnectFromQB()
         {
             if (sessionManager != null)
@@ -623,9 +629,7 @@ namespace TNCSync.BaseControls
                     {
                         SalesTaxPercentage = InvoiceRet.SalesTaxPercentage.GetValue().ToString();
                     }
-                    // 'Print(RefNumber)
 
-                    // Insert data in database code left..........
 
                     db.tblInvoice_Insert(ClearAllControl.gblCompanyID, TxnID, CustomerRefKey, currencyRef, ClassRefKey, ARAccountRefKey, TemplateRefKey, TxnDate, RefNumber, BillAddress1, BillAddress2, BillAddress3, BillAddress4, BillAddress5, BillAddressCity, BillAddressState, BillAddressPostalCode, BillAddressCountry, BillAddressNote, ShipAddress1, ShipAddress2, ShipAddress3, ShipAddress4, ShipAddress5, ShipAddressCity, ShipAddressState, ShipAddressPostalCode, ShipAddressCountry, ShipAddressNote, IsPending, PONumber, TermsRefKey, DateTime.Parse(DueDate), SalesRefKey, FOB, DateTime.Parse(ShipDate), ShipMethodRefKey, ItemSalesTaxRefKey, Memo, CustomerMsgRefKey, IsToBePrinted, IsToEmailed, IsTaxIncluded, CustomerSalesTaxCodeRefKey, Other, decimal.Parse(Amount), decimal.Parse(AmountPaid), CustomField1, CustomField2, CustomField3, currencyRef, CustomField5, QuotationRecNo, ExchangeRAte, InvoiceType, customerName, decimal.Parse(subTotal), decimal.Parse(SalesTaxTotal), decimal.Parse(SalesTaxPercentage));
                     if (InvoiceRet.LinkedTxnList != null)
@@ -660,8 +664,8 @@ namespace TNCSync.BaseControls
                             IORInvoiceLineRet InvoiceLineRetList;
                             InvoiceLineRetList = InvoiceRet.ORInvoiceLineRetList.GetAt(k);
 
-                            string lineItem = string.Empty;
-                            //if (InvoiceLineRetList.InvoiceLineRet.ItemRef != null)
+                            string lineItem = string.Empty;                 // Pls Check Here
+                            //if (InvoiceLineRetList.InvoiceLineRet.ItemRef != null)       
                             //{
                             //   // lineItem = InvoiceLineRetList.InvoiceLineRet.ItemRef.FullName.GetValue();
                             //}
@@ -709,10 +713,7 @@ namespace TNCSync.BaseControls
                             {
                                 lineUOM = InvoiceLineRetList.InvoiceLineRet.UnitOfMeasure.GetValue();
                             }
-                            // Dim lineQuantity As String = String.Empty
-                            // If Not InvoiceLineRetList.InvoiceLineRet.Quantity Is Nothing Then
-                            // lineQuantity = InvoiceLineRetList.InvoiceLineRet.Quantity.GetValue()
-                            // End If
+
                             string lineUOMOrg = string.Empty;
                             if (InvoiceLineRetList.InvoiceLineRet.OverrideUOMSetRef != null)
                             {
@@ -879,8 +880,8 @@ namespace TNCSync.BaseControls
         {
             try
             {
-                connectToQB();
                 bError = false;
+                connectToQB();
                 //sessionManager.openConnection();
                 GetInvoiceTransaction(ref bError, dpFrmDate.DisplayDate, dpToDate.DisplayDate);
                 if (bError)
@@ -891,6 +892,7 @@ namespace TNCSync.BaseControls
                 {
                     ds.ShowDialog("TNC-Sync", "Synced successfully", Haley.Enums.NotificationIcon.Success);
                 }
+                disconnectFromQB();
                 LoadInvoiceCustomer(ClearAllControl.gblCompanyID);
             }
             catch(Exception ex)
@@ -903,8 +905,8 @@ namespace TNCSync.BaseControls
         {
             try
             {
-                connectToQB();
                 bError = false;
+                connectToQB();
                 GetInvoiceTransactions(ref bError);
                 if (bError)
                 {
@@ -915,6 +917,7 @@ namespace TNCSync.BaseControls
                     ds.ShowDialog("TNC-Sync", "Invoice Sync Successfully", Haley.Enums.NotificationIcon.Success);
                 }
                 LoadInvoiceCustomer(ClearAllControl.gblCompanyID);
+                disconnectFromQB();
             }
             catch
             {
@@ -927,7 +930,7 @@ namespace TNCSync.BaseControls
             try
             {
 
-                var _ReportDocument = new ReportDocument();
+                ReportDocument _ReportDocument = new ReportDocument();
                 var crtableLogoninfos = new TableLogOnInfos();
                 var crtableLogoninfo = new TableLogOnInfo();
                 var crConnectionInfo = new ConnectionInfo();
@@ -937,17 +940,20 @@ namespace TNCSync.BaseControls
                 var crParameterDiscreteValue = new ParameterDiscreteValue();
                 Tables CrTables;
 
-                {
-                    //ref var withBlock = ref _ReportDocument;
-                    //string startuppatah = Application.StartupPath;
-                    _ReportDocument.Load(path + cmbxTmptInvoice.Text + ".rpt");
-                }
+                _ReportDocument.Load(path + cmbxTmptInvoice.Text + ".rpt");
+                //{
+                //    //ref var withBlock = ref _ReportDocument;
+                //    //string startuppatah = Application.StartupPath;
+                //    _ReportDocument.Load(path + cmbxTmptInvoice.Text + ".rpt");
+                //}
 
                 _ReportDocument.ReportOptions.EnableSaveDataWithReport = false;
-                crConnectionInfo.ServerName = ClearAllControl.gblSQLServerName;
-                crConnectionInfo.DatabaseName = ClearAllControl.gblDatabaseName;
-                crConnectionInfo.UserID = ClearAllControl.gblSQLServerUserName;
-                crConnectionInfo.Password = ClearAllControl.gblSQLServerPassword;
+                // SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(connectionString: "TNCSync_Connection");
+                SqlConnection sqlconn = new SqlConnection(ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ToString());
+                crConnectionInfo.ServerName = sqlconn.DataSource;
+                crConnectionInfo.DatabaseName = sqlconn.Database;
+                crConnectionInfo.UserID = "";
+                crConnectionInfo.Password = "";
                 crConnectionInfo.AllowCustomConnection = false;
                 crConnectionInfo.IntegratedSecurity = false;
 
@@ -971,8 +977,9 @@ namespace TNCSync.BaseControls
                 crParameterValues.Add(crParameterDiscreteValue);
                 crParameterFieldDefinition.ApplyCurrentValues(crParameterValues);
 
-                var rpt = new ReportView();
-                rpt.ShowReportView(ref _ReportDocument);               
+                var rpt = new Report();
+                //rpt.ShowReportView(ref _ReportDocument);
+                //rpt.CRV();
                 // If _ReportDocument.HasRecords Then
                 //var frm = new ReportFormLinker();
                 //frm.MdiParent = ParentForm;
@@ -982,7 +989,7 @@ namespace TNCSync.BaseControls
                 //frm.Show();
             }
 
-            catch (Exception ex)
+            catch (NullReferenceException ex)
             {
                 ds.ShowDialog("TNC-Sync", ex.Message, Haley.Enums.NotificationIcon.Error);
             }

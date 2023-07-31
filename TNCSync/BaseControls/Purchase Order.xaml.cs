@@ -58,21 +58,6 @@ namespace TNCSync.BaseControls
             booSessionBegun = true;
             maxVersion = sessionManager.QBsdkMajorVersion;
         }
-        //private IMsgSetResponse processRequestFromQB(IMsgSetRequest requestSet)
-        //{
-        //    try
-        //    {
-        //        //MessageBox.Show(requestSet.ToXMLString());
-        //        IMsgSetResponse responseSet = sessionManager.doRequest(true, ref requestSet);
-        //        //MessageBox.Show(responseSet.ToXMLString());
-        //        return responseSet;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        MessageBox.Show(e.Message);
-        //        return null;
-        //    }
-        //}
         private void disconnectFromQB()
         {
             if (sessionManager != null)
@@ -702,7 +687,7 @@ namespace TNCSync.BaseControls
                             ENTxnType TxnType873;
                             DateTime TxnDate874;
                             string RefNumber875 = ("" == "").ToString();
-                            double Amount877 = double.Parse("0 == 0");
+                           // double Amount877 = decimal.Parse(0 == 0);   //Chenged the value here Need to Recheck
                             // Get value of TxnID
                             TxnID872 = LinkedTxn.TxnID.GetValue();
                             // Get value of TxnType
@@ -720,9 +705,9 @@ namespace TNCSync.BaseControls
                                 LinkType876 = LinkedTxn.LinkType.GetValue();
                             }
                             // Get value of Amount
-                            Amount877 = LinkedTxn.Amount.GetValue();
+                            //Amount877 = LinkedTxn.Amount.GetValue(); //need to check
 
-                            db.PurchaseOrderLinkedTxn_Insert(TxnID803, TxnID872, ((int)TxnType873).ToString(), ((int)LinkType876).ToString(), TxnDate874, RefNumber875, (decimal?)Amount877, TxnID803, ClearAllControl.gblCompanyID);
+                            db.PurchaseOrderLinkedTxn_Insert(TxnID803, TxnID872, ((int)TxnType873).ToString(), ((int)LinkType876).ToString(), TxnDate874, RefNumber875, null, TxnID803, ClearAllControl.gblCompanyID); //(decimal?)Amount877
                         }
 
                     }
@@ -1251,11 +1236,12 @@ namespace TNCSync.BaseControls
             Errs:
                 ;
             }
-            catch
+            catch(Exception ex)
             {
 
-                int w = 0;
+                //int w = 0;
                 //Interaction.MsgBox("HRESULT = " + Information.Err().Number + "-" + " (" + Conversion.Hex(Information.Err().Number) + ") " + Constants.vbCrLf + Constants.vbCrLf + Information.Err().Description, MsgBoxStyle.Critical, "Error in FillChartOfAccountListBox");
+                ds.ShowDialog("TNC-Sync", ex.Message, Haley.Enums.NotificationIcon.Error);
                 bDone = true;
                 bError = true;
             }
@@ -1355,6 +1341,7 @@ namespace TNCSync.BaseControls
                     ds.ShowDialog("TNC-Sync", "Purchase Order Sync Successfully", Haley.Enums.NotificationIcon.Success);
                 }
                 LoadVendors(ClearAllControl.gblCompanyID);
+                disconnectFromQB();
                 //sessionManager.closeConnection();
             }
             catch (Exception ex)
@@ -1379,6 +1366,7 @@ namespace TNCSync.BaseControls
                 {
                     ds.ShowDialog("TNC-Sync", "Synced successfully", Haley.Enums.NotificationIcon.Success);
                 }
+                disconnectFromQB();
                 LoadVendors(ClearAllControl.gblCompanyID);
                 //sessionManager.closeConnection();
             }
