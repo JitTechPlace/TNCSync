@@ -47,7 +47,7 @@ namespace TNCSync.BaseControls
             ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
             dpFrmDate.SelectedDate = DateTime.Now;
             dpToDate.SelectedDate = DateTime.Now;
-          // PopulateTempleteCombobox();
+            PopulateTempleteCombobox();
 
         }
 
@@ -687,7 +687,7 @@ namespace TNCSync.BaseControls
                             ENTxnType TxnType873;
                             DateTime TxnDate874;
                             string RefNumber875 = ("" == "").ToString();
-                           // double Amount877 = decimal.Parse(0 == 0);   //Chenged the value here Need to Recheck
+                            //double Amount877 = double.Parse(0 == 0);   //Chenged the value here Need to Recheck
                             // Get value of TxnID
                             TxnID872 = LinkedTxn.TxnID.GetValue();
                             // Get value of TxnType
@@ -705,9 +705,9 @@ namespace TNCSync.BaseControls
                                 LinkType876 = LinkedTxn.LinkType.GetValue();
                             }
                             // Get value of Amount
-                            //Amount877 = LinkedTxn.Amount.GetValue(); //need to check
+                           double Amount877 = (double)LinkedTxn.Amount.GetValue(); //need to check
 
-                            db.PurchaseOrderLinkedTxn_Insert(TxnID803, TxnID872, ((int)TxnType873).ToString(), ((int)LinkType876).ToString(), TxnDate874, RefNumber875, null, TxnID803, ClearAllControl.gblCompanyID); //(decimal?)Amount877
+                            db.PurchaseOrderLinkedTxn_Insert(TxnID803, TxnID872, ((int)TxnType873).ToString(), ((int)LinkType876).ToString(), TxnDate874, RefNumber875, (decimal?)Amount877, TxnID803, ClearAllControl.gblCompanyID); //(decimal?)Amount877
                         }
 
                     }
@@ -1300,16 +1300,16 @@ namespace TNCSync.BaseControls
         {
             try
             {
-                cmbxPoVendor.SelectedIndex = -1;
-                cmbxPoVendor.Items.Clear();
+                cmbxPoNum.SelectedIndex = -1;
+                cmbxPoNum.Items.Clear();
                 sql.addparam("@CompanyID", cID);
                 sql.addparam("@VendorName", vend);
                 sql.execquery("SELECT distinct RefNumber,TxnId  from QBPurchaseOrder where companyID=@CompanyID and VendorRefFullName=@VendorName order by RefNumber");
                 if (sql.recordcount > 0)
                 {
                     foreach (DataRow r in sql.sqlds.Tables[0].Rows)
-                        cmbxPoVendor.Items.Add(r["RefNumber"]);
-                    cmbxPoVendor.SelectedIndex = -1;
+                        cmbxPoNum.Items.Add(r["RefNumber"]);
+                    cmbxPoNum.SelectedIndex = -1;
                 }
             }
             catch (Exception ex)
@@ -1330,7 +1330,6 @@ namespace TNCSync.BaseControls
             {
                 bError = false;
                 connectToQB();
-                //sessionManager.openConnection();
                 GetPOTransactionNoDate(ref bError);
                 if (bError)
                 {
@@ -1342,7 +1341,6 @@ namespace TNCSync.BaseControls
                 }
                 LoadVendors(ClearAllControl.gblCompanyID);
                 disconnectFromQB();
-                //sessionManager.closeConnection();
             }
             catch (Exception ex)
             {

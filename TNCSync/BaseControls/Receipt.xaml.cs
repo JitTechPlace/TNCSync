@@ -21,6 +21,9 @@ using TNCSync.Class.DataBaseClass;
 using TNCSync.Sessions;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
+using System.Data;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
 
 namespace TNCSync.BaseControls
 {
@@ -39,6 +42,8 @@ namespace TNCSync.BaseControls
             ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
             dpFrmDate.SelectedDate = DateTime.Now;
             dpToDate.SelectedDate = DateTime.Now;
+            PopulateTempleteCombobox();
+            LoadReceiptCustomer(ClearAllControl.gblCompanyID);
         }
         private static DBTNCSDataContext db = new DBTNCSDataContext();
         public IDialogService ds;
@@ -377,6 +382,9 @@ namespace TNCSync.BaseControls
                     int countStr;
                     string cashCustomerName;
                     string memoString = string.Empty;
+
+                    //Need to check the Code....
+
                     tempString = (tempDate, "dd/MM/yyy").ToString();
                     //if (PaymentMethodRefFullName == "Cheque")
                     //{
@@ -385,8 +393,7 @@ namespace TNCSync.BaseControls
                     //    countStr = CountCharacter(memo, ':');
                     //    if (countStr >= 2)
                     //    {
-                    //        checkDate = Conversions.ToString(tempString((object)1));
-                    //        checkDate = tempString((object)1).Tostring();
+                    //        checkDate = tempString(1);
                     //        checkNumber = Conversions.ToString(tempString((object)0));
                     //        customerBankName = Conversions.ToString(tempString((object)2));
 
@@ -442,9 +449,7 @@ namespace TNCSync.BaseControls
                     //    // End If
                     //    // memoString = memoString
                     //}
-                    // Insert data in database code left..........
-
-                    // db.tblInvoice_Insert(gblCompanyID, TxnID, CustomerRefKey, Nothing, ClassRefKey, ARAccountRefKey, TemplateRefKey, TxnDate, RefNumber, BillAddress1, BillAddress2, BillAddress3, BillAddress4, BillAddress5, BillAddressCity, BillAddressState, BillAddressPostalCode, BillAddressCountry, BillAddressNote, ShipAddress1, ShipAddress2, ShipAddress3, ShipAddress4, ShipAddress5, ShipAddressCity, ShipAddressState, ShipAddressPostalCode, ShipAddressCountry, ShipAddressNote, IsPending, PONumber, TermsRefKey, DueDate, SalesRefKey, FOB, ShipDate, ShipMethodRefKey, ItemSalesTaxRefKey, Memo, CustomerMsgRefKey, IsToBePrinted, IsToEmailed, IsTaxIncluded, CustomerSalesTaxCodeRefKey, Other, Amount, AmountPaid, CustomField1, CustomField2, CustomField3, CustomField4, CustomField5, QuotationRecNo, GradeID, InvoiceType, customerName, subTotal, SalesTaxTotal, SalesTaxPercentage)
+                    // db.tblInvoice_Insert(gblCompanyID, TxnID, CustomerRefKey, Nothing, ClassRefKey, ARAccountRefKey, TemplateRefKey, TxnDate, RefNumber, BillAddress1, BillAddress2, BillAddress3, BillAddress4, BillAddress5, BillAddressCity, BillAddressState, BillAddressPostalCode, BillAddressCountry, BillAddressNote, ShipAddress1, ShipAddress2, ShipAddress3, ShipAddress4, ShipAddress5, ShipAddressCity, ShipAddressState, ShipAddressPostalCode, ShipAddressCountry, ShipAddressNote, IsPending, PONumber, TermsRefKey, DueDate, SalesRefKey, FOB, ShipDate, ShipMethodRefKey, ItemSalesTaxRefKey, Memo, CustomerMsgRefKey, IsToBePrinted, IsToEmailed, IsTaxIncluded, CustomerSalesTaxCodeRefKey, Other, Amount, AmountPaid, CustomField1, CustomField2, CustomField3, CustomField4, CustomField5, QuotationRecNo, GradeID, InvoiceType, customerName, subTotal, SalesTaxTotal, SalesTaxPercentage);
 
                     db.tblReceivePayment_Insert(ARAccountRefListID, ARAccountFullName, CurrencyRefListID, CurrencyRefFullName, CustomerRefListID, CustomerRefFullName, DepositToAccountRefListID, DepositeToAccountRefFullName, EditSequence, ExchangeRate, ExternalGUID, memoString, PaymentMethodRefListID, PaymentMethodRefFullName, RefNumber, TimeCreated, TimeModified, TotalAmount, TotalAmountInHOmeCurrency, DateTime.Parse(TxnDate), TxnId, TxnNumber, Type, UnusedCredit, decimal.Parse(UnUsedPayment), ClearAllControl.gblCompanyID.ToString(), checkDate, checkNumber, customerBankName);
                     cashCustomerName = string.Empty;
@@ -510,13 +515,235 @@ namespace TNCSync.BaseControls
         #endregion
 
         #region Methods
-        #endregion
+        private void LoadReceiptCustomer(int cID)
+        {
+            try
+            {
+                cmbxCustName.Items.Clear();
+                sql.addparam("@CompanyID", cID);
+                sql.execquery("SELECT distinct CustomerRefFullName from tblReceivePayment where companyID=@CompanyID");
+                if (sql.recordcount > 0)
+                {
+                    foreach (DataRow r in sql.sqlds.Tables[0].Rows)
+                        cmbxCustName.Items.Add(r["CustomerRefFullName"]);
+                    cmbxCustName.SelectedIndex = -1;
+                }
 
+                //var col = new System.Windows.Forms.AutoCompleteStringCollection();
+                //for (int i = 0, loopTo = sql.sqlds.Tables[0].Rows.Count - 1; i <= loopTo; i++)
+                //    col.Add(sql.sqlds.Tables[0].Rows[i]["CustomerRefFullName"].ToString());
+                //cmbxCustName.SelectedItem = System.Windows.Forms.AutoCompleteSource.CustomSource;
+                //cmbxCustName.ItemsSource = col;
+                //cmbxCustName.SelectedItem = System.Windows.Forms.AutoCompleteMode.Suggest;
+
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void LoadReceiptNumber(string cust, int cID)
+        {
+            try
+            {
+                cmbxVoNum.SelectedIndex = -1;
+                cmbxVoNum.Items.Clear();
+                sql.addparam("@CompanyID", cID);
+                sql.addparam("@CustomerName", cust);
+                sql.execquery("SELECT distinct refnumber,TxnId  from tblReceivePayment where companyID=@CompanyID and CustomerRefFullName=@CustomerName order by RefNumber");
+                if (sql.recordcount > 0)
+                {
+                    foreach (DataRow r in sql.sqlds.Tables[0].Rows)
+                        cmbxVoNum.Items.Add(r["refnumber"]);
+                    cmbxVoNum.SelectedIndex = -1;
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void PopulateTempleteCombobox()
+        {
+            cmbxTmpName.Items.Clear();
+            sql.execquery("Select TemplateName from Templates where TemplateType='Receipt' and Status='True' ");
+            if (sql.recordcount > 0)
+            {
+                foreach (DataRow r in sql.sqlds.Tables[0].Rows)
+                    cmbxTmpName.Items.Add(r["TemplateName"]);
+                cmbxTmpName.SelectedIndex = 0;
+            }
+        }
+
+        private void GetTempPath(string Paths)
+        {
+            sql.addparam("@name", Paths);
+            sql.execquery("Select TemplatePath from Templates where TemplateName = @name ");
+            if (sql.recordcount > 0)
+            {
+                path = sql.sqlds.Tables[0].Rows[0]["Templatepath"].ToString();
+            }
+        }
+
+        #endregion
 
         #region Events
+        private void cmbxCustName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LoadReceiptNumber(cmbxCustName.Text, ClearAllControl.gblCompanyID);
+        }
+
+        private void cmbxTmpName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GetTempPath(cmbxTmpName.Text);
+        }
+
+        private void btnRecSync_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //var obj = new payAgainstInvoice();
+                connectToQB();
+                bError = false;
+                GetReceivePayment(ref bError, dpFrmDate.DisplayDate, dpToDate.DisplayDate);
+                if (bError)
+                {
+                    ds.ShowDialog("TNC-Sync", "Receipt Sync Failed", Haley.Enums.NotificationIcon.Error);
+                }
+                else
+                {
+                    ds.ShowDialog("TNC-Sync", "Receipt Synced successfully", Haley.Enums.NotificationIcon.Success);
+                }
+                LoadReceiptCustomer(ClearAllControl.gblCompanyID);
+                disconnectFromQB();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void btnRecSyncal_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //var obj = new payAgainstInvoice();
+                connectToQB();
+                bError = false;
+                //Sessions.Sessions.OpenConnectionBeginSession();
+                GetReceivePayments(ref bError);
+                if (bError)
+                {
+                    ds.ShowDialog("TNC-Sync", "Receipt Sync Failed", Haley.Enums.NotificationIcon.Error);
+                }
+                else
+                {
+                    ds.ShowDialog("TNC-Sync", "Receipt Sync Successfully", Haley.Enums.NotificationIcon.Success);
+                }
+                LoadReceiptCustomer(ClearAllControl.gblCompanyID);
+                disconnectFromQB();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void btnPrint_Click(object sender, RoutedEventArgs e)
+        {
+            int i = 0;
+            if (string.IsNullOrEmpty(cmbxCustName.Text) & string.IsNullOrEmpty(cmbxVoNum.Text))
+            {
+                Interaction.MsgBox("Select either Customer or Voucher Number ", Constants.vbInformation);
+                return;
+            }
+            try
+            {
+                var _ReportDocument = new ReportDocument();
+                var crtableLogoninfos = new TableLogOnInfos();
+                var crtableLogoninfo = new TableLogOnInfo();
+                var crConnectionInfo = new ConnectionInfo();
+                ParameterFieldDefinitions crParameterFieldDefinitions;
+                ParameterFieldDefinition crParameterFieldDefinition;
+                var crParameterValues = new ParameterValues();
+                var crParameterDiscreteValue = new ParameterDiscreteValue();
+                Tables CrTables;
+                string voucherNumber;
+                string coustomerName;
+
+
+                _ReportDocument.Load(path + cmbxTmpName.Text + ".rpt");
+                string startuppath = System.AppDomain.CurrentDomain.BaseDirectory + path + cmbxTmpName.Text + ".rpt";
+                //{
+                //    ref var withBlock = ref _ReportDocument;
+                //    string startuppatah = Application.StartupPath;
+
+                //    withBlock.Load(path + cmbxTmpName.Text + ".rpt");
+                //}
+
+                _ReportDocument.ReportOptions.EnableSaveDataWithReport = false;
+                crConnectionInfo.ServerName = ClearAllControl.gblSQLServerName;
+                crConnectionInfo.DatabaseName = ClearAllControl.gblDatabaseName;
+                crConnectionInfo.UserID = ClearAllControl.gblSQLServerUserName;
+                crConnectionInfo.Password = ClearAllControl.gblSQLServerPassword;
+                crConnectionInfo.AllowCustomConnection = false;
+                crConnectionInfo.IntegratedSecurity = false;
+
+                CrTables = _ReportDocument.Database.Tables;
+
+                // _ReportDocument.SetParameterValue("@CompanyID", gblCompanyID)
+                foreach (CrystalDecisions.CrystalReports.Engine.Table CrTable in CrTables)
+                {
+                    crtableLogoninfo = CrTable.LogOnInfo;
+                    crtableLogoninfo.ConnectionInfo = crConnectionInfo;
+                    crtableLogoninfo.ReportName = _ReportDocument.Name;
+                    crtableLogoninfo.TableName = CrTable.Name;
+                    CrTable.ApplyLogOnInfo(crtableLogoninfo);
+                }
+               
+                voucherNumber = cmbxVoNum.Text;
+                coustomerName = cmbxCustName.Text;
+                crParameterDiscreteValue.Value = Strings.Trim(coustomerName);
+                crParameterFieldDefinitions = _ReportDocument.DataDefinition.ParameterFields;
+                crParameterFieldDefinition = crParameterFieldDefinitions["@CoustomerName"];
+                crParameterValues = crParameterFieldDefinition.CurrentValues;
+                crParameterValues.Clear();
+                crParameterValues.Add(crParameterDiscreteValue);
+                crParameterFieldDefinition.ApplyCurrentValues(crParameterValues);
+
+
+                crParameterDiscreteValue.Value = ClearAllControl.gblCompanyID;
+                crParameterFieldDefinitions = _ReportDocument.DataDefinition.ParameterFields;
+                crParameterFieldDefinition = crParameterFieldDefinitions["@companyID"];
+                crParameterValues = crParameterFieldDefinition.CurrentValues;
+                crParameterValues.Clear();
+                crParameterValues.Add(crParameterDiscreteValue);
+                crParameterFieldDefinition.ApplyCurrentValues(crParameterValues);
+
+                crParameterDiscreteValue.Value = voucherNumber;
+                crParameterFieldDefinitions = _ReportDocument.DataDefinition.ParameterFields;
+                crParameterFieldDefinition = crParameterFieldDefinitions["@voucherNumber"];
+                crParameterValues = crParameterFieldDefinition.CurrentValues;
+                crParameterValues.Clear();
+                crParameterValues.Add(crParameterDiscreteValue);
+                crParameterFieldDefinition.ApplyCurrentValues(crParameterValues);
+
+                var rpt = new ReportView();
+                rpt.ShowReportView(ref _ReportDocument);
+            }
+            catch (Exception ex)
+            {
+                ds.ShowDialog("TNC-Sync", ex.Message, Haley.Enums.NotificationIcon.Error);
+            }
+        }
+
+        private void btnClear_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         #endregion
-
-
     }
 }

@@ -39,7 +39,7 @@
                 </StackPanel>
                 <StackPanel Grid.Column="1" Grid.Row="1" Margin="25 15 10 0">
                     <ComboBox x:Name="cmbxPoVendor" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" SelectionChanged="cmbxPoVendor_SelectionChanged"/>
-                    <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                    <ComboBox x:Name="cmbxPoNum" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
                     <ComboBox x:Name="tmpltPoCmbx" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" SelectionChanged="tmpltPoCmbx_SelectionChanged" />
                 </StackPanel>
             </StackPanel>

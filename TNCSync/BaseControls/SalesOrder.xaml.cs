@@ -756,7 +756,12 @@ namespace TNCSync.BaseControls
                 cmbxSOCustomer.SelectedIndex = -1;
             }
 
-            //Need to add the AutoCompleteString Colleection
+            //var col = new System.Windows.Forms.AutoCompleteStringCollection();
+            //for (int i = 0, loopTo = sql.sqlds.Tables[0].Rows.Count - 1; i <= loopTo; i++)
+            //    col.Add(sql.sqlds.Tables[0].Rows[i]["customerName"].ToString());
+            //cmbxSOCustomer.SelectedItem = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            ////cmbxSOCustomer.ItemsSource = col;
+            //cmbxSOCustomer.SelectedItem = System.Windows.Forms.AutoCompleteMode.Suggest;
         }
 
         private void LoadSONumber(string cust, int cID)
