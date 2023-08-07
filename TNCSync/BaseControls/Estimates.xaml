@@ -36,9 +36,9 @@
                     <TextBlock Text="Template Name:" FontSize="15"  Margin="10"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Grid.Row="1" Margin="25 15 10 0">
-                    <ComboBox x:Name="cmbxEstimateCust" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                    <ComboBox x:Name="cmbxEstimateCust" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" SelectionChanged="cmbxEstimateCust_SelectionChanged"/>
                     <ComboBox x:Name="cmbxEstimateNum" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
-                    <ComboBox x:Name="cmbxTmptEstimate" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10"/>
+                    <ComboBox x:Name="cmbxTmptEstimate" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" SelectionChanged="cmbxTmptEstimate_SelectionChanged"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">

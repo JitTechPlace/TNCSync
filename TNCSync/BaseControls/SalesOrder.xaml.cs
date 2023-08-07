@@ -735,9 +735,7 @@ namespace TNCSync.BaseControls
             catch
             {
                // int w = 0;
-                ds.ShowDialog("","Error to Fill SalesOrder Table Database", Haley.Enums.NotificationIcon.Error);
-                bDone = true;
-                bError = true;
+                 
             }
         }
 
@@ -789,7 +787,7 @@ namespace TNCSync.BaseControls
         private void PopulateTempleteCombobox()
         {
             tmpltSOCmpx.Items.Clear();
-            sql.execquery("Select TemplateName from Templates where TemplateType='Sales Order' and Status='True' ");
+            sql.execquery("Select TemplateName from Templates where TemplateType='Sales Order' and Status='True'");
             if (sql.recordcount > 0)
             {
                 foreach (DataRow r in sql.sqlds.Tables[0].Rows)

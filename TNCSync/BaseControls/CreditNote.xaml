@@ -35,16 +35,16 @@
                     <TextBlock Text="Template Name:" FontSize="15"  Margin="10"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Grid.Row="1" Margin="25 15 10 0">
-                    <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
-                    <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
-                    <ComboBox Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                    <ComboBox x:Name="cmbxccustname" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" SelectionChanged="cmbxccustname_SelectionChanged" />
+                    <ComboBox x:Name="cmbxcnotenum" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
+                    <ComboBox x:Name="cmbxtemp" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" SelectionChanged="cmbxtemp_SelectionChanged" />
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Sync" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110"/>
-                <Button Content="SyncAll" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110" Margin="5"/>
-                <Button Content="Print" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110"/>
-                <Button Content="Clear" Style="{StaticResource SPStyleButton}"  Height="30" Width="110" Margin="5"/>
+                <Button Content="Sync" x:Name="btnCreditSyn" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110" Click="btnCreditSyn_Click"/>
+                <Button Content="SyncAll" x:Name="btnCreditSynAl" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110" Margin="5" Click="btnCreditSynAl_Click"/>
+                <Button Content="Print" x:Name="btnCreditPrint" Style="{StaticResource controlButton}" Background="{StaticResource panelActiveColor}" Tag="{StaticResource rdSolidWhiteSmoke}" Height="30" Width="110" Click="btnCreditPrint_Click"/>
+                <Button Content="Clear" x:Name="btnClear" Style="{StaticResource SPStyleButton}"  Height="30" Width="110" Margin="5" Click="btnClear_Click"/>
             </StackPanel>
         </StackPanel>
     </Grid>

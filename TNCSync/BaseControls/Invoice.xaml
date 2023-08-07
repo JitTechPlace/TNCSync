@@ -35,7 +35,7 @@
                     <TextBlock Text="Template Name:" FontSize="15"  Margin="10"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Grid.Row="1" Margin="25 15 10 0">
-                    <ComboBox x:Name="cmbxInvoice" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" SelectionChanged="cmbxInvoice_SelectionChanged" />
+                    <ComboBox x:Name="cmbxInvoice" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" SelectionChanged="cmbxInvoice_SelectionChanged"/>
                     <ComboBox x:Name="cmbxInvoiceNum" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" />
                     <ComboBox x:Name="cmbxTmptInvoice" Style="{StaticResource RoundComboBox}" Height="25" Width="200"  Margin="10" SelectionChanged="cmbxTmptInvoice_SelectionChanged" />
                 </StackPanel>
