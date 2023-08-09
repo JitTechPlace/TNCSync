@@ -3,13 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-         xmlns:cr="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer"
-        xmlns:CR="clr-namespace:CrystalDecisions.CrystalReports.ViewerObjectModel;assembly=CrystalDecisions.Shared"
+        xmlns:cr="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=CrystalReports.WPF.Viewer"
         xmlns:local="clr-namespace:TNCSync.View"
         mc:Ignorable="d" WindowStyle="None"
-        Title="Report" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="Crystal Reports Viewer" Height="450" Width="800">
 
     <Grid>
-        <cr:CrystalReportsViewer x:Name="CRV" HorizontalAlignment="Left" VerticalAlignment="Top" Height="450" Width="790" />
+        <!--<cr:CrystalReportsViewer x:Name="CRV" HorizontalAlignment="Left" VerticalAlignment="Top" Height="450" Width="790" />-->
+        <!--<cr:CrystalReportsViewer x:Name="crViewer" />-->
     </Grid>
 </Window>

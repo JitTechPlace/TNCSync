@@ -33,14 +33,9 @@ namespace TNCSync.BaseControls
 
         public void ShowReportView(ref ReportDocument _ReportDocument)
         {
-
-            CRV.ViewerCore.ReportSource = _ReportDocument;
+            //CRV.ViewerCore.RefreshReport();
+            //CRV.ViewerCore.ReportSource = _ReportDocument;
             //ShowReportView(ref _ReportDocument);
-        }
-
-        private void CRV_Loaded(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

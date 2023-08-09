@@ -22,6 +22,8 @@ using CrystalDecisions.Shared;
 //using Interop.QBFC15;
 using Interop.QBFC16;
 using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace TNCSync.BaseControls
 {
@@ -483,7 +485,8 @@ namespace TNCSync.BaseControls
                 //ref var withBlock = ref _ReportDocument;
                 ////string startuppatah = Environment.CurrentDirectory;
                 //withBlock.Load(path + tmpltJVCmbx.Text + ".rpt");
-                _ReportDocument.Load(path + tmpltJVCmbx.Text + ".rpt");
+                //_ReportDocument.Load(path + tmpltJVCmbx.Text + ".rpt");
+                _ReportDocument.Load("D:\\Jithu\\CMS\\JournalVoucher.rpt");
 
                 //{
                 //    ref var withBlock = ref _ReportDocument;
@@ -503,15 +506,22 @@ namespace TNCSync.BaseControls
                 //}
 
                 _ReportDocument.ReportOptions.EnableSaveDataWithReport = false;
-                crConnectionInfo.ServerName = ClearAllControl.gblSQLServerName;
-                crConnectionInfo.DatabaseName = ClearAllControl.gblDatabaseName;
-                crConnectionInfo.UserID = ClearAllControl.gblSQLServerUserName;
-                crConnectionInfo.Password = ClearAllControl.gblSQLServerPassword;
+                SqlConnection sqlconn = new SqlConnection(ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ToString());
+                crConnectionInfo.ServerName = sqlconn.DataSource;
+                crConnectionInfo.DatabaseName = sqlconn.Database;
+                crConnectionInfo.UserID = "sa";
+                crConnectionInfo.Password = "p@ssw0rd";
                 crConnectionInfo.AllowCustomConnection = false;
-                crConnectionInfo.IntegratedSecurity = false;
+                crConnectionInfo.IntegratedSecurity = true;
+                //crConnectionInfo.ServerName = ClearAllControl.gblSQLServerName;
+                //crConnectionInfo.DatabaseName = ClearAllControl.gblDatabaseName;
+                //crConnectionInfo.UserID = ClearAllControl.gblSQLServerUserName;
+                //crConnectionInfo.Password = ClearAllControl.gblSQLServerPassword;
+                //crConnectionInfo.AllowCustomConnection = false;
+                //crConnectionInfo.IntegratedSecurity = false;
                 CrTables = _ReportDocument.Database.Tables;
 
-               // _ReportDocument.SetParameterValue("@CompanyID", gblCompanyID)
+                // _ReportDocument.SetParameterValue("@CompanyID", gblCompanyID)
                 foreach (CrystalDecisions.CrystalReports.Engine.Table CrTable in CrTables)
                 {
                     crtableLogoninfo = CrTable.LogOnInfo;

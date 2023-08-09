@@ -24,13 +24,18 @@ namespace TNCSync.View
         public Report()
         {
             InitializeComponent();
+
+
+
+            //crViewer.ReportSource = new ReportDocument();
+            //crViewer.ReportSource.Load("path_to_your_report.rpt");
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            ReportDocument _ReportDocument = new ReportDocument();
-            CRV.ViewerCore.ReportSource = _ReportDocument;
-        }
+        //private void Window_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //   // ReportDocument _ReportDocument = new ReportDocument();
+        //    //CRV.ViewerCore.ReportSource = _ReportDocument;
+        //}
 
         //public void ShowReportView(ref ReportDocument _ReportDocument)
         //{

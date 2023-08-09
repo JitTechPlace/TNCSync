@@ -45,12 +45,13 @@ namespace TNCSync.BaseControls
         //private IMsgSetRequest msgSetRequest;
         private static DBTNCSDataContext db = new DBTNCSDataContext();
         public IDialogService ds;
+        Dictionary<string, string> comboSource = new Dictionary<string, string>();
 
         public Invoice()
         {
             InitializeComponent();
-
-           /// connectToQB();
+            
+            /// connectToQB();
             ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
             dpFrmDate.SelectedDate = DateTime.Now;
             dpToDate.SelectedDate = DateTime.Now;
@@ -852,7 +853,9 @@ namespace TNCSync.BaseControls
                 cmbxTmptInvoice.SelectedIndex = 0;
             }
         }
-
+        //tmpltCmbx.ItemsSource = table.DefaultView;
+            //tmpltCmbx.DisplayMemberPath = "TemplateName";
+            //tmpltCmbx.SelectedIndex = -1;
         private void GetTempPath(string Paths)
         {
             sql.addparam("@name", Paths);
@@ -927,72 +930,72 @@ namespace TNCSync.BaseControls
 
         private void btnInvoicePrint_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
+            //try
+            //{
 
-                ReportDocument _ReportDocument = new ReportDocument();
-                var crtableLogoninfos = new TableLogOnInfos();
-                var crtableLogoninfo = new TableLogOnInfo();
-                var crConnectionInfo = new ConnectionInfo();
-                ParameterFieldDefinitions crParameterFieldDefinitions;
-                ParameterFieldDefinition crParameterFieldDefinition;
-                var crParameterValues = new ParameterValues();
-                var crParameterDiscreteValue = new ParameterDiscreteValue();
-                Tables CrTables;
+            //    ReportDocument _ReportDocument = new ReportDocument();
+            //    var crtableLogoninfos = new TableLogOnInfos();
+            //    var crtableLogoninfo = new TableLogOnInfo();
+            //    var crConnectionInfo = new ConnectionInfo();
+            //    ParameterFieldDefinitions crParameterFieldDefinitions;
+            //    ParameterFieldDefinition crParameterFieldDefinition;
+            //    var crParameterValues = new ParameterValues();
+            //    var crParameterDiscreteValue = new ParameterDiscreteValue();
+            //    Tables CrTables;
 
-                _ReportDocument.Load(path + cmbxTmptInvoice.Text + ".rpt");
-                //{
-                //    //ref var withBlock = ref _ReportDocument;
-                //    //string startuppatah = Application.StartupPath;
-                //    _ReportDocument.Load(path + cmbxTmptInvoice.Text + ".rpt");
-                //}
+            //    _ReportDocument.Load("C:\\Users\\Software\\Desktop\\ImageTechSolutions CMS Repot files\\TaxInvoice_New.rpt");
+            //    //{
+            //    //    //ref var withBlock = ref _ReportDocument;
+            //    //    //string startuppatah = Application.StartupPath;
+            //    //    _ReportDocument.Load(path + cmbxTmptInvoice.Text + ".rpt");
+            //    //}
 
-                _ReportDocument.ReportOptions.EnableSaveDataWithReport = false;
-                // SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(connectionString: "TNCSync_Connection");
-                SqlConnection sqlconn = new SqlConnection(ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ToString());
-                crConnectionInfo.ServerName = sqlconn.DataSource;
-                crConnectionInfo.DatabaseName = sqlconn.Database;
-                crConnectionInfo.UserID = "";
-                crConnectionInfo.Password = "";
-                crConnectionInfo.AllowCustomConnection = false;
-                crConnectionInfo.IntegratedSecurity = false;
+            //    _ReportDocument.ReportOptions.EnableSaveDataWithReport = false;
+            //    // SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(connectionString: "TNCSync_Connection");
+            //    SqlConnection sqlconn = new SqlConnection(ConfigurationManager.ConnectionStrings["TNCSync_Connection"].ToString());
+            //    crConnectionInfo.ServerName = sqlconn.DataSource;
+            //    crConnectionInfo.DatabaseName = sqlconn.Database;
+            //    crConnectionInfo.UserID = "sa";
+            //    crConnectionInfo.Password = "p@ssw0rd";
+            //    crConnectionInfo.AllowCustomConnection = false;
+            //    crConnectionInfo.IntegratedSecurity = true;
 
-                CrTables = _ReportDocument.Database.Tables;
+            //    CrTables = _ReportDocument.Database.Tables;
 
-                // _ReportDocument.SetParameterValue("@CompanyID", gblCompanyID)
-                foreach (CrystalDecisions.CrystalReports.Engine.Table CrTable in CrTables)
-                {
-                    crtableLogoninfo = CrTable.LogOnInfo;
-                    crtableLogoninfo.ConnectionInfo = crConnectionInfo;
-                    crtableLogoninfo.ReportName = _ReportDocument.Name;
-                    crtableLogoninfo.TableName = CrTable.Name;
-                    CrTable.ApplyLogOnInfo(crtableLogoninfo);
-                }
+            //    // _ReportDocument.SetParameterValue("@CompanyID", gblCompanyID)
+            //    foreach (CrystalDecisions.CrystalReports.Engine.Table CrTable in CrTables)
+            //    {
+            //        crtableLogoninfo = CrTable.LogOnInfo;
+            //        crtableLogoninfo.ConnectionInfo = crConnectionInfo;
+            //        crtableLogoninfo.ReportName = _ReportDocument.Name;
+            //        crtableLogoninfo.TableName = CrTable.Name;
+            //        CrTable.ApplyLogOnInfo(crtableLogoninfo);
+            //    }
 
-                crParameterDiscreteValue.Value = cmbxInvoiceNum.Text;
-                crParameterFieldDefinitions = _ReportDocument.DataDefinition.ParameterFields;
-                crParameterFieldDefinition = crParameterFieldDefinitions["@refNumber"];
-                crParameterValues = crParameterFieldDefinition.CurrentValues;
-                crParameterValues.Clear();
-                crParameterValues.Add(crParameterDiscreteValue);
-                crParameterFieldDefinition.ApplyCurrentValues(crParameterValues);
+            //    crParameterDiscreteValue.Value = cmbxInvoiceNum.Text;
+            //    crParameterFieldDefinitions = _ReportDocument.DataDefinition.ParameterFields;
+            //    crParameterFieldDefinition = crParameterFieldDefinitions["@refNumber"];
+            //    crParameterValues = crParameterFieldDefinition.CurrentValues;
+            //    crParameterValues.Clear();
+            //    crParameterValues.Add(crParameterDiscreteValue);
+            //    crParameterFieldDefinition.ApplyCurrentValues(crParameterValues);
 
-                var rpt = new Report();
-                //rpt.ShowReportView(ref _ReportDocument);
-                //rpt.CRV();
-                // If _ReportDocument.HasRecords Then
-                //var frm = new ReportFormLinker();
-                //frm.MdiParent = ParentForm;
-                //frm.WindowState = FormWindowState.Maximized;
-                //frm.ShowReportinViewer(ref _ReportDocument);
-                //frm.Refresh();
-                //frm.Show();
-            }
+            //    var rpt = new ReportView();
+            //    rpt.ShowReportView(ref _ReportDocument);
+            //    //rpt.CRV();
+            //    // If _ReportDocument.HasRecords Then
+            //    //var frm = new ReportFormLinker();
+            //    //frm.MdiParent = ParentForm;
+            //    //frm.WindowState = FormWindowState.Maximized;
+            //    //frm.ShowReportinViewer(ref _ReportDocument);
+            //    //frm.Refresh();
+            //    //frm.Show();
+            //}
 
-            catch (NullReferenceException ex)
-            {
-                ds.ShowDialog("TNC-Sync", ex.Message, Haley.Enums.NotificationIcon.Error);
-            }
+            //catch (NullReferenceException ex)
+            //{
+            //    ds.ShowDialog("TNC-Sync", ex.Message, Haley.Enums.NotificationIcon.Error);
+            //}
         }
 
         #endregion

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Haley.Abstractions;
+using Haley.MVVM;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -32,6 +34,7 @@ namespace TNCSync.Class
         public static string gblPOTxnID = "";
 
         public static string gblLoginName = " ";
+        public static IDialogService ds;
 
         public static byte[] ConvertImageToByteArray(Image p_Image)
         {
@@ -56,7 +59,6 @@ namespace TNCSync.Class
             }
             return bytBuffer;
         }
-
         public static Image ConvertByteArrayToImage(byte[] imageArray)
         {
             Image img;
@@ -80,6 +82,42 @@ namespace TNCSync.Class
 
             }
             return img;
+
+        }
+
+        public static string GetConnectionStringParameterValue(string strParameter, string strExpression)
+        {
+            ds = ContainerStore.Singleton.DI.Resolve<IDialogService>();
+            string strResult = "";
+
+            try
+            {
+
+                int intStartLocation = strExpression.ToUpper().IndexOf(strParameter.ToUpper());
+                int intMidLocation = strExpression.IndexOf("=", intStartLocation);
+                int intEndLocation = strExpression.IndexOf(";", intMidLocation);
+
+                intMidLocation += 1;
+
+                if (intEndLocation == -1)
+                {
+                    strResult = strExpression.Substring(intMidLocation);
+                }
+                else
+                {
+                    int intCharCount = intEndLocation - intMidLocation;
+                    strResult = strExpression.Substring(intMidLocation, intCharCount);
+                }
+            }
+
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "TNC-CHECK MANAGEMENT SYSTEM");
+                ds.ShowDialog("TNC-Sync", ex.Message, Haley.Enums.NotificationIcon.Info);
+            }
+
+
+            return strResult;
 
         }
     }

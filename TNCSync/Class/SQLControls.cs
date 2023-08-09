@@ -28,13 +28,13 @@ namespace TNCSync.Class
             //using (var sqlcon = new SqlConnection(ClearAllControl.gblConnectionString))
             //{
             sqlconn.Open();
-                sqlcmd = new SqlCommand(query, sqlconn);
-                param.ForEach(x => sqlcmd.Parameters.Add(x));
-                param.Clear();
-                sqlds = new DataSet();
-                sqlda = new SqlDataAdapter(sqlcmd);
-                recordcount = sqlda.Fill(sqlds);
-           // }
+            sqlcmd = new SqlCommand(query, sqlconn);
+            param.ForEach(x => sqlcmd.Parameters.Add(x));
+            param.Clear();
+            sqlds = new DataSet();
+            sqlda = new SqlDataAdapter(sqlcmd);
+            recordcount = sqlda.Fill(sqlds);
+            // }
         }
 
         public void addparam(string name, object value)
